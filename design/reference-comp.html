@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference comp: the elevation drawing language</title>
+<!--
+  REFERENCE COMP, NOT PRODUCTION CODE.
+  Purpose: fix the look of the drawing language, the palette and the type pairing.
+  Sample sizes and "$0,000" prices are placeholders, and the wording here is illustrative:
+  SPEC.md section 7 is the only source for the words on the real page.
+  Rebuild properly; do not ship this file.
+-->
+<style>
+@font-face{font-family:"Besley";src:url(fonts/besley-latin-wght-normal.woff2) format("woff2");font-weight:400 900;font-display:swap}
+@font-face{font-family:"Libre Franklin";src:url(fonts/libre-franklin-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
+
+:root{
+  /* surfaces and text */
+  --paper:#ECEDE8;        /* drafting vellum: cool, slightly green grey. Page background */
+  --paper-deep:#E2E4DD;   /* quiet bands, input fills */
+  --ink:#1B211E;          /* text, outlines, primary button */
+  --ink-soft:#4C544F;     /* secondary text, dimension lines */
+  --rule:#9DA29B;         /* hairlines only, never text */
+  /* the one accent */
+  --sign-green:#1F4A3A;
+  /* drawing-only tones (not UI colours) */
+  --sign-green-shade:#143326; /* cast shadow on a green field */
+  --raised:#F7F5EE;       /* painted raised surfaces: border, letters, caps */
+  --stone:#C8C6BB;
+  --stone-shade:#A9A79B;
+
+  --display:"Besley",Georgia,"Times New Roman",serif;
+  --text:"Libre Franklin","Helvetica Neue",Arial,sans-serif;
+  --gutter:clamp(20px,3.4vw,48px);
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:0 var(--gutter)}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:24px 0 18px}
+.mark{font-family:var(--display);font-weight:650;font-size:21px;letter-spacing:-.005em}
+nav{display:flex;gap:30px;font-size:15px;color:var(--ink-soft)}
+nav b{color:var(--ink);font-weight:560;font-variant-numeric:tabular-nums}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 380px;column-gap:48px;align-items:end;padding-top:8px}
+.draw svg{display:block;width:100%;height:auto;overflow:visible}
+.side{padding-bottom:calc(9% + 8px)}
+.lede{font-size:21px;line-height:1.42;letter-spacing:-.006em}
+.btn{display:inline-block;background:var(--ink);color:var(--paper);font-weight:560;font-size:16px;line-height:1;padding:16px 22px;border-radius:3px;text-decoration:none}
+.side .btn{margin-top:26px}
+.link{color:var(--ink);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;text-decoration-color:var(--rule)}
+.side .link{display:block;margin-top:16px;font-size:15.5px}
+
+.yours{display:grid;grid-template-columns:minmax(0,1fr) 380px;column-gap:48px;align-items:end;padding:22px 0 72px}
+.yours label{font-size:15.5px;color:var(--ink-soft);display:block;margin-bottom:8px}
+.yours input{font:inherit;font-size:19px;width:min(100%,460px);padding:12px 14px;border:1px solid var(--ink-soft);border-radius:3px;background:var(--raised);color:var(--ink)}
+.yours input:focus-visible{outline:2px solid var(--sign-green);outline-offset:2px}
+.figure{font-size:15.5px;color:var(--ink-soft)}
+.figure strong{display:block;font-family:var(--display);font-weight:600;font-size:30px;line-height:1.15;color:var(--ink);letter-spacing:-.01em;font-variant-numeric:lining-nums}
+
+h2{font-family:var(--display);font-weight:600;font-size:clamp(30px,3.3vw,46px);line-height:1.08;letter-spacing:-.018em;max-width:15em}
+h3{font-family:var(--display);font-weight:600;font-size:23px;line-height:1.2;letter-spacing:-.008em}
+.sizes{border-top:1px solid var(--ink);padding:64px 0 80px}
+.sizes .intro{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:end;margin-bottom:44px}
+.sizes .intro p{max-width:34em;color:var(--ink-soft)}
+.lineup svg{display:block;width:100%;height:auto;overflow:visible}
+.cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;border-top:1px solid var(--rule);margin-top:6px;padding-top:18px}
+.cols p{font-size:15.5px;color:var(--ink-soft)}
+.cols .figure strong{font-size:24px;margin-top:10px}
+.cols .link{font-size:15.5px;display:inline-block;margin-top:8px}
+.cols .mini{display:none;width:100%;height:auto;overflow:visible;margin-bottom:14px}
+
+.dim{font-family:var(--text);font-weight:500;fill:var(--ink-soft);font-variant-numeric:tabular-nums lining-nums}
+.lettering{font-family:var(--display);font-weight:640;letter-spacing:-.012em}
+
+.titleblock{position:sticky;bottom:0;background:var(--raised);border-top:1px solid var(--ink)}
+.titleblock .wrap{display:flex;align-items:center;gap:22px;padding-top:12px;padding-bottom:12px}
+.titleblock svg{width:92px;height:auto;flex:none}
+.titleblock .spec{flex:1;font-size:15px;line-height:1.35;color:var(--ink-soft);min-width:0}
+.titleblock .spec b{display:block;color:var(--ink);font-weight:560;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.titleblock .figure{text-align:right;font-size:14px}
+.titleblock .figure strong{font-size:22px}
+
+@media (max-width:820px){
+  nav span{display:none}
+  .hero,.yours,.sizes .intro{grid-template-columns:minmax(0,1fr);row-gap:22px}
+  .side{padding-bottom:0}
+  .yours{padding-bottom:56px}
+  .cols{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:36px;border-top:0;padding-top:0}
+  .lineup{display:none}
+  .cols .mini{display:block}   /* phones: one drawing per size, every one at the same scale */
+  .titleblock svg,.titleblock .spec span{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark">Business Name</div>
+    <nav><span>Design</span><span>Sizes and prices</span><span>How it works</span><span>Questions</span><b>(555) 010-0199</b></nav>
+  </header>
+
+  <div class="hero">
+    <div class="draw" id="hero"></div>
+    <div class="side">
+      <p class="lede">Routed HDU monument signs, built to order and permanently installed anywhere in the United States.</p>
+      <a class="btn" href="#">Design your sign</a>
+      <a class="link" href="#">See standard sizes and prices</a>
+    </div>
+  </div>
+  <div class="yours">
+    <div><label for="name">Put your name on it</label><input id="name" placeholder="Alder Creek" autocomplete="off"></div>
+    <div class="figure">As drawn, installed<strong>$0,000</strong></div>
+  </div>
+
+  <section class="sizes">
+    <div class="intro">
+      <h2>Four standard sizes, drawn to the same scale.</h2>
+      <p>Each price covers the routed sign, your colors, the base shown and permanent installation. The pole on the left is six feet tall.</p>
+    </div>
+    <div class="lineup" id="lineup"></div>
+    <div class="cols" id="cols"></div>
+  </section>
+</div>
+
+<div class="titleblock"><div class="wrap">
+  <span id="thumb"></span>
+  <div class="spec"><b>Alder Creek</b><span>8 ft × 4 ft routed HDU, double-sided, stone-look base, installed</span></div>
+  <div class="figure">Deposit today $0,000<strong>$0,000</strong></div>
+  <a class="btn" href="#">Reserve with deposit</a>
+</div></div>
+
+<script>
+/* The drawing language, in one function. Units are inches; strokes do not scale.
+   Light comes from the upper left at 45 degrees, so anything raised casts a crisp,
+   flat shadow down and to the right. No blur, no gradients, no filters. */
+const ft = n => { const t = Math.round(n); return `${Math.floor(t/12)}′-${t%12}″`; };
+let uid = 0;
+const ctx = document.createElement('canvas').getContext('2d');
+const emWidth = line => { ctx.font = '640 100px Besley'; return ctx.measureText(line).width / 100 - 0.012 * line.length; };
+
+function monument(o){
+  const {w, h, lines = [], shape = 'arch', baseH = 16, x = 0, dims = false, simple = false} = o;
+  const id = 'm' + (++uid);
+  const rise = shape === 'arch' ? w * 0.075 : 0;           // how far the top profile rises
+  const b = Math.max(2.6, w * 0.058);                       // raised border width
+  const d = Math.max(0.5, w * 0.009);                       // relief depth = shadow offset
+  const top = -(baseH + 2.6 + h);                           // y of the panel's top corners (grade is y = 0)
+  const outline = `stroke="var(--ink)" stroke-width="1.25" vector-effect="non-scaling-stroke"`;
+  const panel = `M${x} ${top} Q${x+w/2} ${top-rise*2} ${x+w} ${top} V${top+h} H${x} Z`;
+  const fr = rise * (1 - 2*b/w);
+  const field = `M${x+b} ${top+b} Q${x+w/2} ${top+b-fr*2} ${x+w-b} ${top+b} V${top+h-b} H${x+b} Z`;
+  const fw = w - 2*b, fh = h - 2*b, cx = x + w/2;
+
+  // lettering: sized to the field, stacked copies make a solid cast shadow
+  let text = '';
+  if (lines.length){
+    const size = Math.min(fh / (lines.length * 1.5), fw * 0.86 / Math.max(...lines.map(emWidth)));
+    const lead = size * 1.24, y0 = top + b + (fh - lead * (lines.length - 1)) / 2 + size * 0.3 - fr * 0.25;
+    const steps = simple ? 3 : 8;
+    const row = (dx, fill) => lines.map((l, i) =>
+      `<text x="${cx + dx}" y="${y0 + i*lead + dx}" font-size="${size}" fill="${fill}">${l}</text>`).join('');
+    let shadow = '';
+    for (let s = 1; s <= steps; s++) shadow += row(d * s / steps, 'var(--sign-green-shade)');
+    text = `<g class="lettering" text-anchor="middle">${shadow}${row(0, 'var(--raised)')}</g>`;
+  }
+
+  // stone-look base: flat fill, three courses, joints placed by a fixed pattern
+  const bw = w + 8, bx = x - 4, by = -baseH, course = baseH / 3;
+  let joints = '';
+  [[.11,.29,.44,.63,.8,.92],[.06,.2,.38,.55,.71,.86],[.14,.33,.49,.66,.83,.95]].forEach((r, i) =>
+    r.forEach(p => { if (!simple) joints += `M${bx + bw*p} ${by + course*i} v${course} `; }));
+  const base = `
+    <rect x="${bx}" y="${by}" width="${bw}" height="${baseH}" fill="var(--stone)" ${outline}/>
+    <rect x="${bx}" y="${by}" width="${bw}" height="${Math.min(1, d)}" fill="var(--stone-shade)"/>
+    <path d="M${bx} ${by+course} h${bw} M${bx} ${by+course*2} h${bw} ${joints}" fill="none" stroke="var(--stone-shade)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+    <rect x="${x-6}" y="${by-2.6}" width="${w+12}" height="2.6" fill="var(--raised)" ${outline}/>`;
+
+  // dimension lines: thin, with slash ticks and the figure sitting in a gap
+  let dim = '';
+  if (dims){
+    const dy = top - rise - 9, dx = x - 15, fs = w * 0.034, gap = fs * 2.6, H = -(top - rise);
+    const mid = -H/2, ink = `stroke="var(--ink-soft)" fill="none" vector-effect="non-scaling-stroke"`;
+    dim = `
+      <path d="M${x} ${dy} H${cx-gap} M${cx+gap} ${dy} H${x+w} M${x} ${dy-3} V${dy+5} M${x+w} ${dy-3} V${dy+5}
+               M${dx} ${-H} V${mid-gap*.55} M${dx} ${mid+gap*.55} V0 M${dx-3} ${-H} H${dx+5} M${dx-3} 0 H${dx+5}" stroke-width="1" ${ink}/>
+      <path d="M${x-1.3} ${dy+1.3} l2.6 -2.6 M${x+w-1.3} ${dy+1.3} l2.6 -2.6 M${dx-1.3} ${-H+1.3} l2.6 -2.6 M${dx-1.3} 1.3 l2.6 -2.6" stroke-width="1.75" ${ink}/>
+      <text class="dim" x="${cx}" y="${dy + fs*.36}" font-size="${fs}" text-anchor="middle">${ft(w)}</text>
+      <text class="dim" x="${dx}" y="${mid + fs*.36}" font-size="${fs}" text-anchor="middle">${ft(H)}</text>`;
+  }
+
+  return `
+    <defs><clipPath id="${id}"><path d="${field}"/></clipPath></defs>
+    ${dim}
+    <path d="${panel}" fill="var(--raised)" ${outline}/>
+    <path d="${field}" fill="var(--sign-green)"/>
+    <g clip-path="url(#${id})">
+      <path d="M${x+b} ${top+b} Q${x+w/2} ${top+b-fr*2} ${x+w-b} ${top+b}" fill="none" stroke="var(--sign-green-shade)" stroke-width="${d*2}"/>
+      <rect x="${x+b}" y="${top+b-rise}" width="${d}" height="${fh+rise}" fill="var(--sign-green-shade)"/>
+      ${text}
+    </g>
+    <path d="${field}" fill="none" stroke="var(--ink)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+    ${base}`;
+}
+
+// grade line with earth hatching below it
+function grade(x0, x1){
+  let hatch = '';
+  const step = (x1 - x0) / 26, len = step * 0.34;
+  for (let x = x0 + step/2; x < x1 - len; x += step) hatch += `M${x} ${len*1.5} l${len} ${-len} `;
+  return `<path d="${hatch}" stroke="var(--rule)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+          <path d="M${x0} 0 H${x1}" stroke="var(--ink)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>`;
+}
+
+// six-foot scale pole with one-foot bands
+function pole(x){
+  let s = '';
+  for (let i = 0; i < 6; i++) s += `<rect x="${x}" y="${-(i+1)*12}" width="1.6" height="12" fill="${i%2 ? 'var(--raised)' : 'var(--ink)'}" stroke="var(--ink)" stroke-width="1" vector-effect="non-scaling-stroke"/>`;
+  return s;
+}
+
+function drawHero(lines){
+  const w = 96, h = 46, baseH = 16, total = baseH + 2.6 + h + w*0.075;
+  const dims = document.getElementById('hero').clientWidth > 560;
+  document.getElementById('hero').innerHTML =
+    dims
+    ? `<svg viewBox="-24 ${-(total + 16)} 142 ${total + 20}" role="img" aria-label="Elevation drawing of a monument sign, eight feet wide">
+        ${monument({w, h, baseH, lines, dims:true})}${grade(-24, 118)}</svg>`
+    : `<svg viewBox="-8 ${-(total + 2)} 112 ${total + 6}" role="img" aria-label="Elevation drawing of a monument sign, eight feet wide">
+        ${monument({w, h, baseH, lines})}${grade(-8, 104)}</svg>`;
+}
+const split = v => { const words = v.split(/\s+/), half = Math.ceil(words.length / 2);
+  return v.length > 12 && words.length > 1 ? [words.slice(0, half).join(' '), words.slice(half).join(' ')] : [v]; };
+const preset = new URLSearchParams(location.search).get('name');
+document.getElementById('name').addEventListener('input', e => {
+  const v = e.target.value.trim();
+  if (!v) return drawHero(['Monument signs.', 'Nothing else.']);
+  drawHero(split(v));
+  document.querySelector('.titleblock .spec b').textContent = v;
+});
+
+function drawAll(){
+  drawHero(preset ? split(preset) : ['Monument signs.', 'Nothing else.']);
+  if (preset) document.querySelector('.titleblock .spec b').textContent = preset;
+const sizes = [
+  {w:48, h:30, baseH:12, name:'4 ft × 2 ft 6 in'},
+  {w:60, h:36, baseH:14, name:'5 ft × 3 ft'},
+  {w:72, h:42, baseH:16, name:'6 ft × 3 ft 6 in'},
+  {w:96, h:48, baseH:16, name:'8 ft × 4 ft'},
+];
+const col = 118;   // every size gets the same column so the row lines up with the text below
+let row = '';
+sizes.forEach((s, i) => row += monument({...s, x: i*col + 14, lines:['Alder','Creek'], simple:true}));
+document.getElementById('lineup').innerHTML =
+  `<svg viewBox="-2 -78 ${col*4 + 2} 82" role="img" aria-label="The four standard sizes drawn side by side at the same scale">${row}${pole(3)}${grade(-2, col*4)}</svg>`;
+document.getElementById('cols').innerHTML = sizes.map(s =>
+  `<div><svg class="mini" viewBox="-8 -78 112 82" aria-hidden="true">${monument({...s, x:(96 - s.w)/2, lines:['Alder','Creek'], simple:true})}${grade(-8, 104)}</svg><h3>${s.name}</h3><p>Single or double-sided</p><div class="figure"><strong>$0,000</strong>installed</div><a class="link" href="#">Start with this size</a></div>`).join('');
+document.getElementById('thumb').innerHTML =
+  `<svg viewBox="-6 -74 108 76">${monument({w:96, h:46, baseH:16, lines:['Alder','Creek'], simple:true})}</svg>`;
+}
+document.fonts.load('640 100px Besley').then(drawAll);
+</script>
+</body>
+</html>
