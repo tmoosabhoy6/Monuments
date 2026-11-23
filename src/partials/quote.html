@@ -1,0 +1,65 @@
+<section class="quote" id="quote" aria-labelledby="quote-title">
+  <h3 id="quote-title">Request a custom quote</h3>
+  <p>For a size, shape or structure the builder cannot draw, or for several signs at once. Tell us what you have in mind and we reply within {{response_time}}.</p>
+  <form class="quote-form" data-form="quote" novalidate>
+    <div class="field"><label for="q-name">Your name</label><input class="input" id="q-name" name="name" autocomplete="name" maxlength="120" required></div>
+    <div class="field"><label for="q-org">Organization (optional)</label><input class="input" id="q-org" name="organization" autocomplete="organization" maxlength="160"></div>
+    <div class="field"><label for="q-email">Email</label><input class="input" id="q-email" name="email" type="email" autocomplete="email" maxlength="200" required></div>
+    <div class="field"><label for="q-phone">Phone (optional)</label><input class="input" id="q-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
+    <fieldset>
+      <legend class="label">Best way to reach you (optional)</legend>
+      <div class="inline-choices">
+        <label class="choice"><input type="radio" name="contact" value="email" checked> Email</label>
+        <label class="choice"><input type="radio" name="contact" value="phone"> Phone</label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend class="label">What do you need?</legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="need" value="monument" checked> A monument sign</label>
+        <label class="choice"><input type="radio" name="need" value="several"> Several signs</label>
+        <label class="choice"><input type="radio" name="need" value="more"> Something from More from our shop</label>
+        <label class="choice"><input type="radio" name="need" value="other"> Something else</label>
+      </div>
+    </fieldset>
+    <div class="field">
+      <label for="q-details">Tell us about it</label>
+      <textarea class="input" id="q-details" name="details" maxlength="4000" required aria-describedby="q-details-help"></textarea>
+      <p class="help" id="q-details-help">Size, shape, where it will stand, anything you have seen and liked.</p>
+    </div>
+    <fieldset>
+      <legend class="label">Rough size (optional)</legend>
+      <div class="pair">
+        <div class="field"><label for="q-width">Width</label><input class="input" id="q-width" name="width" maxlength="40" autocomplete="off"></div>
+        <div class="field"><label for="q-height">Height</label><input class="input" id="q-height" name="height" maxlength="40" autocomplete="off"></div>
+      </div>
+    </fieldset>
+    <div class="field"><label for="q-zip">ZIP code where it will stand</label><input class="input" id="q-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" required></div>
+    <fieldset>
+      <legend class="label">Do you need installation? (optional)</legend>
+      <div class="inline-choices">
+        <label class="choice"><input type="radio" name="install" value="yes"> Yes</label>
+        <label class="choice"><input type="radio" name="install" value="no"> No</label>
+        <label class="choice"><input type="radio" name="install" value="unsure"> Not sure</label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend class="label">When do you need it? (optional)</legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="when" value="none"> No fixed date</label>
+        <label class="choice"><input type="radio" name="when" value="three-months"> Within three months</label>
+        <label class="choice"><input type="radio" name="when" value="date" data-reveals="q-date-field"> By a date</label>
+      </div>
+      <div class="field" id="q-date-field" hidden><label for="q-date" class="visually-hidden">By a date</label><input class="input" id="q-date" name="date" type="date"></div>
+    </fieldset>
+    <div class="field">
+      <label for="q-files">Files (optional)</label>
+      <input class="input" id="q-files" name="files" type="file" multiple accept=".png,.jpg,.jpeg,.svg,.pdf,.ai,.eps,.webp" aria-describedby="q-files-help">
+      <p class="help" id="q-files-help">Logos, sketches or photos of the site. Up to five files, 25 MB each.</p>
+    </div>
+    <div class="field"><label for="q-heard">How did you hear about us? (optional)</label><input class="input" id="q-heard" name="heard" maxlength="200" autocomplete="off"></div>
+    {{@form_extras}}
+    <div class="actions"><button type="submit" class="btn">Send quote request</button></div>
+  </form>
+  <div data-form-result hidden></div>
+</section>

@@ -1,0 +1,42 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-cols">
+      <div>
+        <p class="footer-name">{{business_name}}</p>
+        <p>Monument signs, built to order and installed anywhere in the United States.</p>
+      </div>
+      <ul class="footer-contact">
+        <li><a href="{{phone_href}}">{{phone}}</a></li>
+        {{@contact_extra}}
+      </ul>
+      <nav class="footer-links" aria-label="Footer">
+        <ul>
+          <li><a href="/#design">Design your sign</a></li>
+          <li><a href="/#sizes">Sizes and prices</a></li>
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/questions/">Questions</a></li>
+          <li><a href="/more-from-our-shop/">More from our shop</a></li>
+        </ul>
+        <ul>
+          <li class="label">Policies</li>
+          <li class="footer-policies">
+            <a href="/how-it-works/#policy-deposit">Deposit</a>
+            <a href="/how-it-works/#policy-approval">Approval</a>
+            <a href="/how-it-works/#policy-cancellation">Cancellation</a>
+            <a href="/how-it-works/#policy-warranty">Warranty</a>
+            <a href="/how-it-works/#policy-installation">Installation</a>
+            <a href="/how-it-works/#policy-delivery">Delivery</a>
+          </li>
+          <li><a href="/how-it-works/#pay" data-pay-invoice>Pay an invoice</a></li>
+          {{@portal_link}}
+          <li><a href="#privacy" data-open-privacy>Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+    <details class="disclosure privacy" id="privacy">
+      <summary>Privacy</summary>
+      <div class="body"><p>{{privacy_text}}</p></div>
+    </details>
+    <p class="footer-legal">© {{year}} {{legal_name}}</p>
+  </div>
+</footer>

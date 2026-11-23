@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+{{@jsonld}}
+</head>
+<body data-page="home">
+{{> header}}
+<main id="main">
+  <div class="wrap">
+    <section class="design" id="design" data-mode="intro" aria-labelledby="design-title">
+      <h1 class="visually-hidden" id="design-title">Monument signs. Nothing else.</h1>
+      <div class="design-stage" data-stage>
+        <div class="sign-drawing" data-sign>{{@hero}}</div>
+        <div class="name-row">
+          <div class="field">
+            <label for="sign-name">Put your name on it</label>
+            <input class="input" id="sign-name" name="sign-name" placeholder="e.g. Alder Creek" autocomplete="organization" maxlength="57" spellcheck="false" aria-describedby="sign-name-limit">
+            <p class="help" id="sign-name-limit" data-limit-note hidden>28 characters fit on a line.</p>
+          </div>
+        </div>
+        <div class="hero-price">
+          <p class="figure"><span data-price-label>As drawn, installed</span><span class="money" data-price-total>{{@hero_total}}</span></p>
+        </div>
+      </div>
+      <div class="design-side">
+        <div class="hero-intro" data-intro>
+          <p class="lede">Routed HDU monument signs, built to order and permanently installed anywhere in the United States.</p>
+          <p><button type="button" class="btn" data-open-builder>Design your sign</button></p>
+          <p><a class="link" href="#sizes">See standard sizes and prices</a></p>
+        </div>
+        <div class="builder" id="builder" data-builder hidden>
+          <div class="builder-head">
+            <h2>Your sign</h2>
+            <button type="button" class="link-button" data-close-builder>Close</button>
+          </div>
+          {{@builder}}
+        </div>
+      </div>
+      <p class="visually-hidden" aria-live="polite" data-live></p>
+    </section>
+  </div>
+
+  <section class="part" id="sizes" aria-labelledby="sizes-title">
+    <div class="wrap">
+      <div class="split sizes-intro">
+        <h2 class="wide" id="sizes-title">{{size_count_word}} standard sizes, drawn to the same scale.</h2>
+        <p class="narrow">Each price covers the routed sign in your wording and colors, the base shown and delivery. Installation by a certified installer is priced beside it. The pole at the left is six feet tall.</p>
+      </div>
+      <div class="lineup">{{@lineup}}</div>
+      {{@size_list}}
+      <div class="sizes-notes">
+        <p>Prices shown are for a single-sided sign. Double-sided and every other option are priced in the builder.</p>
+        <p>Something else in mind? Any size or shape outside these is a custom quote. <a href="/how-it-works/#quote">Request a custom quote</a></p>
+      </div>
+    </div>
+  </section>
+  {{@gallery}}
+</main>
+{{> footer}}
+{{> titleblock}}
+{{> dialogs}}
+<section class="print-sheet" data-print-sheet aria-hidden="true"></section>
+{{@site_data}}
+</body>
+</html>

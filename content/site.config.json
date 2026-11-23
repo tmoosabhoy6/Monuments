@@ -1,0 +1,165 @@
+{
+  "draft": true,
+
+  "site_url": { "value": "https://example.com", "confirmed": false },
+  "business_name": { "value": "Business Name", "confirmed": false },
+  "legal_name": { "value": "Business Name", "confirmed": false },
+  "phone": { "value": "(555) 010-0199", "confirmed": false },
+  "email": { "value": "hello@example.com", "confirmed": false },
+  "hours": { "value": "", "confirmed": false },
+  "mailing_address": { "value": "", "confirmed": false },
+
+  "lead_time": { "value": "four to six weeks", "confirmed": false },
+  "response_time": { "value": "one business day", "confirmed": false },
+  "drawing_turnaround": { "value": "three business days", "confirmed": false },
+  "warranty_years": { "value": "five", "confirmed": false },
+  "warranty_exclusions": { "value": "It does not cover damage from vehicles, vandalism or storms.", "confirmed": false },
+  "damage_report_days": { "value": "14", "confirmed": false },
+  "permit_statement": { "value": "", "confirmed": false },
+  "privacy_text": { "value": "We use the details you give us only to quote, draw, build, deliver and install your sign, and to take payment. We do not sell them. Payments are handled by Stripe; we never see your card number.", "confirmed": false },
+
+  "stripe_portal_url": { "value": "", "confirmed": false },
+  "turnstile_site_key": { "value": "1x00000000000000000000AA", "confirmed": false },
+
+  "owner_facts": {
+    "installation_priced_nationwide_or_by_location": { "value": "One price per size", "confirmed": false },
+    "delivery_included_in_listed_price": { "value": true, "confirmed": false },
+    "approval_drawing_free_and_revisions": { "value": "Free; changes until it is right", "confirmed": false },
+    "delivery_only_orders_accepted": { "value": true, "confirmed": false },
+    "who_handles_permits_and_engineered_drawings": { "value": "Not stated; fees listed as not included", "confirmed": false },
+    "certified_installer_certified_by": { "value": "Not stated on the site", "confirmed": false },
+    "nationwide_includes_alaska_and_hawaii": { "value": "Not stated on the site", "confirmed": false },
+    "monument_structure_and_core_material": { "value": "Written generally", "confirmed": false },
+    "extra_services_offered": { "value": "None mentioned: new face on an existing base, repair and refinishing, LED message boards, trade program", "confirmed": false },
+    "email_sending_choice": { "value": "Not configured", "confirmed": false },
+    "stripe_account_and_domain": { "value": "Not configured", "confirmed": false }
+  },
+
+  "pricing": {
+    "currency": "usd",
+    "deposit_percent": { "value": 50, "confirmed": false },
+    "sizes": {
+      "value": [
+        { "id": "48x30", "face_w": 48, "face_h": 30, "base_h": 12, "single": 1000, "double": 1500, "install": 500 },
+        { "id": "60x36", "face_w": 60, "face_h": 36, "base_h": 14, "single": 2000, "double": 3000, "install": 600 },
+        { "id": "72x42", "face_w": 72, "face_h": 42, "base_h": 16, "single": 3000, "double": 4500, "install": 700 },
+        { "id": "96x48", "face_w": 96, "face_h": 48, "base_h": 16, "single": 4000, "double": 6000, "install": 800 }
+      ],
+      "confirmed": false
+    },
+    "shape": { "value": { "flat": 0, "arch": 0, "peak": 100, "shoulder": 100 }, "confirmed": false },
+    "base": { "value": { "posts": 0, "plain": 0, "stone": 300 }, "confirmed": false },
+    "pillars": { "value": { "none": 0, "flat": 500, "peak": 600 }, "confirmed": false },
+    "lettering": { "value": { "routed": 0, "metal": 400, "acrylic": 300 }, "confirmed": false }
+  },
+
+  "paints": {
+    "value": [
+      { "id": "green", "name": "Sign green", "hex": "#1F4A3A" },
+      { "id": "black", "name": "Black", "hex": "#1E1E1E" },
+      { "id": "navy", "name": "Navy", "hex": "#1E2F4D" },
+      { "id": "burgundy", "name": "Burgundy", "hex": "#5E1F27" },
+      { "id": "slate", "name": "Slate", "hex": "#47525C" },
+      { "id": "brick", "name": "Brick", "hex": "#7A3B2E" },
+      { "id": "bronze", "name": "Bronze", "hex": "#6B5236" },
+      { "id": "sand", "name": "Sand", "hex": "#D8CDB4" },
+      { "id": "ivory", "name": "Ivory", "hex": "#F7F5EE" },
+      { "id": "white", "name": "White", "hex": "#FAFAF7" },
+      { "id": "gold", "name": "Gold", "hex": "#B8922E" },
+      { "id": "grey", "name": "Stone grey", "hex": "#9A9C95" }
+    ],
+    "confirmed": false
+  },
+
+  "options": {
+    "shape": [
+      { "id": "flat", "label": "Flat", "line": "Flat top", "words": "flat top" },
+      { "id": "arch", "label": "Arched", "line": "Arched top", "words": "arched top" },
+      { "id": "peak", "label": "Peaked", "line": "Peaked top", "words": "peaked top" },
+      { "id": "shoulder", "label": "Shouldered", "line": "Shouldered top", "words": "shouldered top" }
+    ],
+    "base": [
+      { "id": "posts", "label": "On posts", "line": "Posts", "words": "on posts" },
+      { "id": "plain", "label": "On a base", "line": "Base", "words": "on a base" },
+      { "id": "stone", "label": "On a stone-look base", "line": "Stone-look base", "words": "stone-look base" }
+    ],
+    "pillars": [
+      { "id": "none", "label": "None" },
+      { "id": "flat", "label": "Flat cap", "line": "Pillars with flat caps", "words": "pillars with flat caps" },
+      { "id": "peak", "label": "Peaked cap", "line": "Pillars with peaked caps", "words": "pillars with peaked caps" }
+    ],
+    "lettering": [
+      { "id": "routed", "label": "Routed into the face (included)", "line": "Routed lettering", "words": "routed lettering" },
+      { "id": "metal", "label": "Cut metal letters", "line": "Cut metal letters", "words": "cut metal letters" },
+      { "id": "acrylic", "label": "Cut acrylic letters", "line": "Cut acrylic letters", "words": "cut acrylic letters" }
+    ]
+  },
+
+  "gallery": [],
+
+  "covers": {
+    "included": [
+      "The routed HDU sign in your wording and colors.",
+      "The base, posts or pillars shown.",
+      { "value": "Your approval drawing, and changes to it until it is right.", "confirmed": false },
+      { "value": "Delivery to your site or your installer.", "confirmed": false },
+      "Installation by a certified installer, when you choose it."
+    ],
+    "not_included": [
+      { "value": "Permit fees, and engineered drawings if your city or county requires them.", "confirmed": false },
+      "Electrical work for a lit sign.",
+      "Landscaping around the sign."
+    ]
+  },
+
+  "drawing_dialog_intro": { "value": "We will draw your sign to scale with its exact dimensions, lettering and colors, and email it to you within {{drawing_turnaround}}. It costs nothing to ask.", "confirmed": false },
+
+  "policies": {
+    "approval": { "value": "We build exactly what your approved drawing shows. If you want a change after approving, we tell you what it does to the price and the schedule before we do anything.", "confirmed": false },
+    "deposit": { "value": "The deposit is {{deposit_percent}}% of your total and is paid online. It is the only payment we take before your sign is installed. If you chose delivery only, the balance is invoiced when your sign ships.", "confirmed": false },
+    "cancellation": { "value": "Cancel before you approve your drawing and we refund your deposit in full. Once you approve, we order materials and cut your sign to your design, so from then we refund your deposit less the cost of the work already done, and we tell you that figure before you decide.", "confirmed": false },
+    "installation": { "value": "Installation is carried out by a certified installer from our network on a date agreed with you. The installer sets the sign permanently and leaves the site tidy. The spot needs to be clear and reachable, and utilities marked, before work starts.", "confirmed": false },
+    "delivery": { "value": "Your sign travels crated. Look it over when it arrives. If anything is damaged, send us photos within {{damage_report_days}} days and we repair or replace it. You do not need to send it back first.", "confirmed": false },
+    "warranty": { "value": "Your sign is covered for {{warranty_years}} years against defects in materials and workmanship. If something we made fails in that time, we repair or replace it. {{warranty_exclusions}}", "confirmed": false }
+  },
+
+  "questions": [
+    {
+      "group": "Ordering",
+      "items": [
+        { "q": "Do you only make monument signs?", "a": "Yes. It is the whole business. We do not make banners, vehicle wraps or storefront signs, which is how we keep getting better at this one thing." },
+        { "q": "How much does a monument sign cost?", "a": "Standard sizes are priced on this site, and the builder prices any combination of options as you choose them. Every price lists what it covers. Anything the builder cannot draw is quoted individually." },
+        { "q": "Can I see my sign before I pay?", "a": "Yes. The builder draws your sign as you design it, and you can request a full approval drawing before paying a deposit. Nothing is built until you approve that drawing." },
+        { "q": "How long does it take?", "a": "{{lead_time|cap}} from the day you approve your drawing, plus delivery and a date for installation." },
+        { "q": "We need signs for several entrances. Can you do that?", "a": "Yes. Design one, then tell us how many and where in the quote form. We price a set together." },
+        { "q": "What if we want to change something after approving?", "a": "Tell us as soon as you can. We tell you what the change does to the price and the schedule before doing anything." }
+      ]
+    },
+    {
+      "group": "The sign",
+      "items": [
+        { "q": "What is HDU?", "a": "High-density urethane: a dense board made for outdoor signs. It has no grain and takes up almost no water, so it carves cleanly and holds its shape outdoors." },
+        { "q": "Can you match our logo and colors?", "a": "Yes. Send your logo and your paint codes. Your approval drawing shows the logo in place and names the exact paints." },
+        { "q": "Single-sided or double-sided?", "a": "A single-sided sign suits a spot where everyone approaches from one direction or the sign sits against a backdrop. A double-sided sign stands at a right angle to the road so it reads from both directions." },
+        { "q": "Can you make a custom shape?", "a": "Yes. Send a sketch or a photo through the quote form." },
+        { "q": "What files do you need?", "a": "A vector file of your logo (AI, EPS, PDF or SVG) is best. A clear JPG or PNG is enough for a quote and a first drawing." }
+      ]
+    },
+    {
+      "group": "Installation",
+      "items": [
+        { "q": "Do you install everywhere?", "a": "Yes, anywhere in the United States, through certified installers." },
+        { "q": "Do we need a permit?", "a": "Often, yes. Rules are set by your city, county or association, so check with them before you order. Your approval drawing has the dimensions they will ask for." },
+        { "q": "Can we install it ourselves?", "a": { "value": "Yes. Choose “Delivered only” in the builder.", "confirmed": false } }
+      ]
+    },
+    {
+      "group": "Payment",
+      "items": [
+        { "q": "How do we pay?", "a": "Online. A deposit of {{deposit_percent}}% to start, and a final invoice when your sign is installed." },
+        { "q": "Is the deposit refundable?", "a": { "value": "In full, until you approve your drawing. After that, less the cost of work already done.", "confirmed": false } },
+        { "q": "Is there a warranty?", "a": { "value": "Yes: {{warranty_years}} years against defects in materials and workmanship.", "confirmed": false } }
+      ]
+    }
+  ]
+}

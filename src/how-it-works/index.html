@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+</head>
+<body data-page="how">
+{{> header}}
+<main id="main">
+  <section class="part" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="split how-intro">
+        <h1 class="wide h2 page-heading" id="how-title">One company, from the first drawing to the sign in the ground.</h1>
+        <div class="narrow">
+          <p>Most sign shops make a monument sign now and then. We make them every day, and we make nothing else. That focus is why we can publish our sizes and prices, show you your sign before anything is built, and send a certified installer to set it permanently, wherever you are in the country.</p>
+          <p>Our signs stand at the entrances of subdivisions and apartment communities, churches, schools, parks, business parks and individual businesses.</p>
+        </div>
+      </div>
+
+      <ol class="stages">
+        <li class="stage" id="stage-design">
+          <h2 class="stage-name"><span class="stage-num" aria-hidden="true">1</span><span>Design it</span></h2>
+          <div class="stage-body">
+            <p>There are three ways to start. Pick a standard size, design your own in the builder, or describe something the builder cannot draw. All three lead to the same next step: a drawing of your sign.</p>
+            <p class="actions"><a href="/?open=builder#design">Open the builder</a><a href="/#sizes">See standard sizes</a></p>
+            <div class="disclosures">
+              <details class="disclosure">
+                <summary>What we need from you</summary>
+                <div class="body"><p>Your name as it should read on the sign. Your logo, if it goes on the sign: a vector file (AI, EPS, PDF or SVG) is best, and a clear JPG or PNG is enough to start. Your colors, as paint codes if you have them. The ZIP code where the sign will stand.</p></div>
+              </details>
+              <details class="disclosure">
+                <summary>Matching your colors</summary>
+                <div class="body"><p>Give us a Pantone, Sherwin-Williams or other paint code, or send a sample, and we match it. Sign paint is opaque and printing ink is not, so a match is very close rather than identical, and color always looks a little different on a screen. Your approval drawing names the exact paints we will use.</p></div>
+              </details>
+            </div>
+            {{> quote}}
+          </div>
+        </li>
+
+        <li class="stage" id="stage-approve">
+          <h2 class="stage-name"><span class="stage-num" aria-hidden="true">2</span><span>Approve the drawing</span></h2>
+          <div class="stage-body">
+            <p>Before anything is built, we send you a scaled drawing of your sign: its exact dimensions, its lettering and colors, and how it stands. Ask for changes until it is right. Production starts only after you approve it in writing.</p>
+            <div class="disclosures">
+              <details class="disclosure">
+                <summary>Taking it to a board or committee</summary>
+                <div class="body"><p>Most of our signs are approved by a group. Every design you make here has a link you can send and a sheet you can print, so everyone is looking at the same sign, the same options and the same price.</p></div>
+              </details>
+              <details class="disclosure">
+                <summary>Checking your site</summary>
+                <div class="body"><p>Tell us where the sign will go and send a few photos of the spot with something in the picture for scale. We will ask about the ground, anything buried nearby, and how far the sign sits from the road.</p></div>
+              </details>
+              <details class="disclosure">
+                <summary>Permits and local rules</summary>
+                <div class="body"><p>{{permits_paragraph}}</p></div>
+              </details>
+              <details class="disclosure" id="policy-approval">
+                <summary>Approval policy</summary>
+                <div class="body"><p>{{policy_approval}}</p></div>
+              </details>
+            </div>
+          </div>
+        </li>
+
+        <li class="stage" id="stage-deposit">
+          <h2 class="stage-name"><span class="stage-num" aria-hidden="true">3</span><span>Reserve with a deposit</span></h2>
+          <div class="stage-body">
+            <p>A deposit of {{deposit_percent}}% reserves your place in production. Pay it online when you approve your drawing. If you are ready sooner, reserve from the builder today and we start your drawing straight away. The balance is invoiced when your sign is installed.</p>
+            <div class="disclosures">
+              <details class="disclosure">
+                <summary>What the price covers</summary>
+                <div class="body">{{@covers}}</div>
+              </details>
+              <details class="disclosure" id="policy-deposit">
+                <summary>Deposit policy</summary>
+                <div class="body"><p>{{policy_deposit}}</p></div>
+              </details>
+              <details class="disclosure" id="policy-cancellation">
+                <summary>If you need to cancel</summary>
+                <div class="body"><p>{{policy_cancellation}}</p></div>
+              </details>
+            </div>
+          </div>
+        </li>
+
+        <li class="stage" id="stage-build">
+          <h2 class="stage-name"><span class="stage-num" aria-hidden="true">4</span><span>We build it</span></h2>
+          <div class="stage-body">
+            <p>Your sign is routed from HDU, high-density urethane: a dense board made for outdoor signs. A router carves your lettering, border and logo in relief, so they stand proud of the background and cast real shadows through the day. Then it is primed and painted in your colors. Every sign is made for its order; nothing comes off a shelf. Production takes {{lead_time}} from the day you approve your drawing.</p>
+            <div class="anatomy">{{@anatomy}}</div>
+            <div class="options-drawn">
+              <figure>{{@option_stone}}<figcaption><b>Stone-look base.</b> Any monument can have a stone-look base, pillars or accents, for a small extra charge.</figcaption></figure>
+              <figure>{{@option_pillars}}<figcaption><b>Pillars with caps.</b> A pillar at each side frames the sign and gives an entrance more presence.</figcaption></figure>
+              <figure>{{@option_metal}}<figcaption><b>Cut metal letters.</b> Individual letters cut from metal and mounted on the face.</figcaption></figure>
+              <figure>{{@option_acrylic}}<figcaption><b>Cut acrylic letters.</b> Individual letters cut from acrylic and mounted on the face.</figcaption></figure>
+            </div>
+            <p class="lit-note">We also build illuminated monument signs: lit faces with push-through or reverse-cut lettering, channel letters and face-lit letters. Ask for lighting in the builder or the quote form and we price it with your drawing.</p>
+            <div class="disclosures">
+              <details class="disclosure">
+                <summary>Why HDU</summary>
+                <div class="body"><p>Unlike wood, HDU has no grain and takes up almost no water, which is why it holds a crisp carved edge outdoors. It routes cleanly at any depth, so fine lettering and detailed logos come out sharp, and it takes paint evenly on every surface.</p></div>
+              </details>
+            </div>
+          </div>
+        </li>
+
+        <li class="stage" id="stage-install">
+          <h2 class="stage-name"><span class="stage-num" aria-hidden="true">5</span><span>We install it</span></h2>
+          <div class="stage-body">
+            <p>We install permanently, anywhere in the United States, through our network of certified installers. Your installer sets the sign, levels it and leaves it finished. You deal with one company from the first drawing to the sign in the ground.</p>
+            <div class="disclosures">
+              <details class="disclosure">
+                <summary>Before installation day</summary>
+                <div class="body"><p>We agree the exact position with you in advance. Underground lines are marked before anyone digs, through the free 811 service. Clear access to the spot is all we need from you on the day.</p></div>
+              </details>
+              <details class="disclosure">
+                <summary>How the sign stands</summary>
+                <div class="body"><p>Depending on the design, your sign stands on posts set in the ground or on a base. Your approval drawing shows which, and what goes below ground.</p></div>
+              </details>
+              <details class="disclosure" id="policy-installation">
+                <summary>Installation policy</summary>
+                <div class="body"><p>{{policy_installation}}</p></div>
+              </details>
+              <details class="disclosure" id="policy-delivery">
+                <summary>Delivery policy</summary>
+                <div class="body"><p>{{policy_delivery}}</p></div>
+              </details>
+            </div>
+          </div>
+        </li>
+
+        <li class="stage" id="stage-invoice">
+          <h2 class="stage-name"><span class="stage-num" aria-hidden="true">6</span><span>Final invoice, and after</span></h2>
+          <div class="stage-body" id="pay">
+            <p>When your sign is installed, we email the final invoice and you pay it online. Your sign’s drawing, colors and specifications stay on file with us, so anything you need later starts from the exact record.</p>
+            <p class="actions"><button type="button" class="btn" data-pay-invoice>Pay an invoice</button>{{@portal_link_inline}}</p>
+            <noscript><p>Call {{phone}} or email {{email}}.</p></noscript>
+            <div class="disclosures">
+              <details class="disclosure" id="policy-warranty">
+                <summary>Warranty</summary>
+                <div class="body"><p>{{policy_warranty}}</p></div>
+              </details>
+              <details class="disclosure">
+                <summary>Looking after your sign</summary>
+                <div class="body"><p>Wash it with mild soap and water once or twice a year. Keep sprinklers and string trimmers off the face.</p></div>
+              </details>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+</main>
+{{> footer}}
+{{> titleblock}}
+{{> dialogs}}
+{{@site_data}}
+</body>
+</html>

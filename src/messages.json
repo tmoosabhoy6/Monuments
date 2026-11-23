@@ -1,0 +1,33 @@
+{
+  "lineLimit": "28 characters fit on a line.",
+  "asDrawnInstalled": "As drawn, installed",
+  "asDrawnDelivered": "As drawn, delivered",
+  "unpriced": "Priced with your drawing",
+  "depositLine": "Deposit today ({{deposit_percent}}%)",
+  "depositShort": "Deposit today",
+  "logoAttached": "Logo attached: {filename}. We will place it on your approval drawing.",
+  "reserveIntro": "You pay a deposit of {deposit} now, on Stripe’s secure payment page. The balance of {balance} is invoiced when your sign is installed. Nothing is built until you approve your drawing.",
+  "reserved": "Reserved. Your deposit of {amount} is paid and a receipt is on its way to your email. Next we prepare your approval drawing. Your reference is {reference}.",
+  "cancelled": "No payment was taken. Your design is still here.",
+  "depositsOff": "Online deposits are not switched on yet. Request your approval drawing and we will send a payment link with it.",
+  "formOff": "This form is not switched on yet. Call {{phone}} or email {{email}}.",
+  "failed": "This did not go through. Try again, or call {{phone}}.",
+  "drawingSent": "Drawing requested. We will email it to {email} within {{drawing_turnaround}}.",
+  "quoteSent": "Quote request sent. We will reply to {email} within {{response_time}}. Your reference is {reference}.",
+  "fileFailed": "Your request was sent, but {filename} did not upload. Reply to our confirmation email with the file attached.",
+  "copied": "Link copied",
+  "copyLink": "Copy link",
+  "sent": "Design sent",
+  "sendDesign": "Send design",
+  "invoiceNotFound": "We could not find an open invoice with that number and email. Check the invoice email we sent you, or call {{phone}}.",
+  "summary": "{n} things need fixing before we can send this.",
+  "summaryOne": "1 thing needs fixing before we can send this.",
+  "errors": {
+    "name": "Enter your name.",
+    "email": "Enter an email address so we can reply.",
+    "zip": "Enter the five-digit ZIP code where the sign will stand.",
+    "details": "Tell us a little about what you need.",
+    "number": "Enter the invoice number.",
+    "files": "Up to five files, 25 MB each."
+  }
+}

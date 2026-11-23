@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+{{@jsonld}}
+</head>
+<body data-page="questions">
+{{> header}}
+<main id="main">
+  <section class="part" id="questions" aria-labelledby="questions-title">
+    <div class="wrap">
+      <h1 class="h2 page-heading" id="questions-title">Questions.</h1>
+      {{@questions}}
+    </div>
+  </section>
+</main>
+{{> footer}}
+{{> titleblock}}
+{{> dialogs}}
+{{@site_data}}
+</body>
+</html>
