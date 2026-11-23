@@ -1,0 +1,27 @@
+{
+  "name": "monument-signs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Marketing and ordering website for a monument sign business. Static pages plus one Cloudflare Worker for /api/*.",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:production": "node scripts/check-launch.js && node scripts/build.js --production",
+    "dev": "node scripts/build.js && wrangler dev",
+    "test": "node --test tests/unit/",
+    "test:browser": "node scripts/build.js && node --test --test-concurrency=1 tests/browser/",
+    "check:rules": "node scripts/check-rules.js",
+    "check:size": "node scripts/check-size.js",
+    "check:scroll": "node scripts/check-scroll.js",
+    "check:lighthouse": "node scripts/check-lighthouse.js",
+    "check:launch": "node scripts/check-launch.js",
+    "screenshots": "node scripts/screenshots.js",
+    "glyphs": "node scripts/glyph-widths.js",
+    "og": "node scripts/og-image.js",
+    "check": "npm run build && npm test && npm run check:rules && npm run check:size && npm run test:browser && npm run check:scroll"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0",
+    "wrangler": "4.167.0"
+  }
+}

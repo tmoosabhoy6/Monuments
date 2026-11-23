@@ -1,0 +1,36 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "monument-signs",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-23",
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "monument-signs",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "worker/migrations"
+    }
+  ],
+  "r2_buckets": [{ "binding": "UPLOADS", "bucket_name": "monument-signs-uploads" }],
+  // Rate limits for the two endpoints the spec marks "rate-limited" (designs/email, invoices/find).
+  // Period must be 10 or 60 seconds. namespace_id is any integer unique within the account.
+  "ratelimits": [
+    { "name": "RATE_LIMITER", "namespace_id": "1001", "simple": { "limit": 10, "period": 60 } }
+  ],
+  // Email: add a send_email binding named EMAIL once the sending domain is onboarded to
+  // Cloudflare Email Service, or set the RESEND_API_KEY secret instead. See README.
+  // "send_email": [{ "name": "EMAIL" }],
+  "vars": {
+    "SITE_URL": "",
+    "NOTIFY_EMAIL": "",
+    "FROM_EMAIL": ""
+  }
+}
