@@ -128,7 +128,7 @@ export function builder(config, state) {
     ${row({ name: 'install', value: 'yes', checked: state.install, label: 'Installed by a certified installer', price: plus(installPrice).replace('<span class="delta', '<span data-price-install class="delta') })}
     ${row({ name: 'install', value: 'no', checked: !state.install, label: 'Delivered only', price: '<span class="delta"></span>' })}
   </div>
-  <div class="field sub"><label for="b-zip">ZIP code where it will stand</label><input class="input" id="b-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}"></div>
+  <div class="field sub"><label for="b-zip">ZIP code where it will stand</label><input class="input" id="b-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" spellcheck="false"></div>
 </fieldset>
 </div>
 <section class="price-summary" data-price-summary aria-labelledby="price-title">

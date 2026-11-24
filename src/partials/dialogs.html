@@ -3,9 +3,9 @@
   <p data-reserve-intro></p>
   <form data-form="reserve" novalidate>
     <div class="field"><label for="r-name">Your name</label><input class="input" id="r-name" name="name" autocomplete="name" maxlength="120" required></div>
-    <div class="field"><label for="r-email">Email</label><input class="input" id="r-email" name="email" type="email" autocomplete="email" maxlength="200" required></div>
+    <div class="field"><label for="r-email">Email</label><input class="input" id="r-email" name="email" type="email" autocomplete="email" maxlength="200" spellcheck="false" required></div>
     <div class="field"><label for="r-phone">Phone (optional)</label><input class="input" id="r-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
-    <div class="field"><label for="r-zip">ZIP code where it will stand</label><input class="input" id="r-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" required></div>
+    <div class="field"><label for="r-zip">ZIP code where it will stand</label><input class="input" id="r-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" spellcheck="false" required></div>
     {{@form_extras}}
     <div class="actions"><button type="submit" class="btn">Continue to payment</button></div>
   </form>
@@ -18,9 +18,9 @@
   <form data-form="drawing" novalidate>
     <div class="field"><label for="d-name">Your name</label><input class="input" id="d-name" name="name" autocomplete="name" maxlength="120" required></div>
     <div class="field"><label for="d-org">Organization (optional)</label><input class="input" id="d-org" name="organization" autocomplete="organization" maxlength="160"></div>
-    <div class="field"><label for="d-email">Email</label><input class="input" id="d-email" name="email" type="email" autocomplete="email" maxlength="200" required></div>
+    <div class="field"><label for="d-email">Email</label><input class="input" id="d-email" name="email" type="email" autocomplete="email" maxlength="200" spellcheck="false" required></div>
     <div class="field"><label for="d-phone">Phone (optional)</label><input class="input" id="d-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
-    <div class="field"><label for="d-zip">ZIP code where it will stand</label><input class="input" id="d-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" required></div>
+    <div class="field"><label for="d-zip">ZIP code where it will stand</label><input class="input" id="d-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" spellcheck="false" required></div>
     <div class="field"><label for="d-notes">Anything we should know? (optional)</label><textarea class="input" id="d-notes" name="notes" maxlength="4000"></textarea></div>
     <div class="field"><label for="d-files">Logo or artwork (optional)</label><input class="input" id="d-files" name="files" type="file" multiple accept=".png,.jpg,.jpeg,.svg,.pdf,.ai,.eps,.webp"></div>
     {{@form_extras}}
@@ -37,7 +37,7 @@
     <button type="button" class="btn btn-secondary" data-print>Print the design sheet</button>
   </div>
   <form data-form="email-design" novalidate>
-    <div class="field"><label for="s-email">Email it to me</label><input class="input" id="s-email" name="email" type="email" autocomplete="email" maxlength="200" required></div>
+    <div class="field"><label for="s-email">Email it to me</label><input class="input" id="s-email" name="email" type="email" autocomplete="email" maxlength="200" spellcheck="false" required></div>
     {{@form_extras}}
     <div class="actions"><button type="submit" class="btn">Send design</button></div>
   </form>
@@ -47,8 +47,8 @@
 <dialog class="dialog" id="dialog-invoice" aria-labelledby="invoice-title">
   <div class="dialog-head"><h2 id="invoice-title">Pay an invoice</h2><button type="button" class="link-button" data-close-dialog>Close</button></div>
   <form data-form="invoice" novalidate>
-    <div class="field"><label for="i-number">Invoice number</label><input class="input" id="i-number" name="number" autocomplete="off" maxlength="60" required></div>
-    <div class="field"><label for="i-email">Email the invoice was sent to</label><input class="input" id="i-email" name="email" type="email" autocomplete="email" maxlength="200" required></div>
+    <div class="field"><label for="i-number">Invoice number</label><input class="input" id="i-number" name="number" autocomplete="off" maxlength="60" spellcheck="false" required></div>
+    <div class="field"><label for="i-email">Email the invoice was sent to</label><input class="input" id="i-email" name="email" type="email" autocomplete="email" maxlength="200" spellcheck="false" required></div>
     {{@form_extras}}
     <div class="actions"><button type="submit" class="btn">Find invoice</button></div>
   </form>

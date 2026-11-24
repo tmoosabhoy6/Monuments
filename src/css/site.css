@@ -79,7 +79,9 @@
 }
 
 @layer base {
-  html { background: var(--paper); }
+  html { background: var(--paper); scroll-padding-top: calc(var(--header-h) + 16px); }
+  html:has(.title-block:not([hidden])) { scroll-padding-bottom: calc(var(--tb-pad, 84px) + 16px); }
+  a, button, input, label, summary, select, textarea { touch-action: manipulation; }
   @media (prefers-reduced-motion: no-preference) {
     html { scroll-behavior: smooth; }
   }
@@ -129,7 +131,8 @@
   .wordmark { font-family: var(--display); font-weight: 650; font-size: 1.3125rem; letter-spacing: -0.005em; text-decoration: none; color: var(--ink); line-height: 1.2; }
   .site-nav { display: flex; align-items: baseline; gap: clamp(16px, 2.2vw, 30px); }
   .site-nav ul { display: flex; gap: clamp(16px, 2.2vw, 30px); }
-  .site-nav a { font-size: 0.96875rem; color: var(--ink-soft); text-decoration: none; }
+  .site-nav a { font-size: 0.96875rem; color: var(--ink-soft); text-decoration: none; white-space: nowrap; }
+  .wordmark { white-space: nowrap; }
   .site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--ink); }
   .phone { font-weight: 560; color: var(--ink); text-decoration: none; font-size: 1rem; white-space: nowrap; }
   @media (min-width: 820px) {
@@ -216,7 +219,7 @@
   .error-summary { border-top: 2px solid var(--ink); padding-top: var(--s-12); }
   .error-summary ul { margin-top: var(--s-8); }
   .error-summary li + li { margin-top: var(--s-4); }
-  .form-message { font-size: 1.0625rem; max-width: 36em; }
+  .form-message { font-size: 1.0625rem; max-width: 36em; overflow-wrap: anywhere; }
   .form-message .money { font-size: inherit; }
   .choices { display: grid; }
   .choice { display: flex; align-items: center; gap: var(--s-12); min-height: 44px; font-size: 1.0625rem; cursor: pointer; }
@@ -261,6 +264,7 @@
     padding: clamp(24px, 4vw, 40px); width: min(600px, calc(100% - 32px)); max-height: calc(100dvh - 32px);
     margin: auto; box-shadow: none;
   }
+  dialog.dialog { overscroll-behavior: contain; }
   dialog.dialog::backdrop { background: rgb(27 33 30 / 0.4); }
   .dialog-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-24); margin-bottom: var(--s-16); }
   .dialog-head h2 { font-size: 1.75rem; line-height: 1.12; }
@@ -297,9 +301,14 @@
   }
   .design[data-mode="builder"] .design-side { align-self: start; display: block; }
   @media (prefers-reduced-motion: no-preference) {
-    .design[data-mode="builder"] .builder, .design[data-mode="intro"] .hero-intro { animation: fade 200ms ease-out; }
+    /* only after the visitor switches states; never on first load */
+    .design[data-switched][data-mode="builder"] .builder, .design[data-switched][data-mode="intro"] .hero-intro { animation: fade 200ms ease-out; }
   }
 
+  /* a narrow drawing column (tablets): the name field and price stack instead of squeezing */
+  @media (min-width: 820px) and (max-width: 1179.98px) {
+    .design[data-mode="builder"] .design-stage { grid-template-columns: minmax(0, 1fr); grid-template-areas: "draw" "name" "price"; }
+  }
   .builder-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--ink); padding-bottom: var(--s-12); }
   .builder-head h2 { font-size: 1.75rem; }
   .group { padding-block: var(--s-24); border-bottom: 1px solid var(--rule); }
@@ -405,7 +414,7 @@
   }
 
   /* questions */
-  .qa-group { padding-block: var(--s-32); border-top: 1px solid var(--rule); }
+  .qa-group { padding-block: var(--s-24) var(--s-48); }
   .qa-group:first-of-type { border-top: 0; }
   .qa-group h2 { font-size: 1.4375rem; line-height: 1.2; letter-spacing: -0.008em; }
   .qa-list { grid-column: span 7; }
@@ -489,6 +498,12 @@
     }
     .design[data-mode="builder"] .sign-drawing svg { max-height: 38vh; width: auto; margin-inline: auto; }
     .design[data-mode="builder"] .name-row, .design[data-mode="builder"] .hero-price { display: none; }
+    /* 44px touch targets for standalone links on phones; the text itself does not move */
+    .wordmark, .phone, .size-item .link, .stage-body .actions a, .footer-links a, .footer-contact a, .sizes-notes a, .page-intro a {
+      display: inline-flex; align-items: center; min-height: 44px;
+    }
+    .footer-contact li + li, .footer-links li + li { margin-top: 0; }
+    .footer-links .label { min-height: 44px; display: flex; align-items: center; }
     .title-block .tb-sign, .title-block [data-tb-deposit] { display: none; }
     .title-block .btn { white-space: nowrap; padding-inline: 18px; }
     .design[data-mode="builder"] .design-side { padding-top: var(--s-16); }

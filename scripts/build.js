@@ -23,7 +23,8 @@ const hash = (buf) => createHash('sha256').update(buf).digest('hex').slice(0, 10
 const exists = async (p) => !!(await stat(p).catch(() => null));
 
 // ---------- config ----------
-const raw = JSON.parse(await readFile(join(ROOT, 'content/site.config.json'), 'utf8'));
+const CONFIG = args.includes('--config') ? args[args.indexOf('--config') + 1] : 'content/site.config.json';
+const raw = JSON.parse(await readFile(join(ROOT, CONFIG), 'utf8'));
 const config = resolveConfig(raw);
 if (args.includes('--no-draft')) config.draft = false;
 const DRAFT = config.draft === true;
@@ -57,7 +58,9 @@ const PAGES = [
 ];
 
 // ---------- assets: fonts, CSS, the JS module graph, all content-hashed ----------
-await rm(OUT, { recursive: true, force: true });
+// Empty dist/ in place rather than deleting it, so a running `wrangler dev` keeps watching it.
+await mkdir(OUT, { recursive: true });
+for (const e of await readdir(OUT)) await rm(join(OUT, e), { recursive: true, force: true });
 await mkdir(join(OUT, 'assets/fonts'), { recursive: true });
 await mkdir(join(OUT, 'assets/js'), { recursive: true });
 

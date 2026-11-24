@@ -247,6 +247,7 @@ export function initBuilder(store, site, hooks) {
 
   // --- the two states of the hero ---
   const mode = (m) => {
+    root.dataset.switched = '';
     root.dataset.mode = m;
     builder.hidden = m !== 'builder';
     intro.hidden = m === 'builder';

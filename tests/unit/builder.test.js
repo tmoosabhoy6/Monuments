@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile, rm } from 'node:fs/promises';
+import { readFile, rm, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { resolve, unconfirmed, fillTokens, tokensFrom } from '../../src/js/builder/config.js';
@@ -166,4 +166,27 @@ test('config: unconfirmed values are listed and tokens resolve', () => {
   assert.throws(() => fillTokens('{{nope}}', t), /Unresolved token/);
   assert.equal(t.size_count_word, 'Four');
   assert.equal(t.phone_href, 'tel:+15550100199');
+});
+
+test('build: owner photographs and the customer portal link render once supplied', async () => {
+  const cfg = JSON.parse(JSON.stringify(raw));
+  cfg.stripe_portal_url = { value: 'https://billing.stripe.com/p/login/test_123', confirmed: true };
+  cfg.gallery = [{ src: '/og.png', width: 1200, height: 630, alt: 'Entrance sign at Cedar Hollow', place: 'Cedar Hollow', size: '8 ft × 4 ft', options: 'stone-look base, pillars' }];
+  await writeFile(root + 'content/test-config.tmp.json', JSON.stringify(cfg));
+  const out = 'dist-unit-test-2';
+  try {
+    execFileSync(process.execPath, ['scripts/build.js', '--config', 'content/test-config.tmp.json', '--out', out], { cwd: root, stdio: 'pipe' });
+    const home = await readFile(root + out + '/index.html', 'utf8');
+    assert.match(home, /<section class="part" id="work"[\s\S]*Signs we have built\./);
+    assert.match(home, /<img src="\/og\.png" width="1200" height="630" alt="Entrance sign at Cedar Hollow" loading="lazy" decoding="async">/);
+    assert.match(home, /Cedar Hollow\. 8 ft × 4 ft, stone-look base, pillars\./);
+    assert.match(home, /<a href="https:\/\/billing\.stripe\.com\/p\/login\/test_123">See your orders and payments<\/a>/);
+    const how = await readFile(root + out + '/how-it-works/index.html', 'utf8');
+    assert.match(how, /See your orders and payments/);
+  } finally {
+    await rm(root + out, { recursive: true, force: true });
+    await rm(root + 'content/test-config.tmp.json', { force: true });
+  }
+  const plain = await readFile(root + 'dist/index.html', 'utf8').catch(() => '');
+  if (plain) { assert.ok(!plain.includes('id="work"')); assert.ok(!plain.includes('See your orders and payments')); }
 });

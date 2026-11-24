@@ -9,7 +9,7 @@ The record of state for the build. Pick up from this file and the git history.
 - [x] 3. Drawing: glyph-width table, draw.js, pre-rendered hero, size lineup, stage 4 drawings
 - [x] 4. Builder: state, pricing, interface, title block, sharing, print sheet, tests
 - [x] 5. Forms and Worker: endpoints, D1, R2, email, Turnstile, Stripe Checkout, webhook, invoices
-- [ ] 6. Critique and polish; accessibility; performance; search and sharing assets
+- [x] 6. Critique and polish; accessibility; performance; search and sharing assets
 - [ ] 7. All checks, README, report
 
 ## Definition of done (SPEC §12)
@@ -95,10 +95,79 @@ The record of state for the build. Pick up from this file and the git history.
 - `.dev.vars` holds Cloudflare's published always-pass Turnstile test secret and a local signing
   secret; `.dev.vars.example` is the committed template.
 
+- The build empties `dist/` in place instead of deleting it: deleting it left a running
+  `wrangler dev` serving 404s for the new hashed files (found by the Impeccable detector).
+- Validation after the first submit checks only the field that lost focus and clears a field's
+  error while it is being corrected, so nothing above the submit button moves when it is pressed
+  (the browser tests found clicks being lost to that shift).
+- The hero's 200ms cross-fade runs only after the visitor switches states; it had also run on
+  first load, fading the lede in from transparent.
+- When a dialog's opener has been hidden (deposits switched off), focus goes to "Request approval
+  drawing", the action that replaced it.
+- Standalone links get a 44px hit area on phones (wordmark, phone, "Start with this size", stage 1
+  links, footer links); their text does not move.
+- Questions page: the group rule was removed, because it doubled the first question's hairline;
+  space separates the groups (the "remove one thing" of the frontend-design critique).
+- Tablet (820–1180px): the header links no longer wrap, and in the builder state the name field
+  and price stack under the drawing instead of squeezing.
+- Accepted from the Vercel guidelines: scroll padding so the sticky header and the bottom bar
+  never cover a focused field; `spellcheck="false"` on email, ZIP and invoice fields;
+  `overscroll-behavior: contain` on dialogs; `touch-action: manipulation`; `translate="no"` on the
+  business name; long emails wrap in messages.
+- The text alternative of the drawing names a double-sided sign. An elevation cannot show the
+  second face, so "double-sided" changes the drawing's description and the price, not its lines.
+
+## Skills used (SPEC §13)
+
+- frontend-design (Anthropic): used for the build; its planning step skipped because SPEC §5–6
+  are the approved plan; its critique step run (screenshots, self-review, one thing removed).
+- Impeccable, commit `b49177d32788f2dc585c42831d845dacf1ebed2c` (skill 4.10.0, engine 0.1.27),
+  copied without hooks into `.claude/skills/` (git-ignored). Detector run on `dist/*.html` and on
+  the `wrangler dev` URLs. Telemetry off.
+- web-design-guidelines (Vercel, guidelines snapshot `434b7f9`): interface audit of the HTML, CSS
+  and JavaScript.
+- review-animations and animation-performance (emilkowalski/skills): asked whether the hero
+  animation and the four interface transitions meet the duration, easing, origin, reduced-motion
+  and compositor rules, and whether any fires on first load.
+- design:accessibility-review and design:design-critique: final measured accessibility pass
+  (`scripts/a11y-audit.js`) and the hierarchy check.
+- Cloudflare docs (MCP) for the assets, rate-limit and Email Service settings.
+
 ## Declined suggestions
 
-(none yet)
+- Impeccable, file-mode detector: 33 "cramped padding" and "oversized h1" findings. A file scan
+  cannot load the root-absolute `/assets/` stylesheet, so it judged unstyled markup; the same
+  pages scanned live raise none of these.
+- Impeccable, live: "first-viewport column overflow" on How it works (stage 1 holds the quote
+  form beside a short name column). That is the spec's structure (§6.4); a sticky column or a
+  moved form would change it.
+- Vercel guidelines: Title Case headings and buttons, numerals for counts ("Four standard
+  sizes"), avoiding first person, placeholders ending in "…", a spinner while sending, preconnect
+  for Turnstile, `Intl.NumberFormat` for money (output identical; the pure modules stay simple),
+  an intentional tap-highlight colour, and a `beforeunload` guard. Each conflicts with SPEC §5.3,
+  §7 or §10.5, or adds an element or behaviour the spec does not have.
+- review-animations: "pure-fade entrances need an initial transform" and "reduced motion should
+  be gentler, not zero" for the 200ms cross-fade and the hero. SPEC §5.7 specifies a cross-fade
+  and the finished state immediately under reduced motion.
+- animation-performance: SVG `transform` animations repaint rather than composite. Kept: they
+  run once per load for under a second and the scroll and Lighthouse checks show no long task.
 
 ## Not verified
 
-(none yet)
+- A live Stripe payment, the webhook from Stripe, the return message from a real Checkout
+  session and the hosted-invoice lookup: no Stripe account or keys were provided. The code paths
+  are covered by unit tests against a stubbed Stripe API and by browser tests against a stubbed
+  Worker; the not-configured path was run for real on `wrangler dev`.
+- Real email delivery (Cloudflare Email Service or Resend): no sending domain or key. Emails are
+  rendered and checked in unit tests; on `wrangler dev` without a binding the request still saves.
+- The production Turnstile widget with the owner's site key: tested with Cloudflare's published
+  always-pass test keys (real Siteverify call on `wrangler dev`) and with a stub in browser tests.
+- Deployment to Cloudflare: not done, by instruction.
+- Safari and Firefox: all automated runs use Chromium; the CSS uses features both support
+  (`:has()`, container queries, `@layer`, `color-mix` is not used at runtime), but nothing was
+  run in them.
+- Screen readers (VoiceOver, NVDA): structure checked with Lighthouse/axe, the accessibility
+  tree of the dialogs, and keyboard-only tests, but not with a screen reader.
+- check:scroll on a real mid-range phone: measured with phone emulation and 4× CPU throttling in
+  headless Chromium. Headless Chromium does not scroll the page for synthesized touch gestures,
+  so the phone run uses the default gesture source.
