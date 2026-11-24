@@ -10,20 +10,23 @@ The record of state for the build. Pick up from this file and the git history.
 - [x] 4. Builder: state, pricing, interface, title block, sharing, print sheet, tests
 - [x] 5. Forms and Worker: endpoints, D1, R2, email, Turnstile, Stripe Checkout, webhook, invoices
 - [x] 6. Critique and polish; accessibility; performance; search and sharing assets
-- [ ] 7. All checks, README, report
+- [x] 7. All checks, README, report
 
 ## Definition of done (SPEC §12)
 
-- [ ] `npm run build`
-- [ ] `npm test`
-- [ ] `npm run test:browser`
-- [ ] `npm run check:rules`
-- [ ] `npm run check:size`
-- [ ] `npm run check:scroll`
-- [ ] Lighthouse (mobile, against `wrangler dev`)
-- [ ] Visual review (screenshots in `design/review/`)
-- [ ] Copy review
-- [ ] `npm run build:production` fails naming draft and each unconfirmed value
+Full output of the last run: `design/review/check-results.txt` (`./scripts/run-all-checks.sh`).
+
+- [x] `npm run build`: exits 0, 5 pages, no unresolved tokens
+- [x] `npm test`: 31 of 31 pass (pricing, sharing, drawing, pre-rendered hero, config, every endpoint, webhook signatures)
+- [x] `npm run test:browser`: 13 of 13 pass
+- [x] `npm run check:rules`: passes
+- [x] `npm run check:size`: HTML 3.6–11.4 KB a page, CSS 5.9 KB, JS 21.5 KB, fonts 64.3 KB
+- [x] `npm run check:scroll`: desktop 99.7–100% of frames within 16.7 ms; throttled phone worst frame 16.8 ms, no long tasks
+- [x] Lighthouse (mobile, `wrangler dev`): performance 100, accessibility 100, best practices 100 on every page; SEO 100 with draft off (66 on the draft build, which is noindex by design); LCP 0.77–0.78 s, CLS 0, TBT ≤ 10 ms
+- [x] Visual review: `design/review/` at 1440×900, 834×1112, 390×844, both hero states; hero and lineup compared with the comp
+- [x] Copy review: `npm run check:copy`, 254 phrases word for word; 5 deliberate or conditional differences listed
+- [x] `npm run build:production` fails, naming `draft` and 48 unconfirmed values (the correct result)
+- [x] Extra: `npm run check:a11y` (touch targets, contrast, 200% zoom, headings, dialogs) passes
 
 ## Decisions made
 
@@ -108,12 +111,17 @@ The record of state for the build. Pick up from this file and the git history.
   links, footer links); their text does not move.
 - Questions page: the group rule was removed, because it doubled the first question's hairline;
   space separates the groups (the "remove one thing" of the frontend-design critique).
-- Tablet (820–1180px): the header links no longer wrap, and in the builder state the name field
+- Tablet (820–1180px): the header links no longer wrap (that rule applies from 820px up; on
+  narrow phones the wordmark may wrap so 320px never scrolls sideways), and in the builder state the name field
   and price stack under the drawing instead of squeezing.
 - Accepted from the Vercel guidelines: scroll padding so the sticky header and the bottom bar
   never cover a focused field; `spellcheck="false"` on email, ZIP and invoice fields;
   `overscroll-behavior: contain` on dialogs; `touch-action: manipulation`; `translate="no"` on the
   business name; long emails wrap in messages.
+- Cast-shadow colours are computed in `draw.js` with the same oklab arithmetic as
+  `color-mix(in oklab, <field> 78%, black)` and written into the SVG as hex. Inline `style` is
+  barred by the CSP, and a hex value prints and screenshots identically everywhere. The default
+  green gives `#133227` (the comp's tone is `#143326`; the unit test allows ±3 per channel).
 - The text alternative of the drawing names a double-sided sign. An elevation cannot show the
   second face, so "double-sided" changes the drawing's description and the price, not its lines.
 
