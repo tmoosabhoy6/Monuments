@@ -1,0 +1,26 @@
+// Dev helper: open the built home page, report console errors, exercise the builder briefly.
+import { chromium } from 'playwright';
+import { serve } from './lib/serve.js';
+const s = await serve(new URL('../dist', import.meta.url).pathname);
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+const errors = [];
+p.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+p.on('pageerror', (e) => errors.push(String(e)));
+await p.route('https://challenges.cloudflare.com/**', (r) => r.fulfill({ contentType: 'text/javascript', body: 'window.turnstile={render(el,o){setTimeout(()=>o.callback("tok"),10);return 1},reset(){},getResponse(){return "tok"}}' }));
+await p.goto(s.url + '/');
+await p.fill('#sign-name', 'Alder Creek Homeowners');
+await p.waitForTimeout(100);
+console.log('tb hidden:', await p.locator('[data-title-block]').isHidden());
+console.log('sign text:', await p.locator('.variant-dims text').last().textContent());
+await p.click('.hero-intro [data-open-builder]');
+await p.check('[name="base"][value="posts"]');
+console.log('pillars disabled:', await p.locator('[name="pillars-on"]').first().isDisabled());
+console.log('total:', await p.locator('[data-price-lines] [data-total]').textContent());
+await p.click('[data-builder-actions] [data-reserve]');
+await p.fill('#r-name', 'Pat'); await p.fill('#r-email', 'pat@example.com'); await p.fill('#r-zip', '30301');
+await p.click('#dialog-reserve button[type=submit]');
+await p.waitForTimeout(300);
+console.log('reserve result:', await p.locator('#dialog-reserve [data-form-result]').textContent());
+console.log('errors:', errors);
+await b.close(); await s.close();

@@ -489,7 +489,9 @@
     }
     .design[data-mode="builder"] .sign-drawing svg { max-height: 38vh; width: auto; margin-inline: auto; }
     .design[data-mode="builder"] .name-row, .design[data-mode="builder"] .hero-price { display: none; }
-    .title-block .tb-sign { display: none; }
+    .title-block .tb-sign, .title-block [data-tb-deposit] { display: none; }
+    .title-block .btn { white-space: nowrap; padding-inline: 18px; }
+    .design[data-mode="builder"] .design-side { padding-top: var(--s-16); }
     .title-block .wrap { justify-content: space-between; }
     .tb-price { text-align: left; }
     body { --tb-pad: 72px; }

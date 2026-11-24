@@ -355,6 +355,16 @@ export function scene(state, config, opts = {}) {
 export const DIM_FRACTION = 0.023;
 export const DIMS_MIN_PX = Math.ceil(12 / DIM_FRACTION);
 
+// The hero sign: one drawing with dimension lines and one without. A container query shows
+// the first only where its figures render at 12px or more (SPEC §5.5). Used by the build
+// (pre-rendered, with the intro animation) and by the browser on every change.
+export const HERO_ASPECT = { dims: 1.55, plain: 1.44 };
+export function hero(state, config, { intro = false, logo = null } = {}) {
+  const label = describe(state, config);
+  return `<div class="variant-dims">${scene(state, config, { dims: true, aspect: HERO_ASPECT.dims, intro, label, logo, uid: 'hd' })}</div>` +
+    `<div class="variant-plain">${scene(state, config, { aspect: HERO_ASPECT.plain, intro, label, logo, uid: 'hp' })}</div>`;
+}
+
 // A six-foot scale pole in alternating one-foot bands.
 function pole(x) {
   let s = '';

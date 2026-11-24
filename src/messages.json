@@ -3,6 +3,7 @@
   "asDrawnInstalled": "As drawn, installed",
   "asDrawnDelivered": "As drawn, delivered",
   "unpriced": "Priced with your drawing",
+  "lightingNote": "Lighting is quoted separately and is not in this price.",
   "depositLine": "Deposit today ({{deposit_percent}}%)",
   "depositShort": "Deposit today",
   "logoAttached": "Logo attached: {filename}. We will place it on your approval drawing.",

@@ -1,18 +1,11 @@
 // HTML fragments rendered at build time from the config. Node built-ins only.
-import { scene, lineup, sizeAlone, anatomy, option, shapeIcon, swatch, sizeWords, describe } from '../../src/js/builder/draw.js';
-import { quote, optionPrice, money } from '../../src/js/builder/pricing.js';
+import { hero as heroSvg, lineup, sizeAlone, shapeIcon, swatch, sizeWords } from '../../src/js/builder/draw.js';
+import { quote, optionPrice, money, priceLinesHtml } from '../../src/js/builder/pricing.js';
 import { LINE_LIMIT, PAINT_CODE_LIMIT } from '../../src/js/builder/state.js';
 
 export const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-// The hero sign: one drawing with dimension lines, one without. A container query shows the
-// first only where its figures render at 12px or more (SPEC §5.5).
-export const HERO_ASPECT = { dims: 1.55, plain: 1.44 };
-export function hero(state, config) {
-  const label = describe(state, config);
-  return `<div class="variant-dims">${scene(state, config, { dims: true, aspect: HERO_ASPECT.dims, intro: true, label, uid: 'hd' })}</div>` +
-    `<div class="variant-plain">${scene(state, config, { aspect: HERO_ASPECT.plain, intro: true, label, uid: 'hp' })}</div>`;
-}
+export const hero = (state, config) => heroSvg(state, config, { intro: true });
 
 export function lineupSvg(config, defaults) {
   return lineup(config, defaults, { label: `The ${config.pricing.sizes.length} standard sizes drawn side by side at the same scale, beside a six-foot pole.` });
@@ -156,14 +149,7 @@ export function builder(config, state) {
 </details>`;
 }
 
-// The price lines, also re-rendered in the browser by the same markup rules (ui.js).
-export function priceLines(q, config) {
-  const amt = (a) => (a === null ? '<span class="is-unpriced">Priced with your drawing</span>' : money(a));
-  let s = q.lines.map((l) => `<div class="price-line"><dt>${esc(l.label)}</dt><dd>${amt(l.amount)}</dd></div>`).join('');
-  s += `<div class="price-line total"><dt>Total</dt><dd${q.priced ? '' : ' class="is-unpriced"'} data-total>${q.priced ? money(q.total) : 'Priced with your drawing'}</dd></div>`;
-  if (q.priced) s += `<div class="price-line deposit"><dt>Deposit today (${config.pricing.deposit_percent}%)</dt><dd data-deposit>${money(q.deposit)}</dd></div>`;
-  return s;
-}
+export const priceLines = (q, config) => priceLinesHtml(q, config);
 
 export function covers(config) {
   const list = (items) => items.map((i) => `<li>${esc(i)}</li>`).join('');
