@@ -59,6 +59,6 @@ export function priceLinesHtml(q, config, unpriced = 'Priced with your drawing')
   const amt = (a) => (a === null ? `<span class="is-unpriced">${unpriced}</span>` : money(a));
   let s = q.lines.map((l) => `<div class="price-line"><dt>${escHtml(l.label)}</dt><dd>${amt(l.amount)}</dd></div>`).join('');
   s += `<div class="price-line total"><dt>Total</dt><dd${q.priced ? '' : ' class="is-unpriced"'} data-total>${q.priced ? money(q.total) : unpriced}</dd></div>`;
-  if (q.priced) s += `<div class="price-line deposit"><dt>Deposit today (${config.pricing.deposit_percent}%)</dt><dd data-deposit>${money(q.deposit)}</dd></div>`;
+  if (q.priced && !(config.features && config.features.deposits === false)) s += `<div class="price-line deposit"><dt>Deposit today (${config.pricing.deposit_percent}%)</dt><dd data-deposit>${money(q.deposit)}</dd></div>`;
   return s;
 }

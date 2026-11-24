@@ -78,6 +78,12 @@ HTML needs touching.
   section appears on the home page once there is at least one.
 - **Customer portal**: set `stripe_portal_url` to the Stripe customer portal login link and "See
   your orders and payments" appears.
+- **Prototype switches** (`features`): `deposits`, `invoice_payment`, `email_design` and
+  `file_uploads`. Each is `false` in the prototype, which builds that feature hidden: no
+  "Reserve with deposit" (the approval drawing becomes the main action and no deposit line is
+  shown), no "Pay an invoice", no "Email it to me", and no file fields. Set one to `true` once its
+  service is set up (Stripe; Stripe; an email sender; R2) and rebuild. Tests build everything
+  with `--all-features`.
 - **Draft**: while `"draft": true`, every page shows "Draft site. Prices and terms shown are
   samples." and asks search engines not to index it.
 

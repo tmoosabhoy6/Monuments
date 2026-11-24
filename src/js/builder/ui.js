@@ -68,7 +68,7 @@ export function initTitleBlock(store, site, { onReserve, onDrawing }) {
     $('[data-tb-name]', bar).textContent = name || summary(s, store.config);
     $('[data-tb-summary]', bar).textContent = summary(s, store.config);
     $('[data-tb-total]', bar).textContent = q.priced ? money(q.total) : M.unpriced;
-    $('[data-tb-deposit]', bar).textContent = q.priced ? `${M.depositShort} ${money(q.deposit)}` : '';
+    $('[data-tb-deposit]', bar).textContent = q.priced && store.config.features?.deposits !== false ? `${M.depositShort} ${money(q.deposit)}` : '';
     const reserveOk = q.priced && !site.depositsOff;
     $('[data-reserve]', bar).hidden = !reserveOk;
     $('[data-tb-drawing]', bar).hidden = reserveOk;
@@ -304,7 +304,7 @@ export function fillPrintSheet(store, site) {
   ].filter(Boolean);
   const priceRows = q.lines.map((l) => `<tr><th>${esc(l.label)}</th><td class="amt">${l.amount === null ? M.unpriced : money(l.amount)}</td></tr>`).join('') +
     `<tr class="total"><th>Total</th><td class="amt">${q.priced ? money(q.total) : M.unpriced}</td></tr>` +
-    (q.priced ? `<tr><th>${esc(M.depositLine)}</th><td class="amt">${money(q.deposit)}</td></tr>` : '');
+    (q.priced && config.features?.deposits !== false ? `<tr><th>${esc(M.depositLine)}</th><td class="amt">${money(q.deposit)}</td></tr>` : '');
   const list = (items) => items.map((i) => `<li>${esc(i)}</li>`).join('');
   const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   sheet.innerHTML =

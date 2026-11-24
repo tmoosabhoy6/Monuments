@@ -146,6 +146,13 @@ Full output of the last run: `design/review/check-results.txt` (`./scripts/run-a
   quote request was refused by Turnstile (managed mode), which is the intended protection; the
   stored secret was confirmed valid against Siteverify.
 
+- Prototype (owner, 2026-11-24): "just need the prototype". Deposits, invoice payment, emailing a
+  design and file uploads are switched off in `features` and built hidden, so everything on the
+  live draft works: the builder, sharing link and print sheet, and quote and drawing requests
+  saved to D1. Redeployed as version 19b98b69-69d2-4ce6-bc11-6f495c38135f. Stage 3's paragraph
+  still mentions reserving from the builder; it is SPEC copy and returns to being true when
+  deposits are switched on.
+
 ## Skills used (SPEC §13)
 
 - frontend-design (Anthropic): used for the build; its planning step skipped because SPEC §5–6

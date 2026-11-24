@@ -22,7 +22,7 @@
     <div class="field"><label for="d-phone">Phone (optional)</label><input class="input" id="d-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
     <div class="field"><label for="d-zip">ZIP code where it will stand</label><input class="input" id="d-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" spellcheck="false" required></div>
     <div class="field"><label for="d-notes">Anything we should know? (optional)</label><textarea class="input" id="d-notes" name="notes" maxlength="4000"></textarea></div>
-    <div class="field"><label for="d-files">Logo or artwork (optional)</label><input class="input" id="d-files" name="files" type="file" multiple accept=".png,.jpg,.jpeg,.svg,.pdf,.ai,.eps,.webp"></div>
+    <div class="field" data-feature="file_uploads"><label for="d-files">Logo or artwork (optional)</label><input class="input" id="d-files" name="files" type="file" multiple accept=".png,.jpg,.jpeg,.svg,.pdf,.ai,.eps,.webp"></div>
     {{@form_extras}}
     <div class="actions"><button type="submit" class="btn">Request approval drawing</button></div>
   </form>
@@ -36,7 +36,7 @@
     <button type="button" class="btn btn-secondary" data-copy-link>Copy link</button>
     <button type="button" class="btn btn-secondary" data-print>Print the design sheet</button>
   </div>
-  <form data-form="email-design" novalidate>
+  <form data-form="email-design" data-feature="email_design" novalidate>
     <div class="field"><label for="s-email">Email it to me</label><input class="input" id="s-email" name="email" type="email" autocomplete="email" maxlength="200" spellcheck="false" required></div>
     {{@form_extras}}
     <div class="actions"><button type="submit" class="btn">Send design</button></div>

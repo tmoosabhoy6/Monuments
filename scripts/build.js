@@ -27,6 +27,10 @@ const CONFIG = args.includes('--config') ? args[args.indexOf('--config') + 1] : 
 const raw = JSON.parse(await readFile(join(ROOT, CONFIG), 'utf8'));
 const config = resolveConfig(raw);
 if (args.includes('--no-draft')) config.draft = false;
+// Prototype switches: a feature set to false is built hidden (its markup stays, so turning it
+// back on is one edit). --all-features builds everything, for the browser tests.
+config.features = { deposits: true, invoice_payment: true, email_design: true, file_uploads: true, ...(config.features || {}) };
+if (args.includes('--all-features')) for (const k of Object.keys(config.features)) config.features[k] = true;
 const DRAFT = config.draft === true;
 const year = String(new Date().getFullYear());
 const baseTokens = tokensFrom(config, { year });
@@ -135,6 +139,7 @@ const portalUrl = config.stripe_portal_url;
 
 const browserConfig = {
   draft: DRAFT,
+  features: config.features,
   pricing: config.pricing,
   paints: config.paints,
   options: config.options,
@@ -216,6 +221,10 @@ function render(template, page) {
   if (/\{\{[^}]*\}\}/.test(html.replace(/<script type="application\/(?:ld\+)?json"[\s\S]*?<\/script>/g, ''))) {
     fail(`${page.src}: unresolved token after rendering`);
   }
+  html = html.replace(/data-feature="([a-z_]+)"/g, (m, f) => {
+    if (!(f in config.features)) fail(`${page.src}: unknown feature ${f}`);
+    return config.features[f] ? m : `${m} hidden`;
+  });
   // mark the current page in the main navigation
   const navKey = { '/how-it-works/': 'how', '/questions/': 'questions' }[page.path];
   if (navKey) html = html.replace(`data-nav="${navKey}"`, `data-nav="${navKey}" aria-current="page"`);

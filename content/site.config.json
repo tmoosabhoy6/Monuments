@@ -18,6 +18,13 @@
   "permit_statement": { "value": "", "confirmed": false },
   "privacy_text": { "value": "We use the details you give us only to quote, draw, build, deliver and install your sign, and to take payment. We do not sell them. Payments are handled by Stripe; we never see your card number.", "confirmed": false },
 
+  "features": {
+    "deposits": false,
+    "invoice_payment": false,
+    "email_design": false,
+    "file_uploads": false
+  },
+
   "stripe_portal_url": { "value": "", "confirmed": false },
   "turnstile_site_key": { "value": "0x4AAAAAAGQB5zK1fPEN2ZBo", "confirmed": false },
 

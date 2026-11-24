@@ -8,6 +8,8 @@ const site = dataEl ? JSON.parse(dataEl.textContent) : null;
 if (site) {
   const store = createStore(site.config);
   try { site.depositsOff = sessionStorage.getItem('deposits-off') === '1'; } catch { site.depositsOff = false; }
+  const features = site.config.features || {};
+  if (features.deposits === false) site.depositsOff = true;
 
   // The header rule appears once the page has scrolled: an observer on a 1px sentinel.
   const sentinel = document.querySelector('[data-header-sentinel]');

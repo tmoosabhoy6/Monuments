@@ -190,3 +190,25 @@ test('build: owner photographs and the customer portal link render once supplied
   const plain = await readFile(root + 'dist/index.html', 'utf8').catch(() => '');
   if (plain) { assert.ok(!plain.includes('id="work"')); assert.ok(!plain.includes('See your orders and payments')); }
 });
+
+test('build: features switched off in the config are built hidden; --all-features shows them', async () => {
+  const cfg = JSON.parse(JSON.stringify(raw));
+  cfg.features = { deposits: false, invoice_payment: false, email_design: false, file_uploads: false };
+  await writeFile(root + 'content/test-config2.tmp.json', JSON.stringify(cfg));
+  try {
+    execFileSync(process.execPath, ['scripts/build.js', '--config', 'content/test-config2.tmp.json', '--out', 'dist-unit-test-3'], { cwd: root, stdio: 'pipe' });
+    execFileSync(process.execPath, ['scripts/build.js', '--config', 'content/test-config2.tmp.json', '--out', 'dist-unit-test-4', '--all-features'], { cwd: root, stdio: 'pipe' });
+    const off = await readFile(root + 'dist-unit-test-3/index.html', 'utf8');
+    const on = await readFile(root + 'dist-unit-test-4/index.html', 'utf8');
+    for (const f of ['file_uploads', 'email_design', 'invoice_payment']) {
+      assert.match(off, new RegExp(`data-feature="${f}" hidden`), `${f} hidden`);
+      assert.doesNotMatch(on, new RegExp(`data-feature="${f}" hidden`), `${f} shown`);
+    }
+    assert.doesNotMatch(off, /Deposit today \(50%\)<\/dt>/, 'no deposit line with deposits off');
+    assert.match(on, /Deposit today \(50%\)<\/dt>/);
+    assert.match(off, /"features":\{"deposits":false/);
+  } finally {
+    for (const d of ['dist-unit-test-3', 'dist-unit-test-4']) await rm(root + d, { recursive: true, force: true });
+    await rm(root + 'content/test-config2.tmp.json', { force: true });
+  }
+});

@@ -68,7 +68,7 @@ export function builder(config, state) {
     <label class="choice"><input type="radio" name="style" value="serif"${state.style !== 'sans' ? ' checked' : ''}> Serif</label>
     <label class="choice"><input type="radio" name="style" value="sans"${state.style === 'sans' ? ' checked' : ''}> Sans</label>
   </div></fieldset>
-  <div class="field sub"><label for="b-logo">Add your logo (optional)</label><input class="input" id="b-logo" name="logo" type="file" accept=".png,.jpg,.jpeg,.svg,.pdf,.ai,.eps" aria-describedby="b-logo-help"><p class="help" id="b-logo-help">PNG, JPG, SVG, PDF, AI or EPS. We place it properly on your approval drawing.</p><p class="note" data-logo-note hidden></p></div>
+  <div class="field sub" data-feature="file_uploads"><label for="b-logo">Add your logo (optional)</label><input class="input" id="b-logo" name="logo" type="file" accept=".png,.jpg,.jpeg,.svg,.pdf,.ai,.eps" aria-describedby="b-logo-help"><p class="help" id="b-logo-help">PNG, JPG, SVG, PDF, AI or EPS. We place it properly on your approval drawing.</p><p class="note" data-logo-note hidden></p></div>
 </fieldset>
 <fieldset class="group">
   <legend>Size of the sign face</legend>
