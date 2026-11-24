@@ -7,7 +7,7 @@ import { resolve, unconfirmed, fillTokens, tokensFrom } from '../../src/js/build
 import { defaults, sanitize, isDefault, splitName } from '../../src/js/builder/state.js';
 import { quote, optionPrice, money } from '../../src/js/builder/pricing.js';
 import { encode, decode } from '../../src/js/builder/share.js';
-import { hero, scene, lineup, anatomy, option, shade, lineWidthEm, describe } from '../../src/js/builder/draw.js';
+import { hero, scene, site, lineup, anatomy, option, shade, lineWidthEm, describe } from '../../src/js/builder/draw.js';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const raw = JSON.parse(await readFile(root + 'content/site.config.json', 'utf8'));
@@ -150,10 +150,13 @@ test('drawing: the hero pre-rendered in dist/index.html equals draw.js for the d
   execFileSync(process.execPath, ['scripts/build.js', '--out', out], { cwd: root, stdio: 'pipe' });
   const html = await readFile(root + out + '/index.html', 'utf8');
   await rm(root + out, { recursive: true, force: true });
-  const expected = hero(defaults(config), config, { intro: true });
+  const expected = hero(defaults(config), config);
   const m = html.match(/<div class="sign-drawing" data-sign>([\s\S]*?)<\/div>\s*<div class="name-row">/);
   assert.ok(m, 'hero slot found');
   assert.equal(m[1], expected);
+  const scene = html.match(/<div class="site-scene" data-site>([\s\S]*?)<\/div>\s*<div class="ground">/);
+  assert.ok(scene, 'entrance scene found');
+  assert.equal(scene[1], site(defaults(config), config, { intro: true, label: describe(defaults(config), config) }));
 });
 
 // ---------- config ----------

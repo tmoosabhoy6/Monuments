@@ -397,8 +397,8 @@ export function lineup(config, defaults, { label = '' } = {}) {
   });
   const W = col * sizes.length + 2;
   const a11y = label ? `role="img" aria-label="${esc(label)}"` : 'aria-hidden="true" focusable="false"';
-  return `<svg ${NS} class="lineup-svg" viewBox="-2 ${n(-(maxH + 6))} ${n(W)} ${n(maxH + 10)}" ${a11y}>` +
-    body + pole(3) + grade(-2, W - 2, 34) + `</svg>`;
+  return `<svg ${NS} class="lineup-svg" viewBox="-2 ${n(-(maxH + 6))} ${n(W)} ${n(maxH + 11)}" ${a11y}>` +
+    body + pole(3) + earth(-2, W - 2, 5) + `<path d="M-2 0H${n(W - 2)}" fill="none" ${stroke(COLOR.ink, 1.5)}/>` + `</svg>`;
 }
 
 // One standard size in a frame shared by every size, so each phone drawing is at the same scale.
@@ -410,8 +410,8 @@ export function sizeAlone(config, defaults, sizeId) {
   const st = lineupState(defaults, sizeId);
   const g0 = geometry(st, config);
   const g = geometry(st, config, (maxW - (g0.visRight - g0.visLeft)) / 2 - g0.visLeft + (g0.x - 0));
-  return `<svg ${NS} class="size-svg" viewBox="-8 ${n(-(maxH + 6))} ${n(maxW + 16)} ${n(maxH + 10)}" aria-hidden="true" focusable="false">` +
-    monument(g, st, config, { simple: true, uid: `s${sizeId}` }) + grade(-8, maxW + 8) + `</svg>`;
+  return `<svg ${NS} class="size-svg" viewBox="-8 ${n(-(maxH + 6))} ${n(maxW + 16)} ${n(maxH + 11)}" aria-hidden="true" focusable="false">` +
+    monument(g, st, config, { simple: true, uid: `s${sizeId}` }) + earth(-8, maxW + 8, 5) + `<path d="M-8 0H${n(maxW + 8)}" fill="none" ${stroke(COLOR.ink, 1.5)}/>` + `</svg>`;
 }
 
 // Stage 4: anatomy of a routed face. A close-up of one corner in elevation, beside a
@@ -485,4 +485,191 @@ export function shapeIcon(shape) {
 export function swatch(hex) {
   return `<svg ${NS} class="swatch" viewBox="0 0 24 24" aria-hidden="true" focusable="false">` +
     `<rect x="0.5" y="0.5" width="23" height="23" rx="2" fill="${hex}" stroke="${COLOR.inkSoft}" stroke-width="1"/></svg>`;
+}
+
+// ---------------------------------------------------------------------------------------------
+// The entrance: the sign standing in a planted bed at an entrance, cut through the ground so the
+// footing shows. Plantings are drawn in the same flat elevation language, in neutrals only, so the
+// painted sign is the one colour in the scene. Every position is fixed (no randomness).
+// ---------------------------------------------------------------------------------------------
+export const EARTH = '#1B211E', EARTH_LINE = '#3A433E', FOOTING = '#2F3833', FOOTING_LINE = '#6B746E';
+const LEAF = COLOR.raised, LEAF_SHADE = '#DEDFD7', DISTANT = '#E2E4DD';
+
+// A canopy as overlapping circles with one clean outer outline and a shaded lower-right crescent:
+// outline layer first, then (clipped to the canopy) the shade and the lit canopy shifted up-left.
+function canopy(id, circles, shift) {
+  const c = circles.map(([x, y, r]) => `<circle cx="${n(x)}" cy="${n(y)}" r="${n(r)}"/>`).join('');
+  return `<defs><clipPath id="${id}">${c}</clipPath></defs>` +
+    `<g fill="${LEAF_SHADE}" stroke="${COLOR.inkSoft}">${circles.map(([x, y, r]) => `<circle cx="${n(x)}" cy="${n(y)}" r="${n(r)}" stroke-width="2" ${NSS}/>`).join('')}</g>` +
+    `<g clip-path="url(#${id})"><g fill="${LEAF_SHADE}">${c}</g><g fill="${LEAF}" transform="translate(${n(-shift)} ${n(-shift)})">${c}</g></g>`;
+}
+const SOFT = `stroke="${COLOR.inkSoft}" stroke-width="1" ${NSS}`;
+function roundTree(id, x, h) {
+  const r = h * 0.13, cy = -h + r * 2.1;
+  const trunk = `<path d="M${n(x - h * 0.018)} 0V${n(cy + r)}H${n(x + h * 0.018)}V0Z" fill="${COLOR.raised}" ${SOFT}/>`;
+  // a fixed arrangement of small lobes, broader than tall, like a drafted canopy
+  const lobes = [[0, 0, 1.15], [-1.25, 0.45, 0.95], [1.3, 0.4, 1], [-0.65, -0.95, 0.95], [0.7, -0.9, 0.9], [-2.05, 1.15, 0.72],
+    [2.1, 1.1, 0.75], [-0.9, 1.25, 0.85], [0.95, 1.3, 0.85], [0.05, -1.55, 0.7]];
+  return trunk + canopy(id, lobes.map(([dx, dy, k]) => [x + dx * r, cy + dy * r, k * r]), r * 0.32);
+}
+function columnTree(id, x, h) {
+  const w = h * 0.14, top = -h, base = -h * 0.12;
+  const id2 = id + 'c';
+  const path = `M${n(x)} ${n(top)}C${n(x + w * 1.2)} ${n(top + h * 0.25)} ${n(x + w * 1.05)} ${n(base - h * 0.08)} ${n(x)} ${n(base)}C${n(x - w * 1.05)} ${n(base - h * 0.08)} ${n(x - w * 1.2)} ${n(top + h * 0.25)} ${n(x)} ${n(top)}Z`;
+  const trunk = `<path d="M${n(x - h * 0.014)} 0V${n(base + 2)}H${n(x + h * 0.014)}V0Z" fill="${COLOR.raised}" ${SOFT}/>`;
+  const s = w * 0.3;
+  return trunk + `<defs><clipPath id="${id2}"><path d="${path}"/></clipPath></defs>` +
+    `<path d="${path}" fill="${LEAF_SHADE}"/>` +
+    `<g clip-path="url(#${id2})"><path d="${path}" fill="${LEAF}" transform="translate(${n(-s)} ${n(-s)})"/></g>` +
+    `<path d="${path}" fill="none" ${SOFT}/>`;
+}
+function shrubs(id, x, w, h) {
+  const r = h * 0.42, k = Math.max(3, Math.round(w / (r * 1.1)));
+  const circles = [];
+  for (let i = 0; i < k; i++) circles.push([x - w / 2 + (w * (i + 0.5)) / k, -r * 0.7 + [0, 0.35, 0.1, 0.4][i % 4] * r, r * [1, 0.86, 0.95, 0.82][i % 4]]);
+  return `<defs><clipPath id="${id}g"><rect x="${n(x - w)}" y="${n(-h * 3)}" width="${n(w * 2)}" height="${n(h * 3)}"/></clipPath></defs>` +
+    `<g clip-path="url(#${id}g)">${canopy(id, circles, r * 0.25)}</g>`;
+}
+// A low hedge far behind, without detail: depth by tone alone.
+function distantHedge(x0, x1, h) {
+  let d = `M${n(x0)} 0V${n(-h * 0.7)}`;
+  const step = h * 0.9;
+  for (let x = x0; x < x1; x += step) d += `Q${n(x + step / 2)} ${n(-h * 1.08)} ${n(Math.min(x1, x + step))} ${n(-h * 0.7)}`;
+  d += `V0Z`;
+  return `<path d="${d}" fill="${DISTANT}" stroke="${COLOR.rule}" stroke-width="1" ${NSS}/>`;
+}
+// What goes below ground: concrete under the base, or a pier under each post.
+function footings(g, state) {
+  const conc = `fill="${FOOTING}" stroke="${FOOTING_LINE}" stroke-width="1" ${NSS}`;
+  if (g.onPosts) {
+    return [g.x - g.pw, g.x + g.w].map((px) =>
+      `<rect x="${n(px - 3)}" y="0" width="${n(g.pw + 6)}" height="36" ${conc}/>` +
+      `<rect x="${n(px)}" y="0" width="${n(g.pw)}" height="30" fill="${COLOR.raised}" stroke="${FOOTING_LINE}" stroke-width="1" ${NSS}/>`).join('');
+  }
+  const x0 = g.pillars ? g.left - 4 : g.x - 10, w = g.pillars ? g.right - g.left + 8 : g.w + 20;
+  return `<rect x="${n(x0)}" y="0" width="${n(w)}" height="14" ${conc}/>` +
+    `<path d="M${n(x0)} 14h${n(w)}" fill="none" stroke="${FOOTING_LINE}" stroke-width="1" ${NSS}/>`;
+}
+// The ground in section: solid earth with a short hatch just under grade.
+function earth(x0, x1, depth) {
+  let hatch = '';
+  const step = 7, len = 2.6;
+  for (let x = x0 + 2; x < x1 - len; x += step) hatch += `M${n(x)} ${n(len + 1.2)}l${n(len)} ${n(-len)}`;
+  return `<rect x="${n(x0)}" y="0" width="${n(x1 - x0)}" height="${n(depth)}" fill="${EARTH}"/>` +
+    `<path d="${hatch}" fill="none" stroke="${EARTH_LINE}" stroke-width="1" ${NSS}/>`;
+}
+
+// The hero scene. Wide frame; the CSS shows it full-bleed with xMidYMax slice, so wider screens see
+// more of the planting and narrower ones keep the sign.
+export const SITE = { width: 600, top: -92, depth: 15 };
+export function site(state, config, { intro = false, label = null } = {}) {
+  const g = geometry(state, config, 0);
+  const cx = (g.left + g.right) / 2;
+  const x0 = cx - SITE.width / 2, x1 = cx + SITE.width / 2;
+  const fs = 3.1;
+  const L = g.left, R = g.right;
+  const plants =
+    distantHedge(x0, x1, 13) +
+    columnTree('sc1', L - 150, 74) + roundTree('st1', L - 86, 82) +
+    roundTree('st2', R + 118, 76) + columnTree('sc2', R + 56, 84) + columnTree('sc3', R + 186, 64) +
+    roundTree('st3', L - 222, 66);
+  const front = shrubs('ss1', L - 24, 36, 13) + shrubs('ss2', R + 24, 36, 13) +
+    shrubs('ss3', L - 120, 52, 10) + shrubs('ss4', R + 150, 60, 11);
+  const a11y = label ? `role="img" aria-label="${esc(label)}"` : 'aria-hidden="true" focusable="false"';
+  return `<svg ${NS} class="site-svg${intro ? ' intro' : ''}" viewBox="${n(x0)} ${SITE.top} ${SITE.width} ${-SITE.top + SITE.depth}" preserveAspectRatio="xMidYMax slice" ${a11y}>` +
+    plants +
+    `<g class="site-dims">${dimensions(g, fs, intro)}</g>` +
+    monument(g, state, config, { simple: false, uid: 'site', logo: null, intro }) +
+    front +
+    earth(x0, x1, SITE.depth) + footings(g, state) +
+    `<path d="M${n(x0)} 0H${n(x1)}" fill="none" ${stroke(COLOR.ink, 1.5)}/>` +
+    `</svg>`;
+}
+
+// Stage 2: an approval drawing as the customer receives it — the sign to scale, with a title block.
+export function approvalSheet(config, defaults, businessName) {
+  const st = { ...defaults, lines: ['Alder Creek', 'Homeowners'] };
+  const size = config.pricing.sizes.find((s) => s.id === st.size) || config.pricing.sizes[0];
+  const g = geometry(st, config, 0);
+  const W = 120, H = 80, tb = 30;            // sheet, title-block width
+  const dw = W - tb - 10, dh = H - 10;
+  // fit the sign drawing (with dimensions) into the drawing area by scaling inches to sheet units
+  const fs = 3.6, vw = g.right - g.left + fs * 14, vh = -g.top + fs * 6;
+  const k = Math.min((dw - 4) / vw, (dh - 8) / vh);
+  const ox = 5 + (dw - vw * k) / 2 + (fs * 8.5) * k - g.left * k, oy = 5 + dh - 6;
+  const inner = dimensions(g, fs, false) + monument(g, st, config, { simple: false, uid: 'ap' }) + grade(g.left - fs * 7, g.right + fs * 4, 18);
+  const txt = (x, y, s, size2, cls = 'sheet-text') => `<text class="${cls}" x="${n(x)}" y="${n(y)}" font-size="${size2}">${esc(s)}</text>`;
+  const tx = W - tb - 2;
+  const line = (y) => `<path d="M${tx} ${y}h${tb - 1}" fill="none" ${stroke(COLOR.rule, 1)}/>`;
+  return `<svg ${NS} class="sheet-svg" viewBox="-2 -2 ${W + 4} ${H + 4}" aria-hidden="true" focusable="false">` +
+    `<rect x="3" y="3" width="${W}" height="${H}" fill="${COLOR.stoneShade}"/>` +           // the sheet's hard shadow
+    `<rect x="0" y="0" width="${W}" height="${H}" fill="${COLOR.raised}" ${OUTLINE}/>` +
+    `<rect x="3" y="3" width="${W - 6}" height="${H - 6}" fill="none" ${stroke(COLOR.ink, 1)}/>` +
+    `<path d="M${tx - 1} 3V${H - 3}" fill="none" ${stroke(COLOR.ink, 1)}/>` +
+    `<g transform="translate(${n(ox)} ${n(oy)}) scale(${n(k * 1000) / 1000})">${inner}</g>` +
+    txt(tx + 2, 11, businessName, 3.1, 'sheet-name') +
+    line(15) + txt(tx + 2, 21, 'Approval drawing', 2.7) +
+    txt(tx + 2, 27, 'Alder Creek', 2.4, 'sheet-text soft') + txt(tx + 2, 31.5, 'Homeowners', 2.4, 'sheet-text soft') +
+    txt(tx + 2, 36.5, sizeWords(size).replace(/ /g, ' '), 2.4, 'sheet-text soft') +
+    line(40) +
+    txt(tx + 2, 58, 'Approved', 2.9) + `<path d="M${tx + 2} 66h${tb - 5}" fill="none" ${stroke(COLOR.ink, 1)}/>` +
+    `<path d="M${tx + 4} 64c3 -5 5 3 8 -2s4 1 7 -1" fill="none" ${stroke(COLOR.ink, 1.25)}/>` +
+    txt(tx + 2, 73, 'Date', 2.6, 'sheet-text soft') +
+    `</svg>`;
+}
+
+// Stage 5: the two ways a sign stands, cut through the ground to show what goes below.
+export function installSection(config, defaults) {
+  const sizes = config.pricing.sizes;
+  const mid = sizes[Math.min(1, sizes.length - 1)];
+  const a = { ...defaults, size: mid.id, base: 'posts', pillars: 'none', shape: 'arch', lines: ['Alder', 'Creek'] };
+  const b = { ...defaults, size: mid.id, base: 'stone', pillars: 'none', shape: 'arch', lines: ['Alder', 'Creek'] };
+  const ga0 = geometry(a, config, 0), gb0 = geometry(b, config, 0);
+  const gap = 50;
+  const ga = geometry(a, config, -ga0.left);
+  const gb = geometry(b, config, (ga.right - ga.left) + gap - gb0.visLeft);
+  const x0 = -12, x1 = gb.visRight + 12, depth = 44;
+  const top = Math.min(ga.top, gb.top) - 6;
+  return `<svg ${NS} class="install-svg" viewBox="${x0} ${n(top)} ${n(x1 - x0)} ${n(-top + depth + 2)}" aria-hidden="true" focusable="false">` +
+    monument(ga, a, config, { simple: true, uid: 'ia' }) + monument(gb, b, config, { simple: true, uid: 'ib' }) +
+    earth(x0, x1, depth) + footings(ga, a) + footings(gb, b) +
+    `<path d="M${x0} 0H${n(x1)}" fill="none" ${stroke(COLOR.ink, 1.5)}/>` +
+    `</svg>`;
+}
+
+// More from our shop: a routed panel on a wall, a mailbox, freestanding letters.
+export function shopPiece(kind, config, defaults) {
+  const field = paint(config, defaults.field, '#1F4A3A'), raised = paint(config, defaults.raised, COLOR.raised), sh = shade(field);
+  const frame = (vb, body) => `<svg ${NS} class="shop-svg" viewBox="${vb}" aria-hidden="true" focusable="false">${body}</svg>`;
+  if (kind === 'panel') {
+    const st = { ...defaults, size: config.pricing.sizes[0].id, shape: 'flat', base: 'plain', pillars: 'none', lines: ['Alder Creek'] };
+    const g = geometry(st, config, 0);
+    const dy = -g.T;                           // lift the panel so it hangs on the wall
+    const wall = `<rect x="-14" y="-6" width="${n(g.w + 28)}" height="${n(g.h + 18)}" fill="${DISTANT}" stroke="${COLOR.rule}" stroke-width="1" ${NSS}/>` +
+      Array.from({ length: 5 }, (_, i) => `<path d="M-14 ${n(-6 + (g.h + 18) * (i + 1) / 6)}h${n(g.w + 28)}" fill="none" stroke="${COLOR.rule}" stroke-width="1" ${NSS}/>`).join('');
+    return frame(`-16 -8 ${n(g.w + 32)} ${n(g.h + 22)}`, wall +
+      `<g transform="translate(1.6 1.6)"><path d="M0 0h${g.w}v${g.h}H0Z" transform="translate(0 0)" fill="${COLOR.stoneShade}"/></g>` +
+      `<g transform="translate(0 ${n(dy)})">${face(g, st, config, { simple: true, uid: 'shp' })}</g>`);
+  }
+  if (kind === 'mailbox') {
+    const post = `<rect x="-3" y="-44" width="6" height="44" fill="${COLOR.raised}" ${OUTLINE}/>` +
+      `<rect x="-14" y="-47" width="28" height="3" fill="${COLOR.raised}" ${OUTLINE}/>`;
+    const box = `<path d="M-11 -47V-57Q-11 -63 0 -63Q11 -63 11 -57V-47Z" fill="${COLOR.raised}" ${OUTLINE}/>` +
+      `<path d="M-8 -47V-56Q-8 -60 0 -60Q8 -60 8 -56V-47" fill="none" ${stroke(COLOR.inkSoft, 1)}/>` +
+      `<rect x="6" y="-55" width="1.4" height="4" fill="${COLOR.inkSoft}"/>`;
+    const plate = `<rect x="-11" y="-38" width="22" height="9" rx="0.6" fill="${field}" ${stroke(COLOR.ink, 1)}/>` +
+      `<g class="lt" text-anchor="middle" font-size="6"><text x="0.5" y="-31.3" fill="${sh}">1204</text><text x="0" y="-31.8" fill="${raised}">1204</text></g>`;
+    return frame('-30 -66 60 70', post + box + plate + grade(-30, 30, 10));
+  }
+  // freestanding letters on a plinth
+  const word = 'Alder', size = 22, w = lineWidthEm(word) * size;
+  const letters = (dx, fill) => `<text x="${n(dx)}" y="${n(-8 + dx)}" fill="${fill}">${word}</text>`;
+  let shadow = '';
+  for (let s = 1; s <= 6; s++) shadow += letters(s * 0.45, COLOR.stoneShade);
+  return frame(`${n(-w / 2 - 10)} -34 ${n(w + 20)} 38`,
+    `<g class="lt" text-anchor="middle" font-size="${size}">${shadow}${letters(0, raised)}</g>` +
+    `<g class="lt" text-anchor="middle" font-size="${size}" fill="none">` +
+    `<text x="0" y="-8" stroke="${COLOR.ink}" stroke-width="1" ${NSS}>${word}</text></g>` +
+    `<rect x="${n(-w / 2 - 4)}" y="-8" width="${n(w + 8)}" height="8" fill="${COLOR.stone}" ${OUTLINE}/>` +
+    grade(-w / 2 - 10, w / 2 + 10, 12));
 }

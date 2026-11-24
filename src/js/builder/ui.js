@@ -2,7 +2,7 @@
 // redraws the sign and the prices when it changes, and does nothing else.
 import { defaults, sanitize, isDefault, splitName, LINE_LIMIT } from './state.js';
 import { quote, money, optionPrice, priceLinesHtml } from './pricing.js';
-import { hero, scene, describe, sizeWords, contrast, HEADLINE } from './draw.js';
+import { hero, scene, site as siteScene, describe, sizeWords, contrast, HEADLINE } from './draw.js';
 import { encode, decode, designUrl } from './share.js';
 
 const STORE_KEY = 'monument-design';
@@ -101,6 +101,7 @@ export function initBuilder(store, site, hooks) {
   const config = store.config;
   const M = site.messages;
   const signEl = $('[data-sign]', root);
+  const siteEl = $('[data-site]', root);
   const nameInput = $('#sign-name', root);
   const builder = $('[data-builder]', root);
   const intro = $('[data-intro]', root);
@@ -114,6 +115,7 @@ export function initBuilder(store, site, hooks) {
     frame = requestAnimationFrame(() => {
       const logo = store.logo && store.logo.displayable ? { href: store.logo.url } : null;
       signEl.innerHTML = hero(store.state, config, { logo });
+      if (siteEl && root.dataset.mode === 'intro') siteEl.innerHTML = siteScene(store.state, config, { label: describe(store.state, config) });
     });
   };
 
@@ -252,6 +254,7 @@ export function initBuilder(store, site, hooks) {
     builder.hidden = m !== 'builder';
     intro.hidden = m === 'builder';
     hooks.onMode && hooks.onMode(m === 'builder');
+    if (m === 'intro') draw();
   };
   const open = ({ scroll = false, focus = true } = {}) => {
     mode('builder');

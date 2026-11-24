@@ -7,9 +7,11 @@
 <body data-page="home">
 {{> header}}
 <main id="main">
-  <div class="wrap">
-    <section class="design" id="design" data-mode="intro" aria-labelledby="design-title">
-      <h1 class="visually-hidden" id="design-title">Monument signs. Nothing else.</h1>
+  <section class="design" id="design" data-mode="intro" aria-labelledby="design-title">
+    <h1 class="visually-hidden" id="design-title">Monument signs. Nothing else.</h1>
+    <div class="site-scene" data-site>{{@site}}</div>
+    <div class="ground">
+    <div class="wrap design-grid">
       <div class="design-stage" data-stage>
         <div class="sign-drawing" data-sign>{{@hero}}</div>
         <div class="name-row">
@@ -38,8 +40,9 @@
         </div>
       </div>
       <p class="visually-hidden" aria-live="polite" data-live></p>
-    </section>
-  </div>
+    </div>
+    </div>
+  </section>
 
   <section class="part" id="sizes" aria-labelledby="sizes-title">
     <div class="wrap">

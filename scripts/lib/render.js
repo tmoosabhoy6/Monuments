@@ -5,7 +5,7 @@ import { LINE_LIMIT, PAINT_CODE_LIMIT } from '../../src/js/builder/state.js';
 
 export const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-export const hero = (state, config) => heroSvg(state, config, { intro: true });
+export const hero = (state, config) => heroSvg(state, config);
 
 export function lineupSvg(config, defaults) {
   return lineup(config, defaults, { label: `The ${config.pricing.sizes.length} standard sizes drawn side by side at the same scale, beside a six-foot pole.` });

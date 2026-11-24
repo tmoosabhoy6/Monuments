@@ -153,6 +153,22 @@ Full output of the last run: `design/review/check-results.txt` (`./scripts/run-a
   still mentions reserving from the builder; it is SPEC copy and returns to being true when
   deposits are switched on.
 
+## Redesign (owner, 2026-11-24): "looks lifeless and dull; absolutely stunning is what I need"
+
+Overrides SPEC §5's settled look; the owner's hard constraints still hold (one accent, no
+gradients, no stock imagery, 60fps). Boldness spent in one place, the opening view:
+- The hero is a full-width elevation of the sign standing at a planted entrance (trees, shrubs,
+  a distant hedge, all in neutrals and a secondary line weight, so the painted sign is the only
+  colour), cut through the ground to show its footing. Lede, button, "Put your name on it" and
+  the price sit underground, on the dark earth band. The builder keeps its paper working layout.
+- Larger type scale; giant green stage numerals on How it works; new drawings for stage 2 (an
+  approval drawing with title block) and stage 5 (on posts and on a base, cut to show what goes
+  below ground); three drawings on More from our shop; the lineup stands on the same cut ground;
+  the footer is dark ground.
+- New words inside drawings only: "Approval drawing", "Approved", "Date", "1204".
+- Checks after the redesign: 32/32 unit, 14/14 browser, rules, size, copy, scroll (100% of frames
+  on time, desktop and throttled phone), accessibility audit (contrast on the dark ground included).
+
 ## Skills used (SPEC §13)
 
 - frontend-design (Anthropic): used for the build; its planning step skipped because SPEC §5–6

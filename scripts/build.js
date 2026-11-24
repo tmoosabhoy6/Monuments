@@ -9,7 +9,7 @@ import { dirname, join, relative, posix, basename, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { resolve as resolveConfig, tokensFrom, fillTokens } from '../src/js/builder/config.js';
 import { defaults as defaultState } from '../src/js/builder/state.js';
-import { anatomy, option, sizeWords } from '../src/js/builder/draw.js';
+import { anatomy, option, sizeWords, site as siteScene, describe, approvalSheet, installSection, shopPiece } from '../src/js/builder/draw.js';
 import { quote, money } from '../src/js/builder/pricing.js';
 import * as R from './lib/render.js';
 
@@ -177,6 +177,12 @@ const SLOTS = {
   portal_link_inline: () => (portalUrl ? `<a href="${R.esc(portalUrl)}">See your orders and payments</a>` : ''),
   form_extras: () => R.formExtras(tokens),
   hero: () => R.hero(state0, config),
+  site: () => siteScene(state0, config, { intro: true, label: describe(state0, config) }),
+  approval: () => approvalSheet(config, state0, config.business_name),
+  install: () => installSection(config, state0),
+  shop_panel: () => shopPiece('panel', config, state0),
+  shop_mailbox: () => shopPiece('mailbox', config, state0),
+  shop_letters: () => shopPiece('letters', config, state0),
   hero_total: () => (q0.priced ? money(q0.total) : messages.unpriced),
   builder: () => R.builder(config, state0),
   lineup: () => R.lineupSvg(config, state0),
