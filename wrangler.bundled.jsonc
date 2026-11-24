@@ -1,0 +1,37 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Deploy variant for environments where the static-asset upload cannot be used (see
+  // scripts/bundle-site.js). Same Worker name, bindings and vars as wrangler.jsonc; the Worker
+  // serves the built pages itself. Deploy with: npm run deploy:bundled
+  "name": "monument-signs",
+  "main": "worker/site.js",
+  "compatibility_date": "2026-11-23",
+  "observability": { "enabled": true },
+  
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "monument-signs",
+      "database_id": "5aa201f1-f697-4846-80c1-4ce98f007a98",
+      "migrations_dir": "worker/migrations"
+    }
+  ],
+  // R2 is not yet enabled on this Cloudflare account (it needs a one-time acceptance in the
+  // dashboard). Until then uploads are switched off and requests are sent without their files.
+  // To switch them on: enable R2, run `npx wrangler r2 bucket create monument-signs-uploads`,
+  // uncomment the line below and deploy again.
+  // "r2_buckets": [{ "binding": "UPLOADS", "bucket_name": "monument-signs-uploads" }],
+  // Rate limits for the two endpoints the spec marks "rate-limited" (designs/email, invoices/find).
+  // Period must be 10 or 60 seconds. namespace_id is any integer unique within the account.
+  "ratelimits": [
+    { "name": "RATE_LIMITER", "namespace_id": "1001", "simple": { "limit": 10, "period": 60 } }
+  ],
+  // Email: add a send_email binding named EMAIL once the sending domain is onboarded to
+  // Cloudflare Email Service, or set the RESEND_API_KEY secret instead. See README.
+  // "send_email": [{ "name": "EMAIL" }],
+  "vars": {
+    "SITE_URL": "https://monument-signs.tmoosabhoy6.workers.dev",
+    "NOTIFY_EMAIL": "",
+    "FROM_EMAIL": ""
+  }
+}

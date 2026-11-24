@@ -8,6 +8,8 @@
     "build": "node scripts/build.js",
     "build:production": "node scripts/check-launch.js && node scripts/build.js --production",
     "dev": "node scripts/build.js && wrangler dev",
+    "deploy": "node scripts/build.js && wrangler deploy",
+    "deploy:bundled": "node scripts/build.js && node scripts/bundle-site.js && wrangler deploy -c wrangler.bundled.jsonc",
     "test": "node --test \"tests/unit/*.test.js\"",
     "test:browser": "node scripts/build.js && node --test --test-concurrency=1 \"tests/browser/*.test.js\"",
     "check:rules": "node scripts/check-rules.js",

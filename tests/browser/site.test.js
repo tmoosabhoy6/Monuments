@@ -415,3 +415,24 @@ test('footer policy links open their disclosure on the how-it-works page', async
   assert.equal(await more.page.locator('[name="need"][value="more"]').isChecked(), true);
   await more.context.close();
 });
+
+test('with uploads switched off, a request is still sent and says which file did not upload', async () => {
+  const sent = [];
+  const noUploads = await start(apiStub({
+    'POST /api/uploads/start': () => [503, { error: 'not_configured' }],
+    'POST /api/requests': (b) => { sent.push(b); return [200, { reference: 'MS-7K4Q2P' }]; },
+  }));
+  const { context, page } = await open(noUploads.browser, noUploads.server.url + '/how-it-works/');
+  await page.fill('#q-name', 'Pat Lee'); await page.fill('#q-email', 'pat@example.com');
+  await page.fill('#q-details', 'Two entrance signs.'); await page.fill('#q-zip', '30301');
+  await page.setInputFiles('#q-files', { name: 'logo.png', mimeType: 'image/png', buffer: Buffer.from([137, 80, 78, 71]) });
+  await page.click('form[data-form="quote"] button[type="submit"]');
+  const result = page.locator('#quote [data-form-result]');
+  await result.waitFor();
+  assert.equal(await result.locator('p').first().textContent(), 'Quote request sent. We will reply to pat@example.com within one business day. Your reference is MS-7K4Q2P.');
+  assert.equal(await result.locator('p').nth(1).textContent(), 'Your request was sent, but logo.png did not upload. Reply to our confirmation email with the file attached.');
+  assert.equal(sent[0].turnstile, 'test-token', 'authorized by Turnstile instead of an upload token');
+  assert.deepEqual(sent[0].files, []);
+  await context.close();
+  await noUploads.close();
+});

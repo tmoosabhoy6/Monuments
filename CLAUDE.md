@@ -33,7 +33,9 @@ no copy that is not in SPEC §7. Unknown facts are config values in `content/sit
 - `npm run screenshots`: review screenshots into `design/review/`
 - `npm run glyphs`: re-measure the glyph-width table (only if a font file changes)
 - `npm run og`: regenerate the Open Graph image
-- `npx wrangler dev`: run the site and the Worker locally. Never deploy without the owner.
+- `npx wrangler dev`: run the site and the Worker locally.
+- `npm run deploy` (static assets, intended) or `npm run deploy:bundled` (Worker serves pages; see README).
+  Deploy only on the owner's instruction. A draft is live at https://monument-signs.tmoosabhoy6.workers.dev.
 
 ## Layout
 

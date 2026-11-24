@@ -15,11 +15,15 @@
     {
       "binding": "DB",
       "database_name": "monument-signs",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "5aa201f1-f697-4846-80c1-4ce98f007a98",
       "migrations_dir": "worker/migrations"
     }
   ],
-  "r2_buckets": [{ "binding": "UPLOADS", "bucket_name": "monument-signs-uploads" }],
+  // R2 is not yet enabled on this Cloudflare account (it needs a one-time acceptance in the
+  // dashboard). Until then uploads are switched off and requests are sent without their files.
+  // To switch them on: enable R2, run `npx wrangler r2 bucket create monument-signs-uploads`,
+  // uncomment the line below and deploy again.
+  // "r2_buckets": [{ "binding": "UPLOADS", "bucket_name": "monument-signs-uploads" }],
   // Rate limits for the two endpoints the spec marks "rate-limited" (designs/email, invoices/find).
   // Period must be 10 or 60 seconds. namespace_id is any integer unique within the account.
   "ratelimits": [
@@ -29,7 +33,7 @@
   // Cloudflare Email Service, or set the RESEND_API_KEY secret instead. See README.
   // "send_email": [{ "name": "EMAIL" }],
   "vars": {
-    "SITE_URL": "",
+    "SITE_URL": "https://monument-signs.tmoosabhoy6.workers.dev",
     "NOTIFY_EMAIL": "",
     "FROM_EMAIL": ""
   }

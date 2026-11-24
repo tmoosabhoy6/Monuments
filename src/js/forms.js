@@ -253,16 +253,18 @@ export function initForms(store, site) {
     const files = [...extraFiles, ...$$('input[type="file"]', form).flatMap((i) => [...(i.files || [])])];
     const turnstile = await turnstileToken(form, sitekey);
     let up = null;
+    let unsent = [];
     if (files.length) {
       up = await upload(files, turnstile);
-      if (up.status === 503) return { status: 503 };
-      if (!up.token) return { status: up.status || 500 };
+      // uploads switched off (or refused): send the request without its files and say which
+      // did not upload, rather than losing what the visitor wrote
+      if (!up.token) { unsent = files.map((f) => f.name); up = null; }
     }
     const body = { type, ...fields, files: up ? up.keys : [] };
     if (up) body.uploadToken = up.token; else body.turnstile = turnstile;
     const res = await api('/api/requests', body);
     spendToken(form);
-    return { ...res, failed: up ? up.failed : [] };
+    return { ...res, failed: up ? up.failed : unsent };
   };
   const fileNotes = (failed) => failed.map((f) => `<p>${esc(fmt(M.fileFailed, { filename: f }))}</p>`).join('');
 

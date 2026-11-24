@@ -133,16 +133,29 @@ Until the keys exist, every endpoint answers `503 not_configured` and the site s
 
 ## Deploy
 
-Not deployed. When everything below is done:
+**Current deployment (draft):** https://monument-signs.tmoosabhoy6.workers.dev, deployed
+2026-11-24 from the draft build (sample prices, "Draft site" notice, `noindex`). In place on
+Cloudflare: the Worker `monument-signs`, the D1 database `monument-signs` with its schema, a
+Turnstile widget for that hostname (and localhost), the rate limiter, and the secrets
+`TURNSTILE_SECRET_KEY` and `SIGNING_SECRET`. Not yet in place: R2 (not enabled on the account,
+so file uploads are off and requests are sent without their files), Stripe, and email.
 
-```sh
-npm run build:production      # must pass the launch gate
-npx wrangler deploy
-```
+Two ways to deploy:
 
-For a preview first: `npx wrangler preview` (open beta in Wrangler 4.167), which creates a
-Preview deployment with its own URL without changing production. Preview secrets are set with
-`npx wrangler preview secret put …`.
+- **`npm run deploy`** (the intended setup, `wrangler.jsonc`): Cloudflare serves the pages as
+  static assets and the Worker runs only for `/api/*`. Use this from an ordinary machine.
+- **`npm run deploy:bundled`** (`wrangler.bundled.jsonc`): the Worker serves the built pages
+  itself, with the same headers. It exists because the draft was deployed from a cloud session
+  whose proxy replaces the short-lived token Cloudflare's asset upload uses. It behaves the same,
+  but every page view counts as a Worker request. The next `npm run deploy` from an ordinary
+  machine replaces it with the intended setup; nothing else changes.
+
+To switch uploads on: enable R2 in the Cloudflare dashboard, run
+`npx wrangler r2 bucket create monument-signs-uploads`, uncomment the `r2_buckets` line in both
+wrangler files, and deploy again.
+
+For the launch itself, `npm run build:production` must pass first (the launch gate), then deploy.
+For a preview without touching production: `npx wrangler preview` (open beta in Wrangler 4.167).
 
 ## Launch checklist
 

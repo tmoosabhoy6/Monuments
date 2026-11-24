@@ -1,7 +1,7 @@
 {
   "draft": true,
 
-  "site_url": { "value": "https://example.com", "confirmed": false },
+  "site_url": { "value": "https://monument-signs.tmoosabhoy6.workers.dev", "confirmed": false },
   "business_name": { "value": "Business Name", "confirmed": false },
   "legal_name": { "value": "Business Name", "confirmed": false },
   "phone": { "value": "(555) 010-0199", "confirmed": false },
@@ -19,7 +19,7 @@
   "privacy_text": { "value": "We use the details you give us only to quote, draw, build, deliver and install your sign, and to take payment. We do not sell them. Payments are handled by Stripe; we never see your card number.", "confirmed": false },
 
   "stripe_portal_url": { "value": "", "confirmed": false },
-  "turnstile_site_key": { "value": "1x00000000000000000000AA", "confirmed": false },
+  "turnstile_site_key": { "value": "0x4AAAAAAGQB5zK1fPEN2ZBo", "confirmed": false },
 
   "owner_facts": {
     "installation_priced_nationwide_or_by_location": { "value": "One price per size", "confirmed": false },

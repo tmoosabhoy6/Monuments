@@ -125,6 +125,27 @@ Full output of the last run: `design/review/check-results.txt` (`./scripts/run-a
 - The text alternative of the drawing names a double-sided sign. An elevation cannot show the
   second face, so "double-sided" changes the drawing's description and the price, not its lines.
 
+## Deployment (2026-11-24, on the owner's instruction)
+
+- Live draft at https://monument-signs.tmoosabhoy6.workers.dev (Worker version
+  3b48b20d-8839-452d-910e-fbac363bf371). Created on the account: D1 `monument-signs`
+  (5aa201f1-f697-4846-80c1-4ce98f007a98, schema applied), Turnstile widget `0x4AAAAAAGQB5zK1fPEN2ZBo`
+  (hostname, localhost, 127.0.0.1), secrets `TURNSTILE_SECRET_KEY` and `SIGNING_SECRET`.
+- Deployed with `wrangler.bundled.jsonc` (the Worker serves the pages), because the static-asset
+  upload authenticates with a short-lived token that the session's credential proxy replaces;
+  both wrangler and the Cloudflare API connector got 401 on `/workers/assets/upload`. Every other
+  call worked. `npm run deploy` from an ordinary machine moves it to the intended static-asset setup.
+- R2 is not enabled on the account (API error 10042), so the `r2_buckets` binding is commented
+  out. The quote and drawing forms now send the request without its files when uploads are
+  unavailable and say which file did not upload (SPEC §9.1's message), instead of failing whole.
+- `site_url` is the workers.dev address and `turnstile_site_key` the real widget key, both still
+  marked unconfirmed until the owner's domain is decided.
+- Live checks: every page 200, `/how-it-works` 307 to the slash, unknown paths 404, CSP and the
+  other headers present, `/assets/*` immutable, draft notice and `noindex` present, unconfigured
+  endpoints answer 503, `/api/requests` without a Turnstile token answers 403. A headless browser's
+  quote request was refused by Turnstile (managed mode), which is the intended protection; the
+  stored secret was confirmed valid against Siteverify.
+
 ## Skills used (SPEC §13)
 
 - frontend-design (Anthropic): used for the build; its planning step skipped because SPEC §5–6
