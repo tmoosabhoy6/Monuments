@@ -8,7 +8,7 @@ The record of state for the build. Pick up from this file and the git history.
 - [x] 2. Static pages: tokens, base styles, every section with final copy, build script
 - [x] 3. Drawing: glyph-width table, draw.js, pre-rendered hero, size lineup, stage 4 drawings
 - [x] 4. Builder: state, pricing, interface, title block, sharing, print sheet, tests
-- [ ] 5. Forms and Worker: endpoints, D1, R2, email, Turnstile, Stripe Checkout, webhook, invoices
+- [x] 5. Forms and Worker: endpoints, D1, R2, email, Turnstile, Stripe Checkout, webhook, invoices
 - [ ] 6. Critique and polish; accessibility; performance; search and sharing assets
 - [ ] 7. All checks, README, report
 
@@ -83,6 +83,17 @@ The record of state for the build. Pick up from this file and the git history.
 - The Turnstile site key lives in the site config (`turnstile_site_key`, Cloudflare's always-pass
   test key while in draft), because the static pages need it at build time. It is therefore not a
   Worker var.
+- `orders` has a `phone` column in addition to the columns SPEC §9.5 lists, because the reserve
+  dialog asks for a phone number and it should not be thrown away.
+- Checkout's `cancel_url` carries the design (`?cancelled=1&d=…#design`) so the design is intact
+  even in a browser that blocks storage.
+- A filled honeypot gets an ordinary-looking reference back and nothing is stored or sent.
+- Uploads are stored as `uploads/{request id}/{n}-{uuid}-{sanitized name}`; the request id is
+  minted with the upload token, so `/api/requests` only accepts keys under its own id.
+- `wrangler.jsonc` carries a placeholder `database_id`; the owner replaces it with the id from
+  `wrangler d1 create monument-signs` (README). Local development does not need a real one.
+- `.dev.vars` holds Cloudflare's published always-pass Turnstile test secret and a local signing
+  secret; `.dev.vars.example` is the committed template.
 
 ## Declined suggestions
 
