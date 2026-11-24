@@ -296,12 +296,14 @@ export function describe(state, config) {
   const g = geometry(state, config);
   const opt = (group, id) => (config.options?.[group] || []).find((o) => o.id === id) || {};
   const lines = (state.lines || []).map((l) => String(l).trim()).filter(Boolean);
-  const reading = lines.length ? `A monument sign reading ${lines.join(' ')}.` : 'A monument sign with a blank face.';
+  const words = lines.join(' ');
+  const reading = lines.length ? `A monument sign reading ${words}${/[.?]$/.test(words) ? '' : '.'}` : 'A monument sign with a blank face.';
   const parts = [`${ftIn(g.right - g.left, { long: true })} wide`, opt('shape', state.shape).words];
   const mount = state.base === 'posts' ? 'on posts' : opt('base', state.base).words;
   if (mount) parts.push(mount);
   if (g.pillars) parts.push(opt('pillars', state.pillars).words);
   if (state.lettering !== 'routed') parts.push(opt('lettering', state.lettering).words);
+  if (state.sides === 2) parts.push('double-sided');
   return `${reading} ${parts.filter(Boolean).join(', ')}.`.replace(/ /g, ' ');
 }
 

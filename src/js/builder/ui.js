@@ -195,7 +195,7 @@ export function initBuilder(store, site, hooks) {
     setText(nameInput, isHeadline ? '' : s.lines.filter(Boolean).join(' '));
   };
 
-  // --- input → state ---
+  // --- input -> state ---
   const limitNote = (input, note) => { if (note) note.hidden = input.value.length < LINE_LIMIT; };
   nameInput.addEventListener('input', () => {
     const lines = splitName(nameInput.value);

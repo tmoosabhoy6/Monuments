@@ -18,7 +18,7 @@ export const CHECKS = {
   number: (v) => str(v).length >= 1 && str(v).length <= LIMITS.number,
 };
 
-// Which fields each form requires; the message keys match messages.json → errors.
+// Which fields each form requires; the message keys match messages.json -> errors.
 export const REQUIRED = {
   quote: ['name', 'email', 'details', 'zip'],
   drawing: ['name', 'email', 'zip'],

@@ -1,7 +1,7 @@
 // Pricing (SPEC §8.3). Pure. The browser, the build script and the Worker all use this module,
 // so the price a visitor sees is the price the server charges.
 //
-// quote(state, config) → { lines: [{ id, label, amount }], total, deposit, priced }
+// quote(state, config) -> { lines: [{ id, label, amount }], total, deposit, priced }
 // All amounts are whole US dollars. A null amount means "not priced": the total becomes null.
 
 const labelFor = (config, group, id) => ((config.options?.[group] || []).find((o) => o.id === id) || {}).line || id;

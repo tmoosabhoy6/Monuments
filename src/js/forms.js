@@ -1,7 +1,7 @@
 // Forms and dialogs: validation, Turnstile (loaded on first use), uploads and the API calls.
 // Every failure says what happened and what to do next; nothing claims a success the
 // server has not confirmed (SPEC §9.6).
-import { invalidFields, MAX_FILES, MAX_FILE_BYTES } from './rules.js';
+import { invalidFields, CHECKS, REQUIRED, MAX_FILES, MAX_FILE_BYTES } from './rules.js';
 import { money } from './builder/pricing.js';
 import { fmt } from './builder/ui.js';
 
@@ -40,7 +40,7 @@ function loadTurnstile() {
   });
   return turnstileLoading;
 }
-const widgets = new WeakMap();   // form → { id, token, waiters }
+const widgets = new WeakMap();   // form -> { id, token, waiters }
 async function prepareTurnstile(form, sitekey) {
   if (widgets.has(form) || !sitekey) return;
   const slot = $('[data-turnstile]', form);
@@ -182,7 +182,13 @@ export function initForms(store, site) {
     return d;
   };
   $$('dialog.dialog').forEach((d) => {
-    d.addEventListener('close', () => { const o = openers.get(d); if (o && o.focus) o.focus(); });
+    d.addEventListener('close', () => {
+      const o = openers.get(d);
+      // if the opener has since been hidden (deposits switched off), go to the action that replaced it
+      const usable = (el) => el && el.isConnected && !el.closest('[hidden]') && el.getClientRects().length > 0;
+      const next = usable(o) ? o : [...document.querySelectorAll('[data-request-drawing]')].find(usable);
+      if (next) next.focus();
+    });
     $$('[data-close-dialog]', d).forEach((b) => b.addEventListener('click', () => d.close()));
     d.addEventListener('click', (e) => { if (e.target === d) d.close(); });
   });
@@ -193,11 +199,19 @@ export function initForms(store, site) {
     if (form) prepareTurnstile(form, sitekey);
   });
 
-  // blur validation, once a form has been submitted
-  document.addEventListener('focusout', (e) => {
-    const form = e.target.closest && e.target.closest('form[data-form]');
-    if (form && form.dataset.tried) validate(form, form.dataset.form, M, { summary: false });
-  });
+  // After the first submit: a field is checked when it loses focus, and its error clears as soon
+  // as it is put right while typing. Only that field changes, so nothing above the submit button
+  // moves at the moment it is pressed.
+  const fieldCheck = (e, { clearOnly }) => {
+    const input = e.target;
+    const form = input.closest && input.closest('form[data-form]');
+    if (!form || !form.dataset.tried || !input.name || !(REQUIRED[form.dataset.form] || []).includes(input.name)) return;
+    const good = CHECKS[input.name](input.value);
+    if (good) setError(form, input.name, '');
+    else if (!clearOnly) setError(form, input.name, M.errors[input.name]);
+  };
+  document.addEventListener('focusout', (e) => fieldCheck(e, { clearOnly: false }));
+  document.addEventListener('input', (e) => fieldCheck(e, { clearOnly: true }));
 
   // reveal fields tied to a choice ("By a date")
   document.addEventListener('change', (e) => {
@@ -270,7 +284,7 @@ export function initForms(store, site) {
     else show(form, `<p>${esc(failure(res.status))}</p>`);
   });
 
-  // reserve with deposit → Stripe Checkout
+  // reserve with deposit -> Stripe Checkout
   handle('reserve', async (form, d) => {
     const turnstile = await turnstileToken(form, sitekey);
     const res = await api('/api/checkout', { design: store.state, name: d.name, email: d.email, phone: d.phone, zip: d.zip, turnstile });
