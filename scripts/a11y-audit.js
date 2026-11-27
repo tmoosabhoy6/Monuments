@@ -7,7 +7,8 @@ import { serve } from './lib/serve.js';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const s = await serve(root + 'dist');
 const b = await chromium.launch();
-const PAGES = ['/', '/how-it-works/', '/questions/', '/more-from-our-shop/'];
+const PAGES = ['/', '/design/', '/monument-signs/', '/sizes-and-prices/', '/gallery/', '/industries/', '/about/', '/request-a-quote/',
+  '/how-it-works/', '/questions/', '/more-from-our-shop/'];
 const report = { targets: [], contrast: new Map(), reflow: [], headings: [], dialogs: [] };
 
 for (const path of PAGES) {
@@ -15,7 +16,7 @@ for (const path of PAGES) {
   const phone = await b.newContext({ ...devices['Pixel 7'] });
   const p = await phone.newPage();
   await p.goto(s.url + path);
-  if (path === '/') { await p.fill('#sign-name', 'Alder Creek'); await p.click('.hero-intro [data-open-builder]'); }
+  if (path === '/design/') await p.fill('#b-line1', 'Alder Creek');
   const small = await p.evaluate(() => [...document.querySelectorAll('a[href], button, input, summary, select, textarea, label.opt, label.choice')]
     .filter((el) => el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden' && !el.closest('dialog:not([open]), .hp, [hidden]'))
     .map((el) => {
@@ -31,7 +32,7 @@ for (const path of PAGES) {
   const desk = await b.newContext({ viewport: { width: 1440, height: 900 } });
   const d = await desk.newPage();
   await d.goto(s.url + path);
-  if (path === '/') { await d.fill('#sign-name', 'Alder Creek'); await d.click('.hero-intro [data-open-builder]'); }
+  if (path === '/design/') await d.fill('#sign-name', 'Alder Creek');
   const pairs = await d.evaluate(() => {
     const rgb = (c) => (c.match(/[\d.]+/g) || []).map(Number);
     const lum = ([r, g, b]) => [r, g, b].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }).reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0);
@@ -69,7 +70,7 @@ for (const path of PAGES) {
 // dialogs: role, name, modal, focus trap via showModal
 const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
 const page = await ctx.newPage();
-await page.goto(s.url + '/');
+await page.goto(s.url + '/design/');
 for (const id of ['dialog-reserve', 'dialog-drawing', 'dialog-share', 'dialog-invoice']) {
   await page.evaluate((i) => document.getElementById(i).showModal(), id);
   const snap = await page.locator('#' + id).ariaSnapshot();

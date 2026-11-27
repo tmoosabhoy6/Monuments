@@ -1,5 +1,5 @@
-// Screenshots of every page and section at 1440×900, 834×1112 and 390×844, in both hero
-// states, saved to design/review/ (SPEC §12, visual review).
+// Screenshots of every page at 1440×900, 834×1112 and 390×844, with first views of the home
+// page and the designer, saved to design/review/ (SPEC §12, visual review).
 //
 //   node scripts/screenshots.js            all pages, both hero states
 //   node scripts/screenshots.js --quick    home page only, intro state
@@ -19,7 +19,9 @@ const SIZES = [
   { name: 'tablet', width: 834, height: 1112 },
   { name: 'phone', width: 390, height: 844 },
 ];
-const PAGES = quick ? [['home', '/']] : [['home', '/'], ['how', '/how-it-works/'], ['questions', '/questions/'], ['more', '/more-from-our-shop/']];
+const PAGES = quick ? [['home', '/']] : [['home', '/'], ['design', '/design/'], ['signs', '/monument-signs/'], ['sizes', '/sizes-and-prices/'],
+  ['gallery', '/gallery/'], ['industries', '/industries/'], ['about', '/about/'], ['quote', '/request-a-quote/'],
+  ['how', '/how-it-works/'], ['questions', '/questions/'], ['more', '/more-from-our-shop/']];
 
 const shots = [];
 for (const size of SIZES) {
@@ -31,22 +33,18 @@ for (const size of SIZES) {
     const f = `${out}${key}-${size.name}.png`;
     await page.screenshot({ path: f, fullPage: true });
     shots.push(f);
-    if (key === 'home') {
-      await page.screenshot({ path: `${out}home-${size.name}-first-view.png` });
-      if (!quick) {
-        // the builder state, with a name typed
-        await page.fill('#sign-name', 'Alder Creek Homeowners');
-        await page.click('.hero-intro [data-open-builder]');
-        await page.waitForTimeout(300);
-        await page.evaluate(() => window.scrollTo(0, 0));
-        await page.screenshot({ path: `${out}home-${size.name}-builder-first-view.png` });
-        await page.screenshot({ path: `${out}home-${size.name}-builder.png`, fullPage: true });
-        // the title block, scrolled down the page
-        await page.evaluate(() => document.querySelector('#sizes').scrollIntoView());
-        await page.waitForTimeout(300);
-        await page.screenshot({ path: `${out}home-${size.name}-title-block.png` });
-        await page.evaluate(() => localStorage.clear());
-      }
+    if (key === 'home' || key === 'design') await page.screenshot({ path: `${out}${key}-${size.name}-first-view.png` });
+    if (key === 'design' && !quick) {
+      // a named sign, and the title block once the price summary is off screen
+      await page.fill('#b-line1', 'Alder Creek Homeowners');
+      await page.waitForTimeout(300);
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.screenshot({ path: `${out}design-${size.name}-named-first-view.png` });
+      await page.goto(server.url + '/', { waitUntil: 'networkidle' });
+      await page.evaluate(() => document.querySelector('#sizes').scrollIntoView());
+      await page.waitForTimeout(300);
+      await page.screenshot({ path: `${out}home-${size.name}-title-block.png` });
+      await page.evaluate(() => localStorage.clear());
     }
   }
   await ctx.close();

@@ -1,35 +1,55 @@
+<section class="cta-strip" aria-label="Get started">
+  <div class="wrap cta-strip-inner">
+    <p class="cta-strip-text">Ready to see your name on a monument sign?</p>
+    <div class="cta-strip-actions">
+      <a class="btn btn-dark" href="/design/">Design Your Sign</a>
+      <a class="btn btn-outline-dark" href="{{phone_href}}">{{> icon-phone}} {{phone}}</a>
+    </div>
+  </div>
+</section>
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-cols">
-      <div>
-        <p class="footer-name" translate="no">{{business_name}}</p>
-        <p>Monument signs, built to order and installed anywhere in the United States.</p>
+      <div class="footer-brand">
+        <a class="brand brand-light" href="/" aria-label="{{business_name}} home">{{> logo}}</a>
+        <p>Monument signs, built to order and installed anywhere in the United States. Routed HDU signs in your wording and colors, with the price shown before you call.</p>
+        <ul class="footer-contact">
+          <li><a href="{{phone_href}}">{{> icon-phone}}<span>{{phone}}</span></a></li>
+          <li><a href="mailto:{{email}}">{{> icon-mail}}<span>{{email}}</span></a></li>
+          {{@contact_extra}}
+        </ul>
       </div>
-      <ul class="footer-contact">
-        <li><a href="{{phone_href}}">{{phone}}</a></li>
-        {{@contact_extra}}
-      </ul>
-      <nav class="footer-links" aria-label="Footer">
+      <nav class="footer-col" aria-label="Monument signs">
+        <p class="footer-head">Monument Signs</p>
         <ul>
-          <li><a href="/#design">Design your sign</a></li>
-          <li><a href="/#sizes">Sizes and prices</a></li>
-          <li><a href="/how-it-works/">How it works</a></li>
-          <li><a href="/questions/">Questions</a></li>
+          <li><a href="/monument-signs/">Sign styles</a></li>
+          <li><a href="/sizes-and-prices/">Sizes and prices</a></li>
+          <li><a href="/design/">Design your sign</a></li>
+          <li><a href="/gallery/">Gallery</a></li>
           <li><a href="/more-from-our-shop/">More from our shop</a></li>
         </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Company">
+        <p class="footer-head">Company</p>
         <ul>
-          <li class="label">Policies</li>
-          <li class="footer-policies">
-            <a href="/how-it-works/#policy-deposit">Deposit</a>
-            <a href="/how-it-works/#policy-approval">Approval</a>
-            <a href="/how-it-works/#policy-cancellation">Cancellation</a>
-            <a href="/how-it-works/#policy-warranty">Warranty</a>
-            <a href="/how-it-works/#policy-installation">Installation</a>
-            <a href="/how-it-works/#policy-delivery">Delivery</a>
-          </li>
+          <li><a href="/about/">About us</a></li>
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/industries/">Industries</a></li>
+          <li><a href="/questions/">Questions</a></li>
+          <li><a href="/request-a-quote/">Request a quote</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Policies">
+        <p class="footer-head">Policies</p>
+        <ul>
+          <li><a href="/how-it-works/#policy-deposit">Deposit</a></li>
+          <li><a href="/how-it-works/#policy-approval">Approval</a></li>
+          <li><a href="/how-it-works/#policy-cancellation">Cancellation</a></li>
+          <li><a href="/how-it-works/#policy-warranty">Warranty</a></li>
+          <li><a href="/how-it-works/#policy-installation">Installation</a></li>
+          <li><a href="/how-it-works/#policy-delivery">Delivery</a></li>
           <li data-feature="invoice_payment"><a href="/how-it-works/#pay" data-pay-invoice>Pay an invoice</a></li>
           {{@portal_link}}
-          <li><a href="#privacy" data-open-privacy>Privacy</a></li>
         </ul>
       </nav>
     </div>
@@ -37,6 +57,14 @@
       <summary>Privacy</summary>
       <div class="body"><p>{{privacy_text}}</p></div>
     </details>
-    <p class="footer-legal">© {{year}} {{legal_name}}</p>
+    <div class="footer-legal">
+      <p>© {{year}} {{legal_name}}. All rights reserved.</p>
+      <p><a href="#privacy" data-open-privacy>Privacy</a></p>
+    </div>
   </div>
 </footer>
+<div class="float-contact" aria-label="Contact us">
+  <a href="{{phone_href}}" class="float-btn" aria-label="Call {{phone}}">{{> icon-phone}}</a>
+  <a href="mailto:{{email}}" class="float-btn" aria-label="Email {{email}}">{{> icon-mail}}</a>
+  <a href="/request-a-quote/" class="float-btn float-btn-gold" aria-label="Request a quote">{{> icon-drawing}}</a>
+</div>

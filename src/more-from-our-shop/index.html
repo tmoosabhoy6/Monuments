@@ -6,16 +6,25 @@
 <body data-page="more">
 {{> header}}
 <main id="main">
-  <section class="part" id="more" aria-labelledby="more-title">
+  <section class="page-banner page-banner-slim">
+    {{@squares}}
+    <div class="wrap banner-inner">
+      <div class="banner-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">More From Our Shop</span></nav>
+        <h1 class="display">More from our shop</h1>
+        <p>The same material and the same routers make a few other things.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="more" aria-labelledby="more-title">
     <div class="wrap">
-      <h1 class="h2 page-heading" id="more-title">More from our shop.</h1>
-      <p class="page-intro">The same material and the same routers make a few other things.</p>
+      <h2 class="visually-hidden" id="more-title">More from our shop</h2>
       <div class="more-list">
         <div>{{@shop_panel}}<h2>HDU sign panels.</h2><p>Routed panels on their own, without a monument structure.</p></div>
         <div>{{@shop_mailbox}}<h2>HDU mailboxes.</h2><p>Routed and painted to order.</p></div>
         <div>{{@shop_letters}}<h2>Custom foam pieces.</h2><p>Logos, freestanding lettering, freestanding signs and one-off pieces.</p></div>
       </div>
-      <p class="page-intro"><a href="/how-it-works/?need=more#quote">Ask about these</a></p>
+      <p class="page-intro"><a class="btn btn-green" href="/request-a-quote/?need=more#quote">Ask About These</a></p>
     </div>
   </section>
 </main>

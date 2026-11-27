@@ -43,8 +43,8 @@ export async function create(request, env) {
     client_reference_id: id,
     metadata: { order_id: id, reference },
     payment_intent_data: { metadata: { order_id: id, reference } },
-    success_url: `${base}/?reserved={CHECKOUT_SESSION_ID}#design`,
-    cancel_url: `${base}/?cancelled=1&d=${encode(v.design)}#design`,
+    success_url: `${base}/design/?reserved={CHECKOUT_SESSION_ID}#design`,
+    cancel_url: `${base}/design/?cancelled=1&d=${encode(v.design)}#design`,
   }, { idempotencyKey: id });
 
   await env.DB.prepare('UPDATE orders SET stripe_session_id = ?1 WHERE id = ?2').bind(session.id, id).run();

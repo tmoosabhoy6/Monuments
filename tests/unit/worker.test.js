@@ -191,7 +191,7 @@ test('files: a signed link serves the file; a bad or expired one is 404', async 
   const ok = await call(env, 'GET', link.replace('https://example.com', ''));
   assert.equal(ok.status, 200);
   assert.equal(ok.headers.get('content-type'), 'image/png');
-  const tampered = await call(env, 'GET', link.replace('https://example.com', '').replace(/sig=./, 'sig=Z'));
+  const tampered = await call(env, 'GET', link.replace('https://example.com', '').replace(/sig=(.)/, (m, c) => `sig=${c === 'Z' ? 'Y' : 'Z'}`));   // always a different first character
   assert.equal(tampered.status, 404);
   const old = await signFileLink('https://example.com', 'uploads/r1/0-u-a.png', env.SIGNING_SECRET, Date.now() - 40 * 86400000);
   assert.equal((await call(env, 'GET', old.replace('https://example.com', ''))).status, 404);
@@ -213,7 +213,7 @@ test('checkout: the deposit is computed on the server from option ids; amounts f
   assert.equal(params.get('invoice_creation[enabled]'), 'true');
   assert.equal(params.get('customer_email'), 'pat@example.com');
   assert.match(params.get('line_items[0][price_data][product_data][name]'), /^Deposit for monument sign MS-[A-Z2-9]{6}$/);
-  assert.equal(params.get('success_url'), 'https://example.com/?reserved={CHECKOUT_SESSION_ID}#design');
+  assert.equal(params.get('success_url'), 'https://example.com/design/?reserved={CHECKOUT_SESSION_ID}#design');
   assert.ok(params.get('payment_intent_data[metadata][order_id]'));
   assert.equal(params.get('payment_intent_data[metadata][order_id]'), params.get('metadata[order_id]'));
   assert.equal(call0.init.headers['stripe-version'], '2026-11-18.endive');
@@ -299,7 +299,7 @@ test('designs/email: sends the link to the address given', async () => {
   const r = await call(env, 'POST', '/api/designs/email', { email: 'pat@example.com', design: { ...defaults(config), lines: ['Alder Creek'] }, turnstile: 'good-token' });
   assert.equal(r.status, 200);
   assert.equal(sent[0].subject, 'Your monument sign design');
-  assert.match(sent[0].text, /^Here is the sign you designed: https:\/\/example\.com\/\?d=[A-Za-z0-9_-]+#design\. The link opens this exact sign/);
+  assert.match(sent[0].text, /^Here is the sign you designed: https:\/\/example\.com\/design\/\?d=[A-Za-z0-9_-]+#design\. The link opens this exact sign/);
   assert.equal((await call(env, 'POST', '/api/designs/email', { email: 'x', design: {}, turnstile: 'good-token' })).status, 400);
 });
 

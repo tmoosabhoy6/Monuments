@@ -145,18 +145,19 @@ test('drawing: lettering width comes from the committed glyph table', () => {
   assert.ok(lineWidthEm('Ü') > 0 && lineWidthEm('’') > 0);
 });
 
-test('drawing: the hero pre-rendered in dist/index.html equals draw.js for the default state', async () => {
+test('drawing: the drawings pre-rendered in dist/ equal draw.js for the default state', async () => {
   const out = 'dist-unit-test';
   execFileSync(process.execPath, ['scripts/build.js', '--out', out], { cwd: root, stdio: 'pipe' });
-  const html = await readFile(root + out + '/index.html', 'utf8');
+  const design = await readFile(root + out + '/design/index.html', 'utf8');
+  const home = await readFile(root + out + '/index.html', 'utf8');
   await rm(root + out, { recursive: true, force: true });
   const expected = hero(defaults(config), config);
-  const m = html.match(/<div class="sign-drawing" data-sign>([\s\S]*?)<\/div>\s*<div class="name-row">/);
-  assert.ok(m, 'hero slot found');
+  const m = design.match(/<div class="sign-drawing" data-sign>([\s\S]*?)<\/div>\s*<div class="name-row">/);
+  assert.ok(m, 'designer drawing found');
   assert.equal(m[1], expected);
-  const scene = html.match(/<div class="site-scene" data-site>([\s\S]*?)<\/div>\s*<div class="ground">/);
-  assert.ok(scene, 'entrance scene found');
-  assert.equal(scene[1], site(defaults(config), config, { intro: true, label: describe(defaults(config), config) }));
+  const t = home.match(/<div class="designer-sheet" data-teaser-sign>([\s\S]*?)<\/div>\s*<div class="designer-meta">/);
+  assert.ok(t, 'home teaser drawing found');
+  assert.equal(t[1], expected);
 });
 
 // ---------- config ----------
@@ -180,9 +181,10 @@ test('build: owner photographs and the customer portal link render once supplied
   try {
     execFileSync(process.execPath, ['scripts/build.js', '--config', 'content/test-config.tmp.json', '--out', out], { cwd: root, stdio: 'pipe' });
     const home = await readFile(root + out + '/index.html', 'utf8');
-    assert.match(home, /<section class="part" id="work"[\s\S]*Signs we have built\./);
-    assert.match(home, /<img src="\/og\.png" width="1200" height="630" alt="Entrance sign at Cedar Hollow" loading="lazy" decoding="async">/);
-    assert.match(home, /Cedar Hollow\. 8 ft × 4 ft, stone-look base, pillars\./);
+    const gal = await readFile(root + out + '/gallery/index.html', 'utf8');
+    assert.match(gal, /<img src="\/og\.png" width="1200" height="630" alt="Entrance sign at Cedar Hollow" loading="lazy" decoding="async">/);
+    assert.match(gal, /Cedar Hollow\. 8 ft × 4 ft, stone-look base, pillars\./);
+    assert.doesNotMatch(gal, /Sample renders of our signs/, 'owner photographs replace the samples');
     assert.match(home, /<a href="https:\/\/billing\.stripe\.com\/p\/login\/test_123">See your orders and payments<\/a>/);
     const how = await readFile(root + out + '/how-it-works/index.html', 'utf8');
     assert.match(how, /See your orders and payments/);
@@ -191,7 +193,7 @@ test('build: owner photographs and the customer portal link render once supplied
     await rm(root + 'content/test-config.tmp.json', { force: true });
   }
   const plain = await readFile(root + 'dist/index.html', 'utf8').catch(() => '');
-  if (plain) { assert.ok(!plain.includes('id="work"')); assert.ok(!plain.includes('See your orders and payments')); }
+  if (plain) assert.ok(!plain.includes('See your orders and payments'));
 });
 
 test('build: features switched off in the config are built hidden; --all-features shows them', async () => {
@@ -201,8 +203,8 @@ test('build: features switched off in the config are built hidden; --all-feature
   try {
     execFileSync(process.execPath, ['scripts/build.js', '--config', 'content/test-config2.tmp.json', '--out', 'dist-unit-test-3'], { cwd: root, stdio: 'pipe' });
     execFileSync(process.execPath, ['scripts/build.js', '--config', 'content/test-config2.tmp.json', '--out', 'dist-unit-test-4', '--all-features'], { cwd: root, stdio: 'pipe' });
-    const off = await readFile(root + 'dist-unit-test-3/index.html', 'utf8');
-    const on = await readFile(root + 'dist-unit-test-4/index.html', 'utf8');
+    const off = await readFile(root + 'dist-unit-test-3/design/index.html', 'utf8');
+    const on = await readFile(root + 'dist-unit-test-4/design/index.html', 'utf8');
     for (const f of ['file_uploads', 'email_design', 'invoice_payment']) {
       assert.match(off, new RegExp(`data-feature="${f}" hidden`), `${f} hidden`);
       assert.doesNotMatch(on, new RegExp(`data-feature="${f}" hidden`), `${f} shown`);

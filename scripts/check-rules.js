@@ -7,7 +7,8 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const dir = join(root, process.argv[2] || 'dist');
 const ALLOWED_HOSTS = ['challenges.cloudflare.com', 'static.cloudflareinsights.com'];
-const FONT_OK = new Set(['besley', 'besley fallback', 'libre franklin', 'libre franklin fallback', 'serif', 'sans-serif', 'inherit']);
+// Oswald joined Besley and Libre Franklin when the owner chose the bold uppercase look of the sites they pointed to.
+const FONT_OK = new Set(['oswald', 'oswald fallback', 'arial narrow', 'besley', 'besley fallback', 'libre franklin', 'libre franklin fallback', 'serif', 'sans-serif', 'inherit']);
 const WORDS = ['financing', 'poly-armor', 'foamcore', 'peachtree promise', 'hammer test', 'safeguard-coating', 'royal treatment'];
 
 async function walk(d) {
@@ -38,7 +39,6 @@ for (const file of files) {
   for (const m of text.matchAll(/(^|[;{\s"'])filter\s*:\s*([^;}"']+)/gim)) if (!/^\s*none\s*$/i.test(m[2])) flag(file, 'a filter property', m[0]);
   if (/<filter[\s>]/i.test(text) || /\sfilter="url/i.test(text)) flag(file, 'an SVG <filter>');
   if (/gradient\(/i.test(text)) flag(file, 'a gradient');
-  if (/text-transform\s*:\s*uppercase/i.test(text)) flag(file, 'text-transform: uppercase');
   if (/transition\s*:\s*all\b/i.test(text) || /transition-property\s*:\s*all\b/i.test(text)) flag(file, 'transition: all');
   if (/background-attachment\s*:\s*fixed/i.test(text)) flag(file, 'background-attachment: fixed');
   for (const m of text.matchAll(/box-shadow\s*:\s*([^;}]+)/gi)) {
@@ -54,12 +54,13 @@ for (const file of files) {
   for (const m of text.matchAll(/font-family\s*[:=]\s*("?)([^;}"\n>]+)\1/gi)) {
     for (const fam of m[2].split(',').map((f) => f.trim().replace(/^['"]|['"]$/g, '').toLowerCase()).filter(Boolean)) {
       if (fam.startsWith('var(')) continue;
-      if (!FONT_OK.has(fam)) flag(file, 'a font family other than Besley and Libre Franklin', fam);
+      if (!FONT_OK.has(fam)) flag(file, 'a font family other than Oswald, Besley and Libre Franklin', fam);
     }
   }
 
   // the arrow, and strings joined by middle dots
-  if (text.includes('→')) flag(file, 'the character →');
+  // decorative arrows drawn by the stylesheet are fine; not in copy
+  if (ext !== '.css' && text.includes('→')) flag(file, 'the character →');
   if (/\S ·\s?\S/.test(text)) flag(file, 'a middle-dot separator');
 
   // other companies' trademarks, and financing

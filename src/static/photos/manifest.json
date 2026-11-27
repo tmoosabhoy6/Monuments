@@ -1,0 +1,482 @@
+{
+ "hero-alder-creek": {
+  "width": 2400,
+  "height": 1200,
+  "files": [
+   {
+    "w": 760,
+    "h": 380,
+    "file": "hero-alder-creek-760.webp",
+    "kb": 24
+   },
+   {
+    "w": 1280,
+    "h": 640,
+    "file": "hero-alder-creek-1280.webp",
+    "kb": 44
+   },
+   {
+    "w": 2400,
+    "h": 1200,
+    "file": "hero-alder-creek-2400.webp",
+    "kb": 95
+   }
+  ]
+ },
+ "style-metal": {
+  "width": 1200,
+  "height": 900,
+  "files": [
+   {
+    "w": 640,
+    "h": 480,
+    "file": "style-metal-640.webp",
+    "kb": 24
+   },
+   {
+    "w": 880,
+    "h": 660,
+    "file": "style-metal-880.webp",
+    "kb": 28
+   },
+   {
+    "w": 1200,
+    "h": 900,
+    "file": "style-metal-1200.webp",
+    "kb": 51
+   }
+  ]
+ },
+ "hero-grace-dusk": {
+  "width": 2400,
+  "height": 1200,
+  "files": [
+   {
+    "w": 760,
+    "h": 380,
+    "file": "hero-grace-dusk-760.webp",
+    "kb": 16
+   },
+   {
+    "w": 1280,
+    "h": 640,
+    "file": "hero-grace-dusk-1280.webp",
+    "kb": 30
+   },
+   {
+    "w": 2400,
+    "h": 1200,
+    "file": "hero-grace-dusk-2400.webp",
+    "kb": 73
+   }
+  ]
+ },
+ "style-posts": {
+  "width": 1200,
+  "height": 900,
+  "files": [
+   {
+    "w": 640,
+    "h": 480,
+    "file": "style-posts-640.webp",
+    "kb": 24
+   },
+   {
+    "w": 880,
+    "h": 660,
+    "file": "style-posts-880.webp",
+    "kb": 28
+   },
+   {
+    "w": 1200,
+    "h": 900,
+    "file": "style-posts-1200.webp",
+    "kb": 57
+   }
+  ]
+ },
+ "hero-riverside": {
+  "width": 2400,
+  "height": 1200,
+  "files": [
+   {
+    "w": 760,
+    "h": 380,
+    "file": "hero-riverside-760.webp",
+    "kb": 22
+   },
+   {
+    "w": 1280,
+    "h": 640,
+    "file": "hero-riverside-1280.webp",
+    "kb": 41
+   },
+   {
+    "w": 2400,
+    "h": 1200,
+    "file": "hero-riverside-2400.webp",
+    "kb": 91
+   }
+  ]
+ },
+ "style-arched-stone": {
+  "width": 1200,
+  "height": 900,
+  "files": [
+   {
+    "w": 640,
+    "h": 480,
+    "file": "style-arched-stone-640.webp",
+    "kb": 24
+   },
+   {
+    "w": 880,
+    "h": 660,
+    "file": "style-arched-stone-880.webp",
+    "kb": 29
+   },
+   {
+    "w": 1200,
+    "h": 900,
+    "file": "style-arched-stone-1200.webp",
+    "kb": 53
+   }
+  ]
+ },
+ "style-pillars": {
+  "width": 1200,
+  "height": 900,
+  "files": [
+   {
+    "w": 640,
+    "h": 480,
+    "file": "style-pillars-640.webp",
+    "kb": 25
+   },
+   {
+    "w": 880,
+    "h": 660,
+    "file": "style-pillars-880.webp",
+    "kb": 30
+   },
+   {
+    "w": 1200,
+    "h": 900,
+    "file": "style-pillars-1200.webp",
+    "kb": 54
+   }
+  ]
+ },
+ "style-shouldered": {
+  "width": 1200,
+  "height": 900,
+  "files": [
+   {
+    "w": 640,
+    "h": 480,
+    "file": "style-shouldered-640.webp",
+    "kb": 26
+   },
+   {
+    "w": 880,
+    "h": 660,
+    "file": "style-shouldered-880.webp",
+    "kb": 32
+   },
+   {
+    "w": 1200,
+    "h": 900,
+    "file": "style-shouldered-1200.webp",
+    "kb": 59
+   }
+  ]
+ },
+ "style-acrylic": {
+  "width": 1200,
+  "height": 900,
+  "files": [
+   {
+    "w": 640,
+    "h": 480,
+    "file": "style-acrylic-640.webp",
+    "kb": 24
+   },
+   {
+    "w": 880,
+    "h": 660,
+    "file": "style-acrylic-880.webp",
+    "kb": 29
+   },
+   {
+    "w": 1200,
+    "h": 900,
+    "file": "style-acrylic-1200.webp",
+    "kb": 53
+   }
+  ]
+ },
+ "style-double": {
+  "width": 1200,
+  "height": 900,
+  "files": [
+   {
+    "w": 640,
+    "h": 480,
+    "file": "style-double-640.webp",
+    "kb": 20
+   },
+   {
+    "w": 880,
+    "h": 660,
+    "file": "style-double-880.webp",
+    "kb": 25
+   },
+   {
+    "w": 1200,
+    "h": 900,
+    "file": "style-double-1200.webp",
+    "kb": 48
+   }
+  ]
+ },
+ "style-illuminated": {
+  "width": 1200,
+  "height": 900,
+  "files": [
+   {
+    "w": 640,
+    "h": 480,
+    "file": "style-illuminated-640.webp",
+    "kb": 16
+   },
+   {
+    "w": 880,
+    "h": 660,
+    "file": "style-illuminated-880.webp",
+    "kb": 19
+   },
+   {
+    "w": 1200,
+    "h": 900,
+    "file": "style-illuminated-1200.webp",
+    "kb": 39
+   }
+  ]
+ },
+ "ind-hoa": {
+  "width": 1200,
+  "height": 800,
+  "files": [
+   {
+    "w": 640,
+    "h": 427,
+    "file": "ind-hoa-640.webp",
+    "kb": 23
+   },
+   {
+    "w": 880,
+    "h": 587,
+    "file": "ind-hoa-880.webp",
+    "kb": 28
+   },
+   {
+    "w": 1200,
+    "h": 800,
+    "file": "ind-hoa-1200.webp",
+    "kb": 51
+   }
+  ]
+ },
+ "ind-church": {
+  "width": 1200,
+  "height": 800,
+  "files": [
+   {
+    "w": 640,
+    "h": 427,
+    "file": "ind-church-640.webp",
+    "kb": 25
+   },
+   {
+    "w": 880,
+    "h": 587,
+    "file": "ind-church-880.webp",
+    "kb": 29
+   },
+   {
+    "w": 1200,
+    "h": 800,
+    "file": "ind-church-1200.webp",
+    "kb": 53
+   }
+  ]
+ },
+ "ind-school": {
+  "width": 1200,
+  "height": 800,
+  "files": [
+   {
+    "w": 640,
+    "h": 427,
+    "file": "ind-school-640.webp",
+    "kb": 25
+   },
+   {
+    "w": 880,
+    "h": 587,
+    "file": "ind-school-880.webp",
+    "kb": 31
+   },
+   {
+    "w": 1200,
+    "h": 800,
+    "file": "ind-school-1200.webp",
+    "kb": 55
+   }
+  ]
+ },
+ "ind-business": {
+  "width": 1200,
+  "height": 800,
+  "files": [
+   {
+    "w": 640,
+    "h": 427,
+    "file": "ind-business-640.webp",
+    "kb": 22
+   },
+   {
+    "w": 880,
+    "h": 587,
+    "file": "ind-business-880.webp",
+    "kb": 26
+   },
+   {
+    "w": 1200,
+    "h": 800,
+    "file": "ind-business-1200.webp",
+    "kb": 47
+   }
+  ]
+ },
+ "ind-apartments": {
+  "width": 1200,
+  "height": 800,
+  "files": [
+   {
+    "w": 640,
+    "h": 427,
+    "file": "ind-apartments-640.webp",
+    "kb": 26
+   },
+   {
+    "w": 880,
+    "h": 587,
+    "file": "ind-apartments-880.webp",
+    "kb": 31
+   },
+   {
+    "w": 1200,
+    "h": 800,
+    "file": "ind-apartments-1200.webp",
+    "kb": 57
+   }
+  ]
+ },
+ "ind-parks": {
+  "width": 1200,
+  "height": 800,
+  "files": [
+   {
+    "w": 640,
+    "h": 427,
+    "file": "ind-parks-640.webp",
+    "kb": 23
+   },
+   {
+    "w": 880,
+    "h": 587,
+    "file": "ind-parks-880.webp",
+    "kb": 27
+   },
+   {
+    "w": 1200,
+    "h": 800,
+    "file": "ind-parks-1200.webp",
+    "kb": 54
+   }
+  ]
+ },
+ "gal-1": {
+  "width": 1200,
+  "height": 900,
+  "files": [
+   {
+    "w": 640,
+    "h": 480,
+    "file": "gal-1-640.webp",
+    "kb": 24
+   },
+   {
+    "w": 880,
+    "h": 660,
+    "file": "gal-1-880.webp",
+    "kb": 29
+   },
+   {
+    "w": 1200,
+    "h": 900,
+    "file": "gal-1-1200.webp",
+    "kb": 52
+   }
+  ]
+ },
+ "gal-2": {
+  "width": 1200,
+  "height": 900,
+  "files": [
+   {
+    "w": 640,
+    "h": 480,
+    "file": "gal-2-640.webp",
+    "kb": 24
+   },
+   {
+    "w": 880,
+    "h": 660,
+    "file": "gal-2-880.webp",
+    "kb": 29
+   },
+   {
+    "w": 1200,
+    "h": 900,
+    "file": "gal-2-1200.webp",
+    "kb": 57
+   }
+  ]
+ },
+ "gal-3": {
+  "width": 1200,
+  "height": 900,
+  "files": [
+   {
+    "w": 640,
+    "h": 480,
+    "file": "gal-3-640.webp",
+    "kb": 23
+   },
+   {
+    "w": 880,
+    "h": 660,
+    "file": "gal-3-880.webp",
+    "kb": 28
+   },
+   {
+    "w": 1200,
+    "h": 900,
+    "file": "gal-3-1200.webp",
+    "kb": 55
+   }
+  ]
+ }
+}

@@ -30,7 +30,7 @@ export function createStore(config) {
     subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); },
     isMine() { return !isDefault(state, config); },
     quote() { return quote(state, config); },
-    link() { return designUrl(location.origin + '/', state); },
+    link() { return designUrl(location.origin + '/design/', state); },
   };
   return store;
 }
@@ -76,7 +76,7 @@ export function initTitleBlock(store, site, { onReserve, onDrawing }) {
   };
   $('[data-open-builder]', bar).addEventListener('click', () => {
     if (site.openBuilder) site.openBuilder({ scroll: true });
-    else location.assign('/?open=builder#design');
+    else location.assign('/design/');
   });
   $('[data-reserve]', bar).addEventListener('click', onReserve);
   $('[data-tb-drawing]', bar).addEventListener('click', onDrawing);

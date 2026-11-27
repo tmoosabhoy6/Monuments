@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+</head>
+<body data-page="about">
+{{> header}}
+<main id="main">
+  <section class="page-banner">
+    {{@squares}}
+    <div class="wrap banner-inner">
+      <figure class="banner-photo">{{@photo:gal-1|(min-width: 960px) 46vw, calc(100vw - 52px)|Monument sign with pillars reading Brookfield|eager}}</figure>
+      <div class="banner-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">About</span></nav>
+        <h1 class="display">About us</h1>
+        <p>We make monument signs. That is the whole business, and it is why we do it well.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Specialists</p>
+        <h2 class="display-2">One thing, done every day</h2>
+        <p>Most sign shops make a monument sign now and then. We make them every day, and we make nothing else. We do not make banners, vehicle wraps or storefront signs, which is how we keep getting better at this one thing.</p>
+        <p>That focus is why we can publish our sizes and prices, show you your sign before anything is built, and send a certified installer to set it permanently, wherever you are in the country. You deal with one company from the first drawing to the sign in the ground.</p>
+      </div>
+      <figure class="framed">{{@photo:style-arched-stone|(min-width: 960px) 45vw, 100vw|Arched monument sign reading Cedar Hollow}}</figure>
+    </div>
+  </section>
+  <section class="section section-dark">
+    <div class="wrap">
+      <div class="section-head center"><p class="eyebrow eyebrow-gold">What we promise</p><h2 class="display-2">How we work</h2></div>
+      <ul class="values">
+        <li>{{> icon-tag}}<h3>Prices you can see</h3><p>Standard sizes and every option are priced on this site, with what each price covers.</p></li>
+        <li>{{> icon-drawing}}<h3>Nothing built unapproved</h3><p>Production starts only after you approve a scaled drawing in writing.</p></li>
+        <li>{{> icon-map}}<h3>Installed nationwide</h3><p>Certified installers set your sign permanently, anywhere in the United States.</p></li>
+        <li>{{> icon-shield}}<h3>Fair policies</h3><p>Clear terms on deposits, cancellation, delivery and warranty, written in plain language.</p></li>
+      </ul>
+    </div>
+  </section>
+</main>
+{{> footer}}
+{{> titleblock}}
+{{> dialogs}}
+{{@site_data}}
+</body>
+</html>

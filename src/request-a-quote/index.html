@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+</head>
+<body data-page="quote">
+{{> header}}
+<main id="main">
+  <section class="page-banner page-banner-slim">
+    {{@squares}}
+    <div class="wrap banner-inner">
+      <div class="banner-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Request a Quote</span></nav>
+        <h1 class="display">Request a quote</h1>
+        <p>For a size, shape or structure the designer cannot draw, or for several signs at once. Tell us what you have in mind and we reply within {{response_time}}.</p>
+      </div>
+    </div>
+  </section>
+  <div class="wrap article-layout">
+    <div class="quote-page-form quote-card"><h2 class="visually-hidden">Your request</h2>{{> quote}}</div>
+    <aside class="sidebar">
+      <div class="side-card side-card-green">
+        <p class="side-title">Talk to a specialist</p>
+        <p class="side-call big">{{> icon-phone}}<a href="{{phone_href}}">{{phone}}</a></p>
+        <p class="side-call">{{> icon-mail}}<a href="mailto:{{email}}">{{email}}</a></p>
+      </div>
+      <div class="side-card">
+        <p class="side-title side-title-dark">What happens next</p>
+        <ol class="mini-steps">
+          <li><strong>We reply within {{response_time}}</strong> with questions or a first price.</li>
+          <li><strong>You get a drawing</strong> of your sign to scale, with exact dimensions and colors.</li>
+          <li><strong>You approve it</strong> and reserve your place in production.</li>
+        </ol>
+      </div>
+      <div class="side-card">
+        <p class="side-title side-title-dark">Rather design it yourself?</p>
+        <p>The designer prices standard signs instantly.</p>
+        <a class="btn btn-green btn-block" href="/design/">Design Your Sign</a>
+      </div>
+    </aside>
+  </div>
+</main>
+{{> footer}}
+{{> titleblock}}
+{{> dialogs}}
+{{@site_data}}
+</body>
+</html>

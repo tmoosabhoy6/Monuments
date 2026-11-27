@@ -14,7 +14,7 @@ export async function email(request, env) {
   const v = validateEmailDesign(body);
   if (v.errors.length) return invalid(v.errors);
   if (!(await verifyTurnstile(env, body.turnstile, clientIp(request)))) return forbidden();
-  const link = designUrl(siteUrl(env, request) + '/', v.design);
+  const link = designUrl(siteUrl(env, request) + '/design/', v.design);
   await sendEmail(env, { to: v.email, ...designEmail({ link }) });
   return json({ sent: true });
 }

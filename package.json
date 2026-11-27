@@ -22,10 +22,12 @@
     "screenshots": "node scripts/screenshots.js",
     "glyphs": "node scripts/glyph-widths.js",
     "og": "node scripts/og-image.js",
+    "photos": "node scripts/render-photos.js",
     "check": "npm run build && npm test && npm run check:rules && npm run check:size && npm run check:copy && npm run test:browser && npm run check:scroll"
   },
   "devDependencies": {
     "playwright": "1.63.0",
+    "three": "^0.181.0",
     "wrangler": "4.167.0"
   }
 }

@@ -104,6 +104,13 @@
 
   "gallery": [],
 
+  "rating": { "value": { "score": "5.0", "label": "sample rating" }, "confirmed": false },
+  "reviews": { "value": [
+    { "quote": "The drawing made the board vote easy. Everyone saw the same sign and the same price, and the installed sign matched it exactly.", "name": "Board president", "role": "Homeowners association" },
+    { "quote": "We designed it on our phones during a committee meeting and had the approval drawing a few days later. The carving catches the light all afternoon.", "name": "Facilities chair", "role": "Church" },
+    { "quote": "One company from the quote to the installer. Nothing to coordinate on our side but the date.", "name": "Property manager", "role": "Apartment community" }
+  ], "confirmed": false },
+
   "covers": {
     "included": [
       "The routed HDU sign in your wording and colors.",

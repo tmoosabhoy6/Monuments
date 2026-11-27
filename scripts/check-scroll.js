@@ -16,7 +16,7 @@ import { serve } from './lib/serve.js';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const server = await serve(root + 'dist');
 const browser = await chromium.launch({ args: ['--disable-gpu-vsync-ignore', '--enable-gpu-rasterization'] });
-const PAGES = ['/', '/how-it-works/', '/questions/', '/more-from-our-shop/'];
+const PAGES = ['/', '/design/', '/monument-signs/', '/gallery/', '/how-it-works/', '/questions/'];
 
 const RECORDER = `
   window.__frames = []; window.__long = []; window.__rec = false;
@@ -28,7 +28,7 @@ const RECORDER = `
 async function run({ name, context, throttle }) {
   const results = [];
   for (const path of PAGES) {
-    for (const state of path === '/' ? ['intro', 'builder'] : ['intro']) {
+    for (const state of path === '/design/' ? ['builder'] : ['page']) {
       const page = await context.newPage();
       const cdp = await context.newCDPSession(page);
       await cdp.send('Page.enable');
@@ -36,8 +36,7 @@ async function run({ name, context, throttle }) {
       await page.goto(server.url + path, { waitUntil: 'networkidle' });
       await page.evaluate(() => document.fonts.ready);
       if (state === 'builder') {
-        await page.fill('#sign-name', 'Alder Creek Homeowners');
-        await page.click('.hero-intro [data-open-builder]');
+        await page.fill('#b-line1', 'Alder Creek Homeowners');   // the builder's own field shows at every width
       }
       await page.waitForTimeout(600);
       if (throttle) await cdp.send('Emulation.setCPUThrottlingRate', { rate: throttle });

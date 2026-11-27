@@ -18,7 +18,7 @@ const tokens = tokensFrom(config, { year: String(new Date().getFullYear()) });
 // Deliberate differences, each recorded in PROGRESS.md.
 const CONDITIONAL = {
   'See your orders and payments': 'rendered only when config.stripe_portal_url is set (SPEC §9.4); it is empty in the sample config',
-  'Signs we have built': 'the #work section renders only with owner photographs (SPEC §6.5); there are none yet',
+  'Signs we have built': 'owner photographs, once supplied, fill the Gallery page (SPEC §6.5 moved there in the multi-page redesign); there are none yet',
   'Each caption: {place or customer}. {size}, {options}': 'gallery captions; no photographs yet',
   'Policies: Deposit, Approval, Cancellation, Warranty, Installation, Delivery': 'shown as the label "Policies" followed by the six links',
 };

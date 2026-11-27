@@ -7,13 +7,17 @@ declined suggestions are in `PROGRESS.md`.
 
 The owner's hard constraints (below, SPEC §2) win over everything, then the confirmed business
 facts (SPEC §3), then `SPEC.md`, then any skill or guideline. The owner's later instruction to
-split the site into several pages overrides "single page" (see PROGRESS.md, Decisions).
+split the site into several pages overrides "single page" (see PROGRESS.md, Decisions), and their
+2026-11-27 instruction to match the look of two reference monument-sign sites overrides SPEC §5's
+visual rules (see PROGRESS.md, "Reference-site rebuild").
 
 ## Hard constraints
 
-1. One accent color: sign green `#1F4A3A`. Everything else neutral. Errors use ink and weight, never red.
-2. No stock illustration style and no gradients anywhere. Imagery is the elevation drawing or
-   owner-supplied photographs only.
+1. Brand colors: sign green `#1F4A3A` with gold `#B8922E` (the owner chose green and gold on 2026-11-27;
+   it replaces "one accent"). Everything else neutral. Errors use ink and weight, never red.
+2. No stock illustration style and no gradients anywhere. Imagery is the elevation drawing, owner-supplied
+   photographs, or the clearly labelled 3D renders of our own signs made by `npm run photos` (stand-ins
+   until the owner's photographs arrive).
 3. Type does the heavy lifting; drawings support the words.
 4. Vanilla HTML, CSS and JavaScript. No frameworks, no CSS framework, no bundler, no npm code in
    the browser. Native ES modules. The build script uses Node built-ins only.
@@ -33,6 +37,8 @@ no copy that is not in SPEC §7. Unknown facts are config values in `content/sit
 - `npm run screenshots`: review screenshots into `design/review/`
 - `npm run glyphs`: re-measure the glyph-width table (only if a font file changes)
 - `npm run og`: regenerate the Open Graph image
+- `npm run photos [id…]`: re-render the sample sign photographs (three.js in headless Chromium, build-time
+  only; nothing from npm reaches the browser)
 - `npx wrangler dev`: run the site and the Worker locally.
 - `npm run deploy` (static assets, intended) or `npm run deploy:bundled` (Worker serves pages; see README).
   Deploy only on the owner's instruction. A draft is live at https://monument-signs.tmoosabhoy6.workers.dev.

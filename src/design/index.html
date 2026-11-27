@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+</head>
+<body data-page="design">
+{{> header}}
+<main id="main">
+  <section class="page-banner page-banner-slim">
+    {{@squares}}
+    <div class="wrap banner-inner">
+      <div class="banner-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Design Your Sign</span></nav>
+        <h1 class="display">Design your sign</h1>
+        <p>Choose the size, shape, base, letters and colors. The drawing and the price change as you go, and nothing is built until you approve your drawing.</p>
+      </div>
+    </div>
+  </section>
+  <section class="design" id="design" data-mode="builder" aria-label="Sign designer">
+    <div class="ground">
+    <div class="wrap design-grid">
+      <div class="design-stage" data-stage>
+        <div class="sign-drawing" data-sign>{{@hero}}</div>
+        <div class="name-row">
+          <div class="field">
+            <label for="sign-name">Put your name on it</label>
+            <input class="input" id="sign-name" name="sign-name" placeholder="e.g. Alder Creek" autocomplete="organization" maxlength="57" spellcheck="false" aria-describedby="sign-name-limit">
+            <p class="help" id="sign-name-limit" data-limit-note hidden>28 characters fit on a line.</p>
+          </div>
+        </div>
+        <div class="hero-price">
+          <p class="figure"><span data-price-label>As drawn, installed</span><span class="money" data-price-total>{{@hero_total}}</span></p>
+        </div>
+      </div>
+      <div class="design-side">
+        <div class="hero-intro" data-intro hidden>
+          <p><button type="button" class="btn btn-green" data-open-builder>Design your sign</button></p>
+        </div>
+        <div class="builder" id="builder" data-builder>
+          <div class="builder-head">
+            <h2>Your sign</h2>
+            <button type="button" class="link-button" data-close-builder hidden>Close</button>
+          </div>
+          {{@builder}}
+        </div>
+      </div>
+      <p class="visually-hidden" aria-live="polite" data-live></p>
+    </div>
+    </div>
+  </section>
+</main>
+{{> footer}}
+{{> titleblock}}
+{{> dialogs}}
+<section class="print-sheet" data-print-sheet aria-hidden="true"></section>
+{{@site_data}}
+</body>
+</html>

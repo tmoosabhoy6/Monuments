@@ -19,7 +19,7 @@ export function designSummary(design, base) {
     design.lighting ? 'Quote lighting for this sign: yes' : '',
     ...q.lines.map((l) => `${l.label}: ${l.amount === null ? 'Priced with your drawing' : money(l.amount)}`),
     `Total: ${q.priced ? money(q.total) : 'Priced with your drawing'}`,
-    `Link: ${designUrl(base + '/', design)}`,
+    `Link: ${designUrl(base + '/design/', design)}`,
   ];
   return lines.filter(Boolean).join('\n');
 }

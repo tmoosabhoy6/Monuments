@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+</head>
+<body data-page="industries">
+{{> header}}
+<main id="main">
+  <section class="page-banner">
+    {{@squares}}
+    <div class="wrap banner-inner">
+      <figure class="banner-photo">{{@photo:ind-hoa|(min-width: 960px) 46vw, calc(100vw - 52px)|Subdivision entrance sign with pillars reading Sycamore Park|eager}}</figure>
+      <div class="banner-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Industries</span></nav>
+        <h1 class="display">Industries we serve</h1>
+        <p>Every entrance has its own audience and its own approvals. Here is how we help each one.</p>
+      </div>
+    </div>
+  </section>
+  <div class="wrap">
+    <section class="feature-row" id="hoa">
+      <figure class="framed">{{@photo:ind-hoa|(min-width: 960px) 45vw, 100vw|Subdivision entrance sign reading Sycamore Park}}</figure>
+      <div><p class="eyebrow">HOAs and subdivisions</p><h2 class="display-3">An entrance your residents are proud of</h2><p>Most neighborhood signs are approved by a board. Every design you make here has a link you can send and a sheet you can print, so everyone is looking at the same sign, the same options and the same price before the vote.</p><ul class="ticks"><li>{{> icon-check}}Printable design sheet for board meetings</li><li>{{> icon-check}}Signs for several entrances priced as a set</li></ul></div>
+    </section>
+    <section class="feature-row reverse" id="church">
+      <figure class="framed">{{@photo:ind-church|(min-width: 960px) 45vw, 100vw|Church sign reading St. Andrew Parish}}</figure>
+      <div><p class="eyebrow">Churches</p><h2 class="display-3">A welcome at the street</h2><p>A carved sign in your colors, with room for your name and a logo or symbol. Choose a peaked or arched top to echo your building, and ask for lighting if services run into the evening.</p></div>
+    </section>
+    <section class="feature-row" id="school">
+      <figure class="framed">{{@photo:ind-school|(min-width: 960px) 45vw, 100vw|School sign with pillars reading Westbrook Elementary}}</figure>
+      <div><p class="eyebrow">Schools</p><h2 class="display-3">School colors, set in stone</h2><p>We match your colors from paint codes and carve your crest or mascot in relief. Pillars and a stone-look base give a campus entrance the weight it deserves.</p></div>
+    </section>
+    <section class="feature-row reverse" id="business">
+      <figure class="framed">{{@photo:ind-business|(min-width: 960px) 45vw, 100vw|Office park sign with cut metal letters reading Harbor Point Office Park}}</figure>
+      <div><p class="eyebrow">Business parks</p><h2 class="display-3">A clean, modern address</h2><p>Cut metal or acrylic letters on a crisp face, a plain base and your brand colors. Tell us about several tenants or buildings and we draw the set together.</p></div>
+    </section>
+    <section class="feature-row" id="apartments">
+      <figure class="framed">{{@photo:ind-apartments|(min-width: 960px) 45vw, 100vw|Apartment community sign reading The Residences at Elm Street}}</figure>
+      <div><p class="eyebrow">Apartment communities</p><h2 class="display-3">First impressions that lease</h2><p>A sign that matches your brand and your landscaping, delivered and installed by a certified installer on a date agreed with your property manager.</p></div>
+    </section>
+    <section class="feature-row reverse" id="parks">
+      <figure class="framed">{{@photo:ind-parks|(min-width: 960px) 45vw, 100vw|Park sign on posts reading Fox Run Park}}</figure>
+      <div><p class="eyebrow">Parks and municipalities</p><h2 class="display-3">Built for public places</h2><p>Signs on posts or a base for parks, trails and public buildings, with the dimensions a permit office or review board will ask for on your approval drawing.</p></div>
+    </section>
+  </div>
+</main>
+{{> footer}}
+{{> titleblock}}
+{{> dialogs}}
+{{@site_data}}
+</body>
+</html>

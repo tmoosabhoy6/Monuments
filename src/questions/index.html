@@ -7,9 +7,19 @@
 <body data-page="questions">
 {{> header}}
 <main id="main">
-  <section class="part" id="questions" aria-labelledby="questions-title">
+  <section class="page-banner page-banner-slim">
+    {{@squares}}
+    <div class="wrap banner-inner">
+      <div class="banner-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Questions</span></nav>
+        <h1 class="display">Questions and answers</h1>
+        <p>The questions boards, pastors, principals and property managers ask us most, answered plainly.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="questions" aria-labelledby="questions-title">
     <div class="wrap">
-      <h1 class="h2 page-heading" id="questions-title">Questions.</h1>
+      <h2 class="visually-hidden" id="questions-title">Questions</h2>
       {{@questions}}
     </div>
   </section>

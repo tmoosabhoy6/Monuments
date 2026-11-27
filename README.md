@@ -13,8 +13,15 @@ pay an invoice online. It runs on Cloudflare: static pages plus one Worker for `
 
 | URL | What it is |
 |---|---|
-| `/` | The sign with "Put your name on it", the builder (`#design`), standard sizes (`#sizes`), and photographs of finished signs (`#work`) once supplied |
-| `/how-it-works/` | The six stages of an order, every policy (`#policy-…`), the custom quote form (`#quote`) |
+| `/` | Hero slideshow, styles, the "Put your name on it" teaser, standard sizes (`#sizes`), process, industries, materials, sample reviews, gallery, questions, the quote form |
+| `/design/` | The builder (`#design`), always open. Share links, emails and Stripe returns land here; old `/?d=…` links are sent on |
+| `/monument-signs/` | The guide: styles, upgrades (`#upgrades`), illuminated (`#illuminated`), materials (`#materials`), costs, permits (`#permits`) |
+| `/sizes-and-prices/` | The four sizes drawn to scale, every option price, what the price covers |
+| `/gallery/` | Every sign, filterable, with a lightbox. Owner photographs replace the sample renders |
+| `/industries/` | HOAs, churches, schools, business parks, apartments, parks (`#hoa` …) |
+| `/about/` | The business and how it works with customers |
+| `/request-a-quote/` | The custom quote form (`#quote`); `?need=more` preselects "More from our shop" |
+| `/how-it-works/` | The six stages of an order and every policy (`#policy-…`) |
 | `/questions/` | Questions, in four groups |
 | `/more-from-our-shop/` | Panels, mailboxes and custom foam pieces |
 
@@ -42,13 +49,14 @@ switched on yet" until you add a Stripe test key (below).
 | `npm test` | Unit tests: pricing, sharing, drawing, the pre-rendered hero, config, every Worker endpoint, webhook signatures. |
 | `npm run test:browser` | Playwright tests on the built site (pre-installed Chromium). |
 | `npm run check:rules` | Scans `dist/` for anything the hard constraints forbid. |
-| `npm run check:size` | Compressed size budgets: HTML 50 KB a page, CSS 14 KB, JavaScript 30 KB, fonts 70 KB. |
+| `npm run check:size` | Compressed size budgets: HTML 50 KB a page, CSS 14 KB, JavaScript 30 KB, fonts 85 KB. |
 | `npm run check:copy` | Every phrase of SPEC §7 appears word for word on the site or in the emails. |
 | `npm run check:scroll` | Scroll frame timing, desktop and throttled phone. |
 | `npm run check:lighthouse` | Lighthouse (mobile) against a running `wrangler dev`. |
 | `npm run check:a11y` | Touch targets, text contrast, 200% zoom, headings, dialogs. |
 | `npm run screenshots` | Every page at 1440×900, 834×1112 and 390×844, both hero states, into `design/review/`. |
 | `npm run og` | Regenerates the 1200×630 sharing image from the drawing. |
+| `npm run photos [id…]` | Re-renders the sample sign photographs (`scripts/render/shots.js` lists them) into `src/static/photos/`. Build-time only. |
 | `npm run glyphs` | Re-measures the lettering width table. Only if a font file changes. |
 
 ## Changing prices, facts and text
@@ -74,8 +82,11 @@ HTML needs touching.
   and `questions`. They may contain `{{tokens}}` such as `{{deposit_percent}}`.
 - **Photographs of finished signs**: add AVIF or WebP files to `src/static/photos/` and list them in
   `gallery` as `{ "src": "/photos/name.webp", "width": …, "height": …, "alt": "…", "place": "…",
-  "size": "8 ft × 4 ft", "options": "stone-look base, pillars" }`. The "Signs we have built"
-  section appears on the home page once there is at least one.
+  "size": "8 ft × 4 ft", "options": "stone-look base, pillars", "tags": "stone pillars" }`. Once
+  there is at least one, the Gallery page shows them instead of the sample renders (`tags` feed
+  its filters: stone, pillars, posts, letters, lit).
+- **Rating and reviews** (`rating`, `reviews`) are samples, labelled as such while `draft` is
+  true. Replace them with real ones, or empty them, before launch.
 - **Customer portal**: set `stripe_portal_url` to the Stripe customer portal login link and "See
   your orders and payments" appears.
 - **Prototype switches** (`features`): `deposits`, `invoice_payment`, `email_design` and

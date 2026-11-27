@@ -50,7 +50,7 @@ export async function create(request, env, ctx) {
   // Emails after the record is safe. A missing email setup still counts as success: it is saved.
   if (emailConfigured(env)) {
     const base = siteUrl(env, request);
-    const link = v.design ? designUrl(base + '/', v.design) : '';
+    const link = v.design ? designUrl(base + '/design/', v.design) : '';
     ctx.waitUntil((async () => {
       const fileLinks = await Promise.all(files.map(async (f) => ({ name: f.name || f.key, url: await signFileLink(base, f.key, env.SIGNING_SECRET) })));
       const biz = toBusiness({ kind: v.type, name: d.name, reference, fields: d, design: v.design, fileLinks, base });

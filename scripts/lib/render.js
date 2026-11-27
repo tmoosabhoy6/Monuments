@@ -20,7 +20,7 @@ export function sizeList(config, defaults) {
       sizeAlone(config, defaults, s.id) +
       `<h3 id="size-${s.id}">${words}</h3>` +
       `<dl><dt>Sign</dt><dd>${sign}</dd><dt>Installed</dt><dd>${installed}</dd></dl>` +
-      `<a class="link" href="/?size=${s.id}#design" data-start-size="${s.id}">Start with this size</a>` +
+      `<a class="link" href="/design/?size=${s.id}#design" data-start-size="${s.id}">Start with this size</a>` +
       `</article></li>`;
   }).join('');
   return `<ul class="size-list">${items}</ul>`;
@@ -165,13 +165,6 @@ export function questions(config, fill) {
     `</div></div>`).join('');
 }
 
-export function gallery(config) {
-  const photos = config.gallery || [];
-  if (!photos.length) return '';
-  const figs = photos.map((p) => `<figure><img src="${esc(p.src)}" width="${Number(p.width)}" height="${Number(p.height)}" alt="${esc(p.alt || '')}" loading="lazy" decoding="async">` +
-    `<figcaption class="caption">${esc(p.place)}. ${esc(p.size)}, ${esc(p.options)}.</figcaption></figure>`).join('');
-  return `<section class="part" id="work" aria-labelledby="work-title"><div class="wrap"><h2 id="work-title">Signs we have built.</h2><div class="gallery">${figs}</div></div></section>`;
-}
 
 let extrasCount = 0;
 export function formExtras(tokens) {
@@ -188,4 +181,79 @@ export function jsonLd(objects) {
 
 export function siteData(data) {
   return `<script type="application/json" id="site-data">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
+}
+
+// ---------- the redesigned site's data-driven pieces ----------
+import { hero as heroDrawing } from '../../src/js/builder/draw.js';
+export const teaser = (state, config) => heroDrawing(state, config);
+
+const star = '<svg class="icon star" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m12 2.8 2.8 5.9 6.4.8-4.7 4.5 1.2 6.4L12 17.3l-5.7 3.1 1.2-6.4-4.7-4.5 6.4-.8z"/></svg>';
+// A placeholder until the owner's real rating exists: labelled as a sample while in draft,
+// left out entirely on a live site without a confirmed rating.
+export function ratingBadge(config) {
+  const r = config.rating;
+  if (!r || (!config.draft && !r.confirmed_live)) return '';
+  return `<span class="rating"><span class="stars" aria-hidden="true">${star.repeat(5)}</span><span>${esc(r.score)} ${esc(r.label)}</span></span>`;
+}
+export function reviews(config) {
+  const list = config.reviews || [];
+  if (!list.length) return '';
+  const cards = list.map((v, i) => `<figure class="review${i === 0 ? ' is-active' : ''}" data-review>
+    <span class="stars" aria-hidden="true">${star.repeat(5)}</span>
+    <blockquote><p>${esc(v.quote)}</p></blockquote>
+    <figcaption><strong>${esc(v.name)}</strong><span>${esc(v.role)}</span>${config.draft ? '<em class="sample-tag">Sample review</em>' : ''}</figcaption>
+  </figure>`).join('');
+  return `<div class="reviews" data-reviews>${cards}</div>
+  <div class="review-controls"><button type="button" class="round-btn" data-review-prev aria-label="Previous review">‹</button><button type="button" class="round-btn" data-review-next aria-label="Next review">›</button></div>`;
+}
+export function materialsTable() {
+  const rows = [
+    ['HDU (high-density urethane)', 'Carves crisp, deep relief', 'No grain; takes up almost no water', 'Light; quick to set'],
+    ['Wood', 'Carves well', 'Grain moves; needs sealing and repainting', 'Light'],
+    ['Flat metal panel', 'Printed or applied graphics', 'Durable face; no carved depth', 'Light to medium'],
+    ['Brick or stone masonry', 'Letters added on a panel', 'Very durable; mortar needs upkeep', 'Heavy; built on site over weeks'],
+  ];
+  return `<div class="table-wrap"><table class="compare"><caption class="visually-hidden">Sign materials compared</caption>
+  <thead><tr><th scope="col">Material</th><th scope="col">Carved detail</th><th scope="col">Weather and upkeep</th><th scope="col">Weight and install</th></tr></thead>
+  <tbody>${rows.map((r, i) => `<tr${i === 0 ? ' class="is-ours"' : ''}><th scope="row">${esc(r[0])}</th>${r.slice(1).map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+export function upgradeTable(config) {
+  const rows = [];
+  const P = config.pricing;
+  const fmt = (v) => (v == null ? 'Priced with your drawing' : typeof v === 'object' ? 'Priced by size' : v === 0 ? 'Included' : `+${money(v)}`);
+  const big = P.sizes[P.sizes.length - 1];
+  rows.push(['Double-sided', big.double != null && big.single != null ? `+${money(P.sizes[0].double - P.sizes[0].single)} to +${money(big.double - big.single)}` : 'Priced with your drawing']);
+  for (const [group, label] of [['base', 'How it stands'], ['pillars', 'Pillars'], ['lettering', 'Lettering'], ['shape', 'Top shape']]) {
+    for (const o of config.options[group]) {
+      if (o.id === 'none') continue;
+      rows.push([`${label}: ${o.label.replace(' (included)', '')}`, fmt(P[group][o.id])]);
+    }
+  }
+  rows.push(['Installation by a certified installer', `${money(Math.min(...P.sizes.map((x) => x.install)))} to ${money(Math.max(...P.sizes.map((x) => x.install)))}`]);
+  return `<div class="table-wrap"><table class="compare price-table"><caption class="visually-hidden">Options and their prices</caption>
+  <thead><tr><th scope="col">Option</th><th scope="col">Price</th></tr></thead>
+  <tbody>${rows.map(([a, b]) => `<tr><th scope="row">${esc(a)}</th><td class="money">${esc(b)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+export function questionsPreview(config, fill) {
+  const picks = [[0, 1], [0, 2], [0, 3], [2, 0], [3, 1]];
+  return picks.map(([g, i]) => config.questions[g].items[i]).filter(Boolean)
+    .map((it) => `<details class="disclosure"><summary>${esc(it.q)}</summary><div class="body"><p>${esc(fill(it.a))}</p></div></details>`).join('');
+}
+// Owner photographs, once supplied, replace the sample renders.
+export function galleryGrid(photo, config = {}) {
+  const own = config.gallery || [];
+  if (own.length) {
+    return `<ul class="gallery-grid" data-gallery>${own.map((p, i) => `<li data-tags="${esc(p.tags || '')}"><button type="button" class="gallery-item" data-index="${i}" data-full="${esc(p.src)}" aria-label="Open ${esc(p.place)}">` +
+      `<img src="${esc(p.src)}" width="${Number(p.width)}" height="${Number(p.height)}" alt="${esc(p.alt || '')}" loading="lazy" decoding="async">` +
+      `<span class="gallery-cap">${esc(p.place)}. ${esc(p.size)}, ${esc(p.options)}.</span></button></li>`).join('')}</ul>`;
+  }
+  const items = [
+    ['hero-alder-creek', 'Alder Creek Homeowners', 'stone pillars'], ['style-metal', 'Northgate Commons', 'letters'], ['hero-grace-dusk', 'Grace Fellowship Church', 'stone lit'],
+    ['style-posts', 'Willow Bend', 'posts'], ['style-pillars', 'Stonegate', 'stone pillars'], ['style-acrylic', 'The Willows', 'stone letters'],
+    ['ind-business', 'Harbor Point Office Park', 'letters'], ['style-shouldered', 'Oak Ridge Estates', 'stone'], ['style-illuminated', 'Lakeview', 'stone lit'],
+    ['ind-school', 'Westbrook Elementary', 'stone pillars'], ['gal-3', 'Rosewood', 'posts'], ['ind-church', 'St. Andrew Parish', 'stone'],
+    ['gal-1', 'Brookfield', 'stone pillars'], ['ind-parks', 'Fox Run Park', 'posts'], ['ind-apartments', 'The Residences at Elm Street', 'stone letters'],
+    ['gal-2', 'Hidden Pines', 'stone'], ['style-double', 'Maple Grove', 'stone'], ['hero-riverside', 'Riverside Business Park', 'letters'],
+  ];
+  return `<ul class="gallery-grid" data-gallery>${items.map(([id, name, tags], i) => `<li data-tags="${tags}"><button type="button" class="gallery-item" data-index="${i}" data-full="/photos/${id}-${id.startsWith('hero-') ? 1280 : 1200}.webp" aria-label="Open ${esc(name)}">${photo(`${id}|(min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw|Monument sign reading ${name}${i < 3 ? '|eager' : ''}`)}<span class="gallery-cap">${esc(name)}</span></button></li>`).join('')}</ul>`;
 }

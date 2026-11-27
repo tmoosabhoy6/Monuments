@@ -52,11 +52,25 @@ const site = tokens.site_url;
 const PAGES = [
   { src: 'index.html', out: 'index.html', path: '/', title: fill('Monument Signs, Built to Order and Installed Nationwide | {{business_name}}'),
     description: 'Routed HDU monument signs, built to order. Design yours online and see the price as you go, then have it permanently installed anywhere in the US by a certified installer.' },
-  { src: 'how-it-works/index.html', out: 'how-it-works/index.html', path: '/how-it-works/', title: fill('How it works | {{business_name}}'),
+  { src: 'design/index.html', out: 'design/index.html', path: '/design/', title: fill('Design Your Monument Sign Online | {{business_name}}'),
+    description: 'Design your monument sign online: choose the size, shape, base, letters and colors and see the drawing and the price change as you go.' },
+  { src: 'monument-signs/index.html', out: 'monument-signs/index.html', path: '/monument-signs/', title: fill('Monument Sign Styles, Materials and Costs | {{business_name}}'),
+    description: 'Arched, pillared, post-mounted and illuminated monument signs, routed from HDU and installed nationwide. Styles, upgrades, materials compared, costs and permits.' },
+  { src: 'sizes-and-prices/index.html', out: 'sizes-and-prices/index.html', path: '/sizes-and-prices/', title: fill('Monument Sign Sizes and Prices | {{business_name}}'),
+    description: 'Standard monument sign sizes with the price of the sign and of installation side by side, and every upgrade priced.' },
+  { src: 'how-it-works/index.html', out: 'how-it-works/index.html', path: '/how-it-works/', title: fill('How It Works | {{business_name}}'),
     description: 'One company, from the first drawing to the sign in the ground: your approval drawing, a deposit paid online, production, permanent installation anywhere in the United States, and the final invoice.' },
-  { src: 'questions/index.html', out: 'questions/index.html', path: '/questions/', title: fill('Questions | {{business_name}}'),
+  { src: 'gallery/index.html', out: 'gallery/index.html', path: '/gallery/', title: fill('Monument Sign Gallery | {{business_name}}'),
+    description: 'Monument signs in every style: stone-look bases, pillars, posts, cut letters and illuminated signs.' },
+  { src: 'industries/index.html', out: 'industries/index.html', path: '/industries/', title: fill('Monument Signs for HOAs, Churches, Schools and Businesses | {{business_name}}'),
+    description: 'Monument signs for subdivisions, apartment communities, churches, schools, parks and business parks, installed anywhere in the United States.' },
+  { src: 'questions/index.html', out: 'questions/index.html', path: '/questions/', title: fill('Questions and Answers | {{business_name}}'),
     description: 'Questions about ordering a monument sign, the sign itself, installation anywhere in the United States, and payment.' },
-  { src: 'more-from-our-shop/index.html', out: 'more-from-our-shop/index.html', path: '/more-from-our-shop/', title: fill('More from our shop | {{business_name}}'),
+  { src: 'about/index.html', out: 'about/index.html', path: '/about/', title: fill('About Us | {{business_name}}'),
+    description: 'We make monument signs and nothing else: published prices, approval drawings before anything is built, and certified installation nationwide.' },
+  { src: 'request-a-quote/index.html', out: 'request-a-quote/index.html', path: '/request-a-quote/', title: fill('Request a Quote | {{business_name}}'),
+    description: 'Request a quote for a custom monument sign, a set of signs for several entrances, or something from our shop.' },
+  { src: 'more-from-our-shop/index.html', out: 'more-from-our-shop/index.html', path: '/more-from-our-shop/', title: fill('More From Our Shop | {{business_name}}'),
     description: 'The same material and the same routers make a few other things: HDU sign panels, HDU mailboxes and custom foam pieces.' },
   { src: '404.html', out: '404.html', path: '/404', title: fill('Page not found | {{business_name}}'), description: fill('{{business_name}}. Monument signs, built to order and installed anywhere in the United States.'), noindex: true },
 ];
@@ -118,11 +132,13 @@ async function emitModule(abs, stack = []) {
 const appUrl = await emitModule(join(SRC, 'js/app.js'));
 const moduleUrls = [...jsDone.values()];
 
+// The stylesheet first, then only Oswald, the headline face. Libre Franklin swaps in over a
+// metric-matched fallback without moving anything, and Besley sets prices and drawings further
+// down. Modules are not preloaded: app.js loads the rest after the page has loaded, so scripts
+// never take bandwidth from the first photograph, which is the largest paint.
 const assetsHead = [
-  `<link rel="preload" href="${assetMap['fonts/besley-latin-wght-normal.woff2']}" as="font" type="font/woff2" crossorigin>`,
-  `<link rel="preload" href="${assetMap['fonts/libre-franklin-latin-wght-normal.woff2']}" as="font" type="font/woff2" crossorigin>`,
   `<link rel="stylesheet" href="${assetMap['css/site.css']}">`,
-  ...moduleUrls.filter((u) => u !== appUrl).map((u) => `<link rel="modulepreload" href="${u}">`),
+  `<link rel="preload" href="${assetMap['fonts/oswald-latin-wght-normal.woff2']}" as="font" type="font/woff2" crossorigin>`,
   `<script type="module" src="${appUrl}"></script>`,
 ].join('\n');
 
@@ -131,7 +147,6 @@ const partials = {};
 for (const f of await readdir(join(SRC, 'partials'))) partials[basename(f, '.html')] = await readFile(join(SRC, 'partials', f), 'utf8');
 
 const contactExtra = [
-  tokens.email && `<li><a href="mailto:${R.esc(tokens.email)}">${R.esc(tokens.email)}</a></li>`,
   tokens.hours && `<li>${R.esc(tokens.hours)}</li>`,
   tokens.mailing_address && `<li>${R.esc(tokens.mailing_address)}</li>`,
 ].filter(Boolean).join('\n        ');
@@ -168,7 +183,31 @@ const faqLd = {
   }))),
 };
 
+const photos = JSON.parse(await readFile(join(SRC, 'static/photos/manifest.json'), 'utf8'));
+function photo(arg = '') {
+  const [id, sizes = '100vw', alt = '', mode = ''] = arg.split('|');
+  const m = photos[id];
+  if (!m) fail(`unknown photo ${id}`);
+  const files = [...m.files].sort((a, b) => a.w - b.w);
+  const largest = files.at(-1), mid = files[Math.min(1, files.length - 1)];
+  const srcset = files.map((f) => `/photos/${f.file} ${f.w}w`).join(', ');
+  const eager = mode === 'eager';
+  return `<img src="/photos/${mid.file}" srcset="${srcset}" sizes="${R.esc(sizes)}" width="${largest.w}" height="${largest.h}" alt="${R.esc(alt)}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async">`;
+}
+const sq = (() => { let x = 7, out = ''; const lv = ['', 'a', 'b', 'c', 'd']; for (let i = 0; i < 168; i++) { x = (x * 1103515245 + 12345) % 2147483648; const k = x % 9; out += `<i${k < 5 ? ` class="${lv[k]}"` : ''}></i>`; } return `<div class="banner-squares" aria-hidden="true">${out}</div>`; })();
 const SLOTS = {
+  photo: (page, arg) => photo(arg),
+  squares: () => sq,
+  preload_hero: () => { const f = [...photos['hero-alder-creek'].files].sort((a, b) => a.w - b.w); return `<link rel="preload" as="image" imagesrcset="${f.map((x) => `/photos/${x.file} ${x.w}w`).join(', ')}" imagesizes="100vw" fetchpriority="high">`; },
+  teaser: () => R.teaser(state0, config),
+  rating_badge: () => R.ratingBadge(config),
+  reviews: () => R.reviews(config),
+  materials_table: () => R.materialsTable(),
+  upgrade_table: () => R.upgradeTable(config),
+  price_from: () => money(Math.min(...config.pricing.sizes.map((s2) => s2.single).filter((v) => v != null))),
+  questions_preview: () => R.questionsPreview(config, fill),
+  gallery_grid: () => R.galleryGrid(photo, config),
+  gallery_note: () => ((config.gallery || []).length ? '' : '<p class="sample-note">Sample renders of our signs. Photographs of finished installations replace them.</p>'),
   assets: () => assetsHead,
   robots: (page) => (DRAFT || page.noindex ? '<meta name="robots" content="noindex">\n' : ''),
   draft_notice: () => (DRAFT ? '<div class="draft-notice"><p class="wrap">Draft site. Prices and terms shown are samples.</p></div>\n' : ''),
@@ -187,7 +226,6 @@ const SLOTS = {
   builder: () => R.builder(config, state0),
   lineup: () => R.lineupSvg(config, state0),
   size_list: () => R.sizeList(config, state0),
-  gallery: () => R.gallery(config),
   covers: () => R.covers(config),
   anatomy: () => anatomy(config, state0),
   option_stone: () => option('stone', config, state0),
@@ -195,7 +233,7 @@ const SLOTS = {
   option_metal: () => option('metal', config, state0),
   option_acrylic: () => option('acrylic', config, state0),
   questions: () => R.questions(config, fill),
-  jsonld: (page) => (page.path === '/' ? R.jsonLd([orgLd, serviceLd]) : page.path === '/questions/' ? R.jsonLd([faqLd]) : ''),
+  jsonld: (page) => (page.path === '/' || page.path === '/sizes-and-prices/' ? R.jsonLd([orgLd, serviceLd]) : page.path === '/questions/' ? R.jsonLd([faqLd]) : ''),
   site_data: (page) => R.siteData({
     page: page.path, config: browserConfig, messages,
     contact: { business_name: config.business_name, phone: config.phone, phone_href: tokens.phone_href, email: config.email, hours: config.hours, mailing_address: config.mailing_address },
@@ -220,9 +258,9 @@ function render(template, page) {
   });
   const leftover = html.match(/\{\{(?!@)[^}]*\}\}/);
   if (leftover) fail(`${page.src}: unresolved ${leftover[0]}`);
-  html = html.replace(/\{\{@([a-z_]+)\}\}/g, (m, name) => {
+  html = html.replace(/\{\{@([a-z_]+)(?::([^}]*))?\}\}/g, (m, name, arg) => {
     if (!SLOTS[name]) fail(`${page.src}: unknown render slot ${name}`);
-    return SLOTS[name](page);
+    return SLOTS[name](page, arg);
   });
   if (/\{\{[^}]*\}\}/.test(html.replace(/<script type="application\/(?:ld\+)?json"[\s\S]*?<\/script>/g, ''))) {
     fail(`${page.src}: unresolved token after rendering`);
@@ -232,7 +270,7 @@ function render(template, page) {
     return config.features[f] ? m : `${m} hidden`;
   });
   // mark the current page in the main navigation
-  const navKey = { '/how-it-works/': 'how', '/questions/': 'questions' }[page.path];
+  const navKey = { '/how-it-works/': 'how', '/questions/': 'questions', '/design/': 'design', '/gallery/': 'gallery', '/industries/': 'industries', '/monument-signs/': 'signs', '/sizes-and-prices/': 'signs' }[page.path];
   if (navKey) html = html.replace(`data-nav="${navKey}"`, `data-nav="${navKey}" aria-current="page"`);
   return html;
 }
@@ -245,7 +283,15 @@ for (const page of PAGES) {
 }
 
 // ---------- static files, robots, sitemap ----------
-for (const f of await readdir(join(SRC, 'static'))) await copyFile(join(SRC, 'static', f), join(OUT, f));
+async function copyTree(from, to) {
+  await mkdir(to, { recursive: true });
+  for (const e of await readdir(from, { withFileTypes: true })) {
+    if (e.name === 'manifest.json') continue;
+    if (e.isDirectory()) await copyTree(join(from, e.name), join(to, e.name));
+    else await copyFile(join(from, e.name), join(to, e.name));
+  }
+}
+await copyTree(join(SRC, 'static'), OUT);
 await writeFile(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\n`);
 const urls = PAGES.filter((p) => !p.noindex).map((p) => `  <url><loc>${site}${p.path}</loc></url>`).join('\n');
 await writeFile(join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
