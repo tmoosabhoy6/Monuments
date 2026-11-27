@@ -149,15 +149,11 @@ test('drawing: the drawings pre-rendered in dist/ equal draw.js for the default 
   const out = 'dist-unit-test';
   execFileSync(process.execPath, ['scripts/build.js', '--out', out], { cwd: root, stdio: 'pipe' });
   const design = await readFile(root + out + '/design/index.html', 'utf8');
-  const home = await readFile(root + out + '/index.html', 'utf8');
   await rm(root + out, { recursive: true, force: true });
   const expected = hero(defaults(config), config);
   const m = design.match(/<div class="sign-drawing" data-sign>([\s\S]*?)<\/div>\s*<div class="name-row">/);
   assert.ok(m, 'designer drawing found');
   assert.equal(m[1], expected);
-  const t = home.match(/<div class="designer-sheet" data-teaser-sign>([\s\S]*?)<\/div>\s*<div class="designer-meta">/);
-  assert.ok(t, 'home teaser drawing found');
-  assert.equal(t[1], expected);
 });
 
 // ---------- config ----------
@@ -165,7 +161,7 @@ test('config: unconfirmed values are listed and tokens resolve', () => {
   const list = unconfirmed(raw);
   for (const p of ['business_name', 'pricing.sizes', 'pricing.deposit_percent', 'policies.warranty', 'questions[2].items[2].a']) assert.ok(list.includes(p), p);
   const t = tokensFrom(config);
-  assert.equal(fillTokens('{{lead_time|cap}} from approval.', t), 'Four to six weeks from approval.');
+  assert.equal(fillTokens('{{lead_time|cap}} from approval.', t), 'Four to five weeks from approval.');
   assert.equal(fillTokens('Ask for. {{permit_statement}}', t), 'Ask for.');
   assert.throws(() => fillTokens('{{nope}}', t), /Unresolved token/);
   assert.equal(t.size_count_word, 'Four');
@@ -184,10 +180,10 @@ test('build: owner photographs and the customer portal link render once supplied
     const gal = await readFile(root + out + '/gallery/index.html', 'utf8');
     assert.match(gal, /<img src="\/og\.png" width="1200" height="630" alt="Entrance sign at Cedar Hollow" loading="lazy" decoding="async">/);
     assert.match(gal, /Cedar Hollow\. 8 ft × 4 ft, stone-look base, pillars\./);
-    assert.doesNotMatch(gal, /Sample renders of our signs/, 'owner photographs replace the samples');
+    assert.ok(gal.indexOf('/og.png') < gal.indexOf('/photos/'), 'owner photographs come first');
     assert.match(home, /<a href="https:\/\/billing\.stripe\.com\/p\/login\/test_123">See your orders and payments<\/a>/);
-    const how = await readFile(root + out + '/how-it-works/index.html', 'utf8');
-    assert.match(how, /See your orders and payments/);
+    const process_ = await readFile(root + out + '/process/index.html', 'utf8');
+    assert.match(process_, /See your orders and payments/);
   } finally {
     await rm(root + out, { recursive: true, force: true });
     await rm(root + 'content/test-config.tmp.json', { force: true });

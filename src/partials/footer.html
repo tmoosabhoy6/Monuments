@@ -1,9 +1,12 @@
-<section class="cta-strip" aria-label="Get started">
-  <div class="wrap cta-strip-inner">
-    <p class="cta-strip-text">Ready to see your name on a monument sign?</p>
-    <div class="cta-strip-actions">
-      <a class="btn btn-dark" href="/design/">Design Your Sign</a>
-      <a class="btn btn-outline-dark" href="{{phone_href}}">{{> icon-phone}} {{phone}}</a>
+<section class="closing" aria-labelledby="closing-title">
+  <div class="wrap closing-inner">
+    <h2 class="closing-title" id="closing-title" data-reveal="lines"><span class="line"><span>Tell us what you want</span></span> <span class="line"><span>on the sign.</span></span></h2>
+    <div class="closing-side" data-reveal>
+      <p>An approximate size and a few words are enough to start. Design is free, revisions are free, and nothing is set in stone until you approve your proof.</p>
+      <div class="actions">
+        <a class="btn btn-gold btn-lg" href="/contact/"><span>Start your sign</span>{{> icon-arrow}}</a>
+        <a class="btn btn-line btn-lg" href="{{phone_href}}">{{> icon-phone}}<span>{{phone}}</span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -11,8 +14,8 @@
   <div class="wrap">
     <div class="footer-cols">
       <div class="footer-brand">
-        <a class="brand brand-light" href="/" aria-label="{{business_name}} home">{{> logo}}</a>
-        <p>Monument signs, built to order and installed anywhere in the United States. Routed HDU signs in your wording and colors, with the price shown before you call.</p>
+        <a class="brand" href="/" aria-label="{{business_name}} home">{{> logo}}</a>
+        <p>Monument signs are all we do. Routed HDU monuments, designed with you at no charge and built in {{lead_time}} after you approve your proof.</p>
         <ul class="footer-contact">
           <li><a href="{{phone_href}}">{{> icon-phone}}<span>{{phone}}</span></a></li>
           <li><a href="mailto:{{email}}">{{> icon-mail}}<span>{{email}}</span></a></li>
@@ -20,35 +23,35 @@
         </ul>
       </div>
       <nav class="footer-col" aria-label="Monument signs">
-        <p class="footer-head">Monument Signs</p>
+        <p class="footer-head">Monument signs</p>
         <ul>
-          <li><a href="/monument-signs/">Sign styles</a></li>
-          <li><a href="/sizes-and-prices/">Sizes and prices</a></li>
-          <li><a href="/design/">Design your sign</a></li>
+          <li><a href="/products/">Products</a></li>
+          <li><a href="/pricing/">Pricing and upgrades</a></li>
           <li><a href="/gallery/">Gallery</a></li>
-          <li><a href="/more-from-our-shop/">More from our shop</a></li>
+          <li><a href="/design/">Sketch and price a sign</a></li>
         </ul>
       </nav>
-      <nav class="footer-col" aria-label="Company">
-        <p class="footer-head">Company</p>
+      <nav class="footer-col" aria-label="Working with us">
+        <p class="footer-head">Working with us</p>
         <ul>
           <li><a href="/about/">About us</a></li>
-          <li><a href="/how-it-works/">How it works</a></li>
-          <li><a href="/industries/">Industries</a></li>
+          <li><a href="/design-services/">Design services</a></li>
+          <li><a href="/process/">Process</a></li>
+          <li><a href="/installation/">Installation</a></li>
           <li><a href="/questions/">Questions</a></li>
-          <li><a href="/request-a-quote/">Request a quote</a></li>
+          <li><a href="/contact/">Contact us</a></li>
         </ul>
       </nav>
       <nav class="footer-col" aria-label="Policies">
         <p class="footer-head">Policies</p>
         <ul>
-          <li><a href="/how-it-works/#policy-deposit">Deposit</a></li>
-          <li><a href="/how-it-works/#policy-approval">Approval</a></li>
-          <li><a href="/how-it-works/#policy-cancellation">Cancellation</a></li>
-          <li><a href="/how-it-works/#policy-warranty">Warranty</a></li>
-          <li><a href="/how-it-works/#policy-installation">Installation</a></li>
-          <li><a href="/how-it-works/#policy-delivery">Delivery</a></li>
-          <li data-feature="invoice_payment"><a href="/how-it-works/#pay" data-pay-invoice>Pay an invoice</a></li>
+          <li><a href="/process/#policy-deposit">Deposit</a></li>
+          <li><a href="/process/#policy-approval">Approval</a></li>
+          <li><a href="/process/#policy-cancellation">Cancellation</a></li>
+          <li><a href="/process/#policy-warranty">Warranty</a></li>
+          <li><a href="/process/#policy-installation">Installation</a></li>
+          <li><a href="/process/#policy-delivery">Delivery</a></li>
+          <li data-feature="invoice_payment"><a href="/process/#fine-print" data-pay-invoice>Pay an invoice</a></li>
           {{@portal_link}}
         </ul>
       </nav>
@@ -66,5 +69,4 @@
 <div class="float-contact" aria-label="Contact us">
   <a href="{{phone_href}}" class="float-btn" aria-label="Call {{phone}}">{{> icon-phone}}</a>
   <a href="mailto:{{email}}" class="float-btn" aria-label="Email {{email}}">{{> icon-mail}}</a>
-  <a href="/request-a-quote/" class="float-btn float-btn-gold" aria-label="Request a quote">{{> icon-drawing}}</a>
 </div>

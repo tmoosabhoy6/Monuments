@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+</head>
+<body data-page="process">
+{{> header}}
+<main id="main">
+  <section class="banner banner-solo">
+    <div class="wrap banner-grid">
+      <div class="banner-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"></span><span aria-current="page">Process</span></nav>
+        <h1 class="display"><span class="line"><span>Five steps,</span></span> <span class="line"><span>start to finish.</span></span></h1>
+        <p class="lede">From what the sign should say to the day it is delivered. Nothing is decided for good until you approve your proof.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tight" aria-labelledby="steps-title">
+    <div class="wrap">
+      <h2 class="visually-hidden" id="steps-title">The five steps</h2>
+      <ol class="steps steps-full" data-reveal="stagger">
+        <li class="step"><span class="step-n" aria-hidden="true">1</span><h3><span class="visually-hidden">Step 1: </span>Tell us what you want on the sign</h3><p>Single-sided or double-sided. Send your logo as a PDF, or send the text and we will design it for you.</p><i class="step-arrow" aria-hidden="true"></i></li>
+        <li class="step"><span class="step-n" aria-hidden="true">2</span><h3><span class="visually-hidden">Step 2: </span>Give us an approximate size</h3><p>It does not need to be exact, just a starting point. Your sign can change during the proposal phase and the design phase with the designer, at no charge.</p><i class="step-arrow" aria-hidden="true"></i></li>
+        <li class="step"><span class="step-n" aria-hidden="true">3</span><h3><span class="visually-hidden">Step 3: </span>Send us your contact info</h3><p>So we can send your proposal and reach you with questions.</p><i class="step-arrow" aria-hidden="true"></i></li>
+        <li class="step"><span class="step-n" aria-hidden="true">4</span><h3><span class="visually-hidden">Step 4: </span>Small deposit, then design</h3><p>After the deposit is paid, we create your design and work with you until you are 100% happy. If samples are needed, we can send samples of your project.</p><i class="step-arrow" aria-hidden="true"></i></li>
+        <li class="step"><span class="step-n" aria-hidden="true">5</span><h3><span class="visually-hidden">Step 5: </span>Proof approval, production and delivery</h3><p>After you approve the proof: {{lead_time}} for production and delivery. Optional installation available nationwide.</p></li>
+      </ol>
+      <p class="actions center-actions" data-reveal><a class="btn btn-gold btn-lg" href="/contact/"><span>Start with step one</span>{{> icon-arrow}}</a></p>
+    </div>
+  </section>
+
+  {{> stone}}
+
+  <section class="section" id="fine-print" aria-labelledby="fine-title">
+    <div class="wrap duo duo-top">
+      <div>
+        <h2 id="fine-title" data-reveal="lines"><span class="line"><span>The fine print,</span></span> <span class="line"><span>in plain words</span></span></h2>
+        <p class="lede mt-32" data-reveal>Deposit, approval, cancellation, delivery, installation and warranty.</p>
+        <div class="mt-48" data-reveal>{{@frame:ophelia-inlet|arch}}</div>
+      </div>
+      <div class="disclosures" data-reveal>
+        <details class="disclosure" id="policy-deposit"><summary>Deposit</summary><div class="body"><p>{{policy_deposit}}</p></div></details>
+        <details class="disclosure" id="policy-approval"><summary>Approval</summary><div class="body"><p>{{policy_approval}}</p></div></details>
+        <details class="disclosure" id="policy-cancellation"><summary>Cancellation</summary><div class="body"><p>{{policy_cancellation}}</p></div></details>
+        <details class="disclosure" id="policy-delivery"><summary>Delivery</summary><div class="body"><p>{{policy_delivery}}</p></div></details>
+        <details class="disclosure" id="policy-installation"><summary>Installation</summary><div class="body"><p>{{policy_installation}}</p></div></details>
+        <details class="disclosure" id="policy-warranty"><summary>Warranty</summary><div class="body"><p>{{policy_warranty}}</p></div></details>
+        <details class="disclosure" id="policy-permits"><summary>Permits and local rules</summary><div class="body"><p>{{permits_paragraph}}</p></div></details>
+      </div>
+    </div>
+  </section>
+</main>
+{{> footer}}
+{{> titleblock}}
+{{> dialogs}}
+{{@site_data}}
+</body>
+</html>

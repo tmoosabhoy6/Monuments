@@ -228,6 +228,66 @@ Only design features were taken from the references; no text, photographs, logos
 - Redeployed the draft (bundled Worker, 2.5 MB gzipped with the photographs) as version
   03296829-5a2b-4b99-8ce6-59417547b6e0; every page answers 200 and loads without console errors.
 
+## Light rebuild (owner, 2026-11-27, "Website Plan & Developer Email")
+
+The owner sent a written brief and asked for the site to be rebuilt to it, "extremely stunning",
+with "stunning animations, hover effects". It replaces the reference-site rebuild above.
+
+- Brief: clean and simple like the reference (captivatingsigns.com, used as a guide to layout only:
+  top contact bar, a row of page links, a contact page with the form beside the details); light
+  colors, nothing dark; lots of photographs on the home page; the message that monuments are all we
+  do; nine pages, each with its own content; a five-step process as boxes with arrows; "nothing is
+  set in stone" on Home, Process and Design Services; pricing and four upgrades shown.
+- Pages (12): Home, About Us, Products, Design Services, Process, Installation, Gallery, Pricing &
+  Upgrades, Contact Us, plus the sign sketcher (`/design/`, linked from Pricing, Design Services and
+  the footer), Questions (footer) and 404. Removed: Monument signs guide, Sizes and prices, How it
+  works, Industries, More from our shop, Request a quote. Their addresses redirect.
+- Photographs: the owner said to take them from the Impact Signs website (La Grange, Illinois).
+  Every image on its monument pages and every media-library result for monument, foam, faux, stone,
+  HDU, pillar and entrance was downloaded (84) and looked at; 30 show monument signs and were kept
+  (plaques, lobby signs, letters on buildings, memorials and national monuments were left out).
+  `src/static/photos/manifest.json` records the source address of each. Converted to AVIF at 560 px
+  and at the source width (most sources are 1024 px wide, so no photograph is shown wider than about
+  700 CSS px). The 3D sample renders, their script and `npm run photos` are gone.
+  **Not confirmed:** that the business may publish these photographs. `photo_source` in the config
+  is unconfirmed, so `build:production` refuses to build until it is.
+- Look: white, pale stone (#F4F7F3) and sage (#E6EEE7) grounds, sign green and gold; no dark
+  sections, a light footer. Besley for headings in sentence case (Oswald and its file removed),
+  Libre Franklin for text. The one idea: photographs sit in frames cut like the four sign-face
+  shapes (flat, arched, peaked, shouldered) and stand on a gold base line.
+- Motion (transform and opacity only; reveals by IntersectionObserver, no scroll listeners):
+  the home hero is an arched photograph on a green base that drops into place, changes every five
+  seconds (buttons choose; the base plate names the sign), with two smaller photographs in front and
+  a slight lean toward the pointer; headline lines rise out of masks; two photo strips move in
+  opposite directions and pause on hover; one hundred tiles pop in for "less than 2%" against 100%,
+  with figures counting up; the five process boxes arrive in turn and their arrows draw; the same
+  sign is redrawn five ways (shape, base, pillars, colors) in a loop or on request; a band of large
+  words moves; an LED message board is drawn with a scrolling message; buttons fill from the base;
+  cards, steps, points and photographs respond to hover; pages cross-fade into each other where the
+  browser supports cross-document view transitions. Everything is still under reduced motion.
+- Copy is the brief's, in its own words where it gave them. Facts it left open are config values:
+  `other_shops_share` ("less than 2%", no source yet), `design_deposit` ("a small deposit"),
+  `lead_time` (now "four to five weeks"), prices (unchanged samples). Illuminated faces, LED screens
+  and boulders read "Quoted with your proposal" until prices are supplied. The sample rating and
+  reviews are removed. Policies and questions were reworded where they contradicted the brief
+  (a small deposit starts design; installation is optional).
+- Read as written, the brief's "Faux stone: pillars, base or bolts" is taken to mean boulders (the
+  Impact Signs photographs include faux stone boulders). To be confirmed by the owner.
+- Contact form: three numbered parts matching steps one to three; a new optional field `sides`
+  (single, double, not sure) is validated by the Worker and included in the email to the business.
+  The error for an empty first field now reads "Tell us what the sign should say."
+- The business name, phone, email and address are still the config placeholders.
+- `check:copy` (SPEC §7 word for word) is retired with the copy it checked. The sketcher keeps its
+  SPEC copy; its drawing dialog now says the design is a starting point.
+- Checks on this build: 32/32 unit, 15/15 browser (rewritten for the new pages), rules, size (CSS
+  12.6 of 14 KB, JS 27.1 of 30 KB, fonts 64.3 of 70 KB), scroll (every page, desktop and 4×-throttled
+  phone; the phone home page needed the per-tile animation limited to wide screens), the
+  accessibility audit (touch targets, contrast, reflow, headings, dialogs). `build:production`
+  fails, as it should, listing the unconfirmed values. Lighthouse was not re-run.
+- Not deployed. The live draft still shows the previous build. The photographs total 3.2 MB, which
+  with the bundled-Worker deployment may exceed the 3 MB Worker size limit on a free plan; the
+  static-asset deployment (`npm run deploy`) has no such limit.
+
 ## Skills used (SPEC §13)
 
 - frontend-design (Anthropic): used for the build; its planning step skipped because SPEC §5–6

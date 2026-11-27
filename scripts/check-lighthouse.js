@@ -17,7 +17,7 @@ const base = (process.argv[2] || 'http://127.0.0.1:8787').replace(/\/$/, '');
 const out = root + 'design/review/lighthouse/';
 await mkdir(out, { recursive: true });
 const chrome = process.env.CHROME_PATH || '/opt/pw-browsers/chromium';
-const PAGES = ['/', '/design/', '/monument-signs/', '/gallery/', '/how-it-works/', '/request-a-quote/'];
+const PAGES = ['/', '/design/', '/products/', '/gallery/', '/process/', '/contact/'];
 
 function lighthouse(url, file) {
   execFileSync('npx', ['--yes', 'lighthouse@13.6.0', url, '--quiet', '--output=json', `--output-path=${file}`,

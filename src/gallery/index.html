@@ -6,35 +6,27 @@
 <body data-page="gallery">
 {{> header}}
 <main id="main">
-  <section class="page-banner page-banner-slim">
-    {{@squares}}
-    <div class="wrap banner-inner">
+  <section class="banner banner-solo">
+    <div class="wrap banner-grid">
       <div class="banner-text">
-        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Gallery</span></nav>
-        <h1 class="display">Gallery</h1>
-        <p>Monument signs in every style, in their setting. Choose a style to filter, or open any sign to see it larger.</p>
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"></span><span aria-current="page">Gallery</span></nav>
+        <h1 class="display"><span class="line"><span>The gallery.</span></span></h1>
+        <p class="lede">{{@photo_count}} photographs of monument signs. Choose a group, or open any photograph to see it larger.</p>
       </div>
     </div>
   </section>
-  <section class="section" aria-label="Signs">
+
+  <section class="section section-tight" aria-label="Photographs">
     <div class="wrap">
-      <div class="filters" role="group" aria-label="Filter by style" data-filters>
-        <button type="button" class="chip is-on" aria-pressed="true" data-filter="all">All</button>
-        <button type="button" class="chip" aria-pressed="false" data-filter="stone">Stone-look base</button>
-        <button type="button" class="chip" aria-pressed="false" data-filter="pillars">Pillars</button>
-        <button type="button" class="chip" aria-pressed="false" data-filter="posts">On posts</button>
-        <button type="button" class="chip" aria-pressed="false" data-filter="letters">Cut letters</button>
-        <button type="button" class="chip" aria-pressed="false" data-filter="lit">Illuminated</button>
-      </div>
+      {{@gallery_filters}}
       {{@gallery_grid}}
-      {{@gallery_note}}
     </div>
   </section>
-  <dialog class="lightbox" aria-label="Sign photo" data-lightbox>
+  <dialog class="lightbox" aria-label="Photograph" data-lightbox>
     <button type="button" class="lb-close" data-lb-close aria-label="Close">×</button>
-    <button type="button" class="lb-nav lb-prev" data-lb-prev aria-label="Previous photo">‹</button>
+    <button type="button" class="lb-nav lb-prev" data-lb-prev aria-label="Previous photograph">{{> icon-arrow}}</button>
     <figure><img alt="" data-lb-img><figcaption data-lb-cap></figcaption></figure>
-    <button type="button" class="lb-nav lb-next" data-lb-next aria-label="Next photo">›</button>
+    <button type="button" class="lb-nav lb-next" data-lb-next aria-label="Next photograph">{{> icon-arrow}}</button>
   </dialog>
 </main>
 {{> footer}}

@@ -16,7 +16,8 @@ import { serve } from './lib/serve.js';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const server = await serve(root + 'dist');
 const browser = await chromium.launch({ args: ['--disable-gpu-vsync-ignore', '--enable-gpu-rasterization'] });
-const PAGES = ['/', '/design/', '/monument-signs/', '/gallery/', '/how-it-works/', '/questions/'];
+// SCROLL_PAGES=/,/gallery/ limits the run while working on one page.
+const PAGES = process.env.SCROLL_PAGES ? process.env.SCROLL_PAGES.split(',') : ['/', '/design/', '/products/', '/gallery/', '/process/', '/pricing/'];
 
 const RECORDER = `
   window.__frames = []; window.__long = []; window.__rec = false;

@@ -7,8 +7,8 @@ import { serve } from './lib/serve.js';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const s = await serve(root + 'dist');
 const b = await chromium.launch();
-const PAGES = ['/', '/design/', '/monument-signs/', '/sizes-and-prices/', '/gallery/', '/industries/', '/about/', '/request-a-quote/',
-  '/how-it-works/', '/questions/', '/more-from-our-shop/'];
+const PAGES = ['/', '/about/', '/products/', '/design-services/', '/process/', '/installation/', '/gallery/', '/pricing/', '/contact/',
+  '/design/', '/questions/'];
 const report = { targets: [], contrast: new Map(), reflow: [], headings: [], dialogs: [] };
 
 for (const path of PAGES) {
@@ -31,7 +31,8 @@ for (const path of PAGES) {
   // contrast of every text node's colour against its effective background
   const desk = await b.newContext({ viewport: { width: 1440, height: 900 } });
   const d = await desk.newPage();
-  await d.goto(s.url + path);
+  await d.goto(s.url + path, { waitUntil: 'networkidle' });
+  await d.waitForTimeout(1500);   // colours are read once load animations and button transitions have settled
   if (path === '/design/') await d.fill('#sign-name', 'Alder Creek');
   const pairs = await d.evaluate(() => {
     const rgb = (c) => (c.match(/[\d.]+/g) || []).map(Number);

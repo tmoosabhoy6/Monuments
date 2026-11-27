@@ -1,467 +1,126 @@
+Checks run on 2026-11-27 after the light rebuild (see PROGRESS.md).
 
-================================================================
-$ npm run build
-----------------------------------------------------------------
-
-> monument-signs@1.0.0 build
-> node scripts/build.js
-
-Built dist/ (draft): 5 pages, 9 modules, site.25a7008815.css
-exit code: 0
-
-================================================================
 $ npm test
-----------------------------------------------------------------
-
-> monument-signs@1.0.0 test
-> node --test "tests/unit/*.test.js"
-
-TAP version 13
-# Subtest: pricing: the default design is the largest size, stone-look base, installed
-ok 1 - pricing: the default design is the largest size, stone-look base, installed
-  ---
-  duration_ms: 1.450719
-  type: 'test'
-  ...
-# Subtest: pricing: every option adds its price, and zero-priced lines are not listed except the sign
-ok 2 - pricing: every option adds its price, and zero-priced lines are not listed except the sign
-  ---
-  duration_ms: 0.579041
-  type: 'test'
-  ...
-# Subtest: pricing: posts ignore any pillar choice; installation adds the size install price
-ok 3 - pricing: posts ignore any pillar choice; installation adds the size install price
-  ---
-  duration_ms: 0.306079
-  type: 'test'
-  ...
-# Subtest: pricing: an option can be priced per size
-ok 4 - pricing: an option can be priced per size
-  ---
-  duration_ms: 0.273831
-  type: 'test'
-  ...
-# Subtest: pricing: an unpriced option makes the whole quote unpriced
-ok 5 - pricing: an unpriced option makes the whole quote unpriced
-  ---
-  duration_ms: 0.429158
-  type: 'test'
-  ...
-# Subtest: pricing: deposit rounds to whole dollars
-ok 6 - pricing: deposit rounds to whole dollars
-  ---
-  duration_ms: 0.37721
-  type: 'test'
-  ...
-# Subtest: sharing: a state survives encode and decode
-ok 7 - sharing: a state survives encode and decode
-  ---
-  duration_ms: 1.025501
-  type: 'test'
-  ...
-# Subtest: sharing: unknown values fall back to defaults, and garbage decodes to the default
-ok 8 - sharing: unknown values fall back to defaults, and garbage decodes to the default
-  ---
-  duration_ms: 0.460251
-  type: 'test'
-  ...
-# Subtest: state: rules between options
-ok 9 - state: rules between options
-  ---
-  duration_ms: 0.789227
-  type: 'test'
-  ...
-# Subtest: drawing: the same state always yields the identical string
-ok 10 - drawing: the same state always yields the identical string
-  ---
-  duration_ms: 5.884629
-  type: 'test'
-  ...
-# Subtest: drawing: shadows follow the paint; the default green shades to about \#143326
-ok 11 - drawing: shadows follow the paint; the default green shades to about \#143326
-  ---
-  duration_ms: 0.267316
-  type: 'test'
-  ...
-# Subtest: drawing: every option changes the drawing
-ok 12 - drawing: every option changes the drawing
-  ---
-  duration_ms: 1.784692
-  type: 'test'
-  ...
-# Subtest: drawing: lettering width comes from the committed glyph table
-ok 13 - drawing: lettering width comes from the committed glyph table
-  ---
-  duration_ms: 0.141551
-  type: 'test'
-  ...
-# Subtest: drawing: the hero pre-rendered in dist/index.html equals draw.js for the default state
-ok 14 - drawing: the hero pre-rendered in dist/index.html equals draw.js for the default state
-  ---
-  duration_ms: 103.476438
-  type: 'test'
-  ...
-# Subtest: config: unconfirmed values are listed and tokens resolve
-ok 15 - config: unconfirmed values are listed and tokens resolve
-  ---
-  duration_ms: 1.246459
-  type: 'test'
-  ...
-# Subtest: build: owner photographs and the customer portal link render once supplied
-ok 16 - build: owner photographs and the customer portal link render once supplied
-  ---
-  duration_ms: 83.689862
-  type: 'test'
-  ...
-# (node:14946) ExperimentalWarning: SQLite is an experimental feature and might change at any time
-# (Use `node --trace-warnings ...` to show where the warning was created)
-# Subtest: every endpoint answers 503 not_configured when its bindings or secrets are missing
-ok 17 - every endpoint answers 503 not_configured when its bindings or secrets are missing
-  ---
-  duration_ms: 25.001576
-  type: 'test'
-  ...
-# Subtest: server validation rejects bad input
-ok 18 - server validation rejects bad input
-  ---
-  duration_ms: 1.524809
-  type: 'test'
-  ...
-# Subtest: requests: invalid input is refused with 400 and the failing fields
-ok 19 - requests: invalid input is refused with 400 and the failing fields
-  ---
-  duration_ms: 5.301973
-  type: 'test'
-  ...
-# Subtest: requests: a valid quote is saved first, then both emails go out
-ok 20 - requests: a valid quote is saved first, then both emails go out
-  ---
-  duration_ms: 3.203562
-  type: 'test'
-  ...
-# Subtest: requests: with email not configured the request still succeeds, because it is saved
-ok 21 - requests: with email not configured the request still succeeds, because it is saved
-  ---
-  duration_ms: 1.926864
-  type: 'test'
-  ...
-# Subtest: uploads: token, size and type rules, then the request lists only its own files
-ok 22 - uploads: token, size and type rules, then the request lists only its own files
-  ---
-  duration_ms: 15.944328
-  type: 'test'
-  ...
-# Subtest: files: a signed link serves the file; a bad or expired one is 404
-ok 23 - files: a signed link serves the file; a bad or expired one is 404
-  ---
-  duration_ms: 4.170294
-  type: 'test'
-  ...
-# Subtest: checkout: the deposit is computed on the server from option ids; amounts from the browser are ignored
-ok 24 - checkout: the deposit is computed on the server from option ids; amounts from the browser are ignored
-  ---
-  duration_ms: 2.276928
-  type: 'test'
-  ...
-# Subtest: checkout: an id the config does not contain is rejected
-ok 25 - checkout: an id the config does not contain is rejected
-  ---
-  duration_ms: 1.067203
-  type: 'test'
-  ...
-# Subtest: orders: the return message reflects what Stripe says
-ok 26 - orders: the return message reflects what Stripe says
-  ---
-  duration_ms: 1.48162
-  type: 'test'
-  ...
-# Subtest: webhook signature: valid accepted, tampered body and stale timestamp rejected
-ok 27 - webhook signature: valid accepted, tampered body and stale timestamp rejected
-  ---
-  duration_ms: 3.95287
-  type: 'test'
-  ...
-# Subtest: webhook: marks the order paid once, ignores repeats, and sends the two deposit emails
-ok 28 - webhook: marks the order paid once, ignores repeats, and sends the two deposit emails
-  ---
-  duration_ms: 5.413331
-  type: 'test'
-  ...
-# Subtest: invoices: only an open invoice with the matching email returns a link; everything else is the same 404
-ok 29 - invoices: only an open invoice with the matching email returns a link; everything else is the same 404
-  ---
-  duration_ms: 2.351449
-  type: 'test'
-  ...
-# Subtest: designs/email: sends the link to the address given
-ok 30 - designs/email: sends the link to the address given
-  ---
-  duration_ms: 1.172452
-  type: 'test'
-  ...
-# Subtest: unknown routes and wrong methods
-ok 31 - unknown routes and wrong methods
-  ---
-  duration_ms: 4.324931
-  type: 'test'
-  ...
-1..31
-# tests 31
-# suites 0
-# pass 31
+# tests 32
+# pass 32
 # fail 0
-# cancelled 0
-# skipped 0
-# todo 0
-# duration_ms 268.10618
-exit code: 0
 
-================================================================
-$ npm run check:rules
-----------------------------------------------------------------
-
-> monument-signs@1.0.0 check:rules
-> node scripts/check-rules.js
-
-check:rules passed: 21 files in dist/ scanned, no forbidden listeners, effects, fonts, hosts, characters or words.
-exit code: 0
-
-================================================================
-$ npm run check:size
-----------------------------------------------------------------
-
-> monument-signs@1.0.0 check:size
-> node scripts/check-size.js
-
-ok    HTML 404.html (gzip; brotli 3.0 KB)             3.6 KB  (budget 50 KB)
-ok    HTML how-it-works/index.html (gzip; brotli 8.4 KB)   10.3 KB  (budget 50 KB)
-ok    HTML index.html (gzip; brotli 8.9 KB)          11.4 KB  (budget 50 KB)
-ok    HTML more-from-our-shop/index.html (gzip; brotli 4.0 KB)    4.9 KB  (budget 50 KB)
-ok    HTML questions/index.html (gzip; brotli 5.2 KB)    6.3 KB  (budget 50 KB)
-ok    CSS total (gzip; brotli 5.3 KB)                 5.9 KB  (budget 14 KB)
-ok    JavaScript total (gzip; brotli 18.9 KB)        21.5 KB  (budget 30 KB)
-ok    Fonts total (WOFF2)                            64.3 KB  (budget 70 KB)
-
-check:size passed
-exit code: 0
-
-================================================================
-$ npm run check:copy
-----------------------------------------------------------------
-
-> monument-signs@1.0.0 check:copy
-> node scripts/check-copy.js
-
-Copy review: 254 headings, sentences, labels, buttons and messages from SPEC §7 and §9.1 checked.
-
-Deliberate or conditional differences (5):
-  - Signs we have built.
-      (the #work section renders only with owner photographs (SPEC §6.5); there are none yet)
-  - Each caption: {place or customer}. {size}, {options}.
-      (gallery captions; no photographs yet)
-  - Standard sizes are priced on this page, and the builder prices any combination of options as you choose them.
-      ("on this page" became "on this site": sizes and questions are on different pages now)
-  - Policies: Deposit, Approval, Cancellation, Warranty, Installation, Delivery.
-      (shown as the label "Policies" followed by the six links)
-  - See your orders and payments.
-      (rendered only when config.stripe_portal_url is set (SPEC §9.4); it is empty in the sample config)
-
-Every other phrase appears word for word.
-exit code: 0
-
-================================================================
 $ npm run test:browser
-----------------------------------------------------------------
-
-> monument-signs@1.0.0 test:browser
-> node scripts/build.js && node --test --test-concurrency=1 "tests/browser/*.test.js"
-
-Built dist/ (draft): 5 pages, 9 modules, site.25a7008815.css
-TAP version 13
-# Subtest: typing a name changes the sign and brings up the title block
 ok 1 - typing a name changes the sign and brings up the title block
-  ---
-  duration_ms: 845.980112
-  type: 'test'
-  ...
-# Subtest: every option changes the drawing and the price
 ok 2 - every option changes the drawing and the price
-  ---
-  duration_ms: 31831.916069
-  type: 'test'
-  ...
-# Subtest: "On posts" disables pillars
 ok 3 - "On posts" disables pillars
-  ---
-  duration_ms: 783.637873
-  type: 'test'
-  ...
-# Subtest: a copied design link reopens the same sign in a fresh context
 ok 4 - a copied design link reopens the same sign in a fresh context
-  ---
-  duration_ms: 2016.520102
-  type: 'test'
-  ...
-# Subtest: the print sheet renders on one page
 ok 5 - the print sheet renders on one page
-  ---
-  duration_ms: 930.272099
-  type: 'test'
-  ...
-# Subtest: the quote form shows the specified messages
 ok 6 - the quote form shows the specified messages
-  ---
-  duration_ms: 884.332296
-  type: 'test'
-  ...
-# Subtest: the other forms succeed with a configured API
 ok 7 - the other forms succeed with a configured API
-  ---
-  duration_ms: 1443.933134
-  type: 'test'
-  ...
-# Subtest: with the API unconfigured, each form shows its honest fallback
 ok 8 - with the API unconfigured, each form shows its honest fallback
-  ---
-  duration_ms: 1435.198915
-  type: 'test'
-  ...
-# Subtest: the whole builder can be completed with the keyboard alone
 ok 9 - the whole builder can be completed with the keyboard alone
-  ---
-  duration_ms: 1120.449328
-  type: 'test'
-  ...
-# Subtest: no console errors on any page, in either hero state
-ok 10 - no console errors on any page, in either hero state
-  ---
-  duration_ms: 2834.770977
-  type: 'test'
-  ...
-# Subtest: no horizontal scroll at 320px wide
+ok 10 - no console errors on any page
 ok 11 - no horizontal scroll at 320px wide
-  ---
-  duration_ms: 2988.632115
-  type: 'test'
-  ...
-# Subtest: with JavaScript disabled, all content, prices and drawings are present
 ok 12 - with JavaScript disabled, all content, prices and drawings are present
-  ---
-  duration_ms: 1781.299179
-  type: 'test'
-  ...
-# Subtest: footer policy links open their disclosure on the how-it-works page
-ok 13 - footer policy links open their disclosure on the how-it-works page
-  ---
-  duration_ms: 1351.302723
-  type: 'test'
-  ...
-1..13
-# tests 13
-# suites 0
-# pass 13
+ok 13 - footer policy links open their disclosure on the process page
+ok 14 - with uploads switched off, a request is still sent and says which file did not upload
+ok 15 - the menu, the hero photographs, the sign drawn five ways, the gallery and old links
+# tests 15
+# pass 15
 # fail 0
-# cancelled 0
-# skipped 0
-# todo 0
-# duration_ms 50713.624056
-exit code: 0
 
-================================================================
+$ npm run check:rules
+check:rules passed: 30 files in dist/ scanned, no forbidden listeners, effects, fonts, hosts, characters or words.
+
+$ npm run check:size
+ok    HTML 404.html (gzip; brotli 3.8 KB)             4.7 KB  (budget 50 KB)
+ok    HTML about/index.html (gzip; brotli 6.4 KB)     7.7 KB  (budget 50 KB)
+ok    HTML contact/index.html (gzip; brotli 6.0 KB)    7.2 KB  (budget 50 KB)
+ok    HTML design/index.html (gzip; brotli 8.1 KB)    9.9 KB  (budget 50 KB)
+ok    HTML design-services/index.html (gzip; brotli 8.0 KB)    9.9 KB  (budget 50 KB)
+ok    HTML gallery/index.html (gzip; brotli 7.2 KB)    8.6 KB  (budget 50 KB)
+ok    HTML index.html (gzip; brotli 10.8 KB)         14.1 KB  (budget 50 KB)
+ok    HTML installation/index.html (gzip; brotli 6.6 KB)    8.0 KB  (budget 50 KB)
+ok    HTML pricing/index.html (gzip; brotli 7.4 KB)    9.1 KB  (budget 50 KB)
+ok    HTML process/index.html (gzip; brotli 8.4 KB)   10.7 KB  (budget 50 KB)
+ok    HTML products/index.html (gzip; brotli 6.6 KB)    8.0 KB  (budget 50 KB)
+ok    HTML questions/index.html (gzip; brotli 6.3 KB)    7.5 KB  (budget 50 KB)
+ok    CSS total (gzip; brotli 11.1 KB)               12.6 KB  (budget 14 KB)
+ok    JavaScript total (gzip; brotli 23.8 KB)        27.1 KB  (budget 30 KB)
+ok    Fonts total (WOFF2)                            64.3 KB  (budget 70 KB)
+check:size passed
+
 $ npm run check:scroll
-----------------------------------------------------------------
-
-> monument-signs@1.0.0 check:scroll
-> node scripts/check-scroll.js
-
-ok    desktop 1440×900         / intro                        frames  122  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    desktop 1440×900         / builder                      frames  370  within 16.7 ms  99.7%  worst  33.3 ms  long tasks 0
-ok    desktop 1440×900         /how-it-works/ intro           frames  421  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    desktop 1440×900         /questions/ intro              frames  115  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    desktop 1440×900         /more-from-our-shop/ intro     frames   56  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    phone, 4× CPU throttle   / intro                        frames  184  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    phone, 4× CPU throttle   / builder                      frames  491  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    phone, 4× CPU throttle   /how-it-works/ intro           frames  527  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    phone, 4× CPU throttle   /questions/ intro              frames  158  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    phone, 4× CPU throttle   /more-from-our-shop/ intro     frames   88  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-
+ok    desktop 1440×900         / page                         frames  485  within 16.7 ms  99.8%  worst  33.2 ms  long tasks 0
+ok    desktop 1440×900         /design/ builder               frames  365  within 16.7 ms  99.7%  worst  33.4 ms  long tasks 0
+ok    desktop 1440×900         /products/ page                frames  354  within 16.7 ms  99.4%  worst  33.4 ms  long tasks 0
+ok    desktop 1440×900         /gallery/ page                 frames  369  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
+ok    desktop 1440×900         /process/ page                 frames  294  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
+ok    desktop 1440×900         /pricing/ page                 frames  453  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
+ok    phone, 4× CPU throttle   / page                         frames  728  within 16.7 ms  98.8%  worst  33.4 ms  long tasks 0
+ok    phone, 4× CPU throttle   /design/ builder               frames  484  within 16.7 ms  99.8%  worst  33.3 ms  long tasks 0
+ok    phone, 4× CPU throttle   /products/ page                frames  628  within 16.7 ms  99.7%  worst  33.3 ms  long tasks 0
+ok    phone, 4× CPU throttle   /gallery/ page                 frames  846  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
+ok    phone, 4× CPU throttle   /process/ page                 frames  433  within 16.7 ms  99.8%  worst  33.3 ms  long tasks 0
+ok    phone, 4× CPU throttle   /pricing/ page                 frames  527  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
 check:scroll passed
-exit code: 0
 
-================================================================
-$ npm run check:lighthouse
-----------------------------------------------------------------
-
-> monument-signs@1.0.0 check:lighthouse
-> node scripts/check-lighthouse.js
-
-ok    draft /                            perf 100  a11y 100  best 100  seo 66  LCP 0.78 s  CLS 0.000  TBT 0 ms
-ok    draft /how-it-works/               perf 100  a11y 100  best 100  seo 66  LCP 0.78 s  CLS 0.000  TBT 8 ms
-ok    draft /questions/                  perf 100  a11y 100  best 100  seo 66  LCP 0.77 s  CLS 0.000  TBT 0 ms
-ok    draft /more-from-our-shop/         perf 100  a11y 100  best 100  seo 66  LCP 0.77 s  CLS 0.000  TBT 10 ms
-ok    no-draft /                         perf 100  a11y 100  best 100  seo 100  LCP 0.77 s  CLS 0.000  TBT 0 ms
-ok    no-draft /how-it-works/            perf 100  a11y 100  best 100  seo 100  LCP 0.77 s  CLS 0.000  TBT 3 ms
-ok    no-draft /questions/               perf 100  a11y 100  best 100  seo 100  LCP 0.77 s  CLS 0.000  TBT 1 ms
-ok    no-draft /more-from-our-shop/      perf 100  a11y 100  best 100  seo 100  LCP 0.77 s  CLS 0.000  TBT 0 ms
-
-Lighthouse check passed (reports in design/review/lighthouse/)
-exit code: 0
-
-================================================================
 $ npm run check:a11y
-----------------------------------------------------------------
 
-> monument-signs@1.0.0 check:a11y
-> node scripts/a11y-audit.js
 
 Touch targets under 44px tall on a phone (inline text links excluded): none
 
 Text contrast pairs (worst case each):
-  ok    6.64:1 (needs 4.5)  rgb(76, 84, 79) on rgb(236, 237, 232)  e.g. "© 2026 Business Name"
-  ok    7.16:1 (needs 4.5)  rgb(76, 84, 79) on rgb(247, 245, 238)  e.g. "8 ft × 4 ft, single-sided, sto"
-  ok     8.5:1 (needs 3)  rgb(31, 74, 58) on rgb(236, 237, 232)  e.g. "1"
-  ok   12.76:1 (needs 4.5)  rgb(27, 33, 30) on rgb(226, 228, 221)  e.g. "Draft site. Prices and terms s"
-  ok   13.91:1 (needs 4.5)  rgb(236, 237, 232) on rgb(27, 33, 30)  e.g. "Skip to content"
-  ok   13.91:1 (needs 4.5)  rgb(27, 33, 30) on rgb(236, 237, 232)  e.g. "Business Name"
-  ok   15.01:1 (needs 4.5)  rgb(27, 33, 30) on rgb(247, 245, 238)  e.g. "$5,100"
+  ok    5.24:1 (needs 4.5)  rgb(217, 184, 102) on rgb(31, 74, 58)  e.g. "Your Name"
+  ok    5.39:1 (needs 3)  rgb(126, 97, 22) on rgb(244, 247, 243)  e.g. "3"
+  ok    5.55:1 (needs 4.5)  rgb(23, 35, 29) on rgb(184, 146, 46)  e.g. "Contact Us"
+  ok    5.82:1 (needs 3)  rgb(126, 97, 22) on rgb(255, 255, 255)  e.g. "5"
+  ok    6.11:1 (needs 4.5)  rgb(77, 90, 83) on rgb(230, 238, 231)  e.g. "Size and design do not have to"
+  ok     6.7:1 (needs 4.5)  rgb(77, 90, 83) on rgb(244, 247, 243)  e.g. "Privacy"
+  ok    7.23:1 (needs 4.5)  rgb(77, 90, 83) on rgb(255, 255, 255)  e.g. "Monument signs. Nothing else."
+  ok    8.46:1 (needs 4.5)  rgb(31, 74, 58) on rgb(230, 238, 231)  e.g. "(555) 010-0199"
+  ok    8.73:1 (needs 4.5)  rgb(217, 184, 102) on rgb(13, 34, 25)  e.g. "Welcome home"
+  ok    8.87:1 (needs 4.5)  rgb(31, 74, 58) on rgb(248, 241, 220)  e.g. "Open the sign sketcher"
+  ok    9.26:1 (needs 4.5)  rgb(31, 74, 58) on rgb(244, 247, 243)  e.g. "(555) 010-0199"
+  ok   10.01:1 (needs 4.5)  rgb(255, 255, 255) on rgb(31, 74, 58)  e.g. "Skip to content"
+  ok   10.01:1 (needs 3)  rgb(31, 74, 58) on rgb(255, 255, 255)  e.g. "Payment"
+  ok   13.71:1 (needs 4.5)  rgb(23, 35, 29) on rgb(230, 238, 231)  e.g. "An approximate size and a few "
+  ok   14.37:1 (needs 4.5)  rgb(23, 35, 29) on rgb(248, 241, 220)  e.g. "Draft site. Prices and terms s"
+  ok   15.02:1 (needs 4.5)  rgb(23, 35, 29) on rgb(244, 247, 243)  e.g. "What it says"
+  ok   16.22:1 (needs 4.5)  rgb(23, 35, 29) on rgb(255, 255, 255)  e.g. "About Us"
 
 Reflow at 200% zoom:
   /: no horizontal scroll
-  /how-it-works/: no horizontal scroll
+  /about/: no horizontal scroll
+  /products/: no horizontal scroll
+  /design-services/: no horizontal scroll
+  /process/: no horizontal scroll
+  /installation/: no horizontal scroll
+  /gallery/: no horizontal scroll
+  /pricing/: no horizontal scroll
+  /contact/: no horizontal scroll
+  /design/: no horizontal scroll
   /questions/: no horizontal scroll
-  /more-from-our-shop/: no horizontal scroll
 
 Headings:
   /: 1 h1, levels 1/2/3, no skips
-  /how-it-works/: 1 h1, levels 1/2/3, no skips
+  /about/: 1 h1, levels 1/2/3, no skips
+  /products/: 1 h1, levels 1/2/3, no skips
+  /design-services/: 1 h1, levels 1/2/3, no skips
+  /process/: 1 h1, levels 1/2/3, no skips
+  /installation/: 1 h1, levels 1/2/3, no skips
+  /gallery/: 1 h1, levels 1/2, no skips
+  /pricing/: 1 h1, levels 1/2/3, no skips
+  /contact/: 1 h1, levels 1/2, no skips
+  /design/: 1 h1, levels 1/2/3, no skips
   /questions/: 1 h1, levels 1/2, no skips
-  /more-from-our-shop/: 1 h1, levels 1/2, no skips
 
 Dialogs:
   dialog-reserve: - dialog "Reserve with deposit":
   dialog-drawing: - dialog "Request your approval drawing":
   dialog-share: - dialog "Save or send this design":
   dialog-invoice: - dialog "Pay an invoice":
-exit code: 0
 
-================================================================
-$ npm run screenshots
-----------------------------------------------------------------
-
-> monument-signs@1.0.0 screenshots
-> node scripts/screenshots.js
-
-Saved 12 full-page screenshots and first views to design/review/
-exit code: 0
-
-================================================================
 $ npm run build:production
-----------------------------------------------------------------
 
-> monument-signs@1.0.0 build:production
-> node scripts/check-launch.js && node scripts/build.js --production
 
-Launch blocked: 49 items in content/site.config.json:
+Launch blocked: 53 items in content/site.config.json:
   - draft is true (set "draft": false once everything below is confirmed)
   - site_url is not confirmed
   - business_name is not confirmed
@@ -471,54 +130,4 @@ Launch blocked: 49 items in content/site.config.json:
   - hours is not confirmed
   - mailing_address is not confirmed
   - lead_time is not confirmed
-  - response_time is not confirmed
-  - drawing_turnaround is not confirmed
-  - warranty_years is not confirmed
-  - warranty_exclusions is not confirmed
-  - damage_report_days is not confirmed
-  - permit_statement is not confirmed
-  - privacy_text is not confirmed
-  - stripe_portal_url is not confirmed
-  - turnstile_site_key is not confirmed
-  - owner_facts.installation_priced_nationwide_or_by_location is not confirmed
-  - owner_facts.delivery_included_in_listed_price is not confirmed
-  - owner_facts.approval_drawing_free_and_revisions is not confirmed
-  - owner_facts.delivery_only_orders_accepted is not confirmed
-  - owner_facts.who_handles_permits_and_engineered_drawings is not confirmed
-  - owner_facts.certified_installer_certified_by is not confirmed
-  - owner_facts.nationwide_includes_alaska_and_hawaii is not confirmed
-  - owner_facts.monument_structure_and_core_material is not confirmed
-  - owner_facts.extra_services_offered is not confirmed
-  - owner_facts.email_sending_choice is not confirmed
-  - owner_facts.stripe_account_and_domain is not confirmed
-  - pricing.deposit_percent is not confirmed
-  - pricing.sizes is not confirmed
-  - pricing.shape is not confirmed
-  - pricing.base is not confirmed
-  - pricing.pillars is not confirmed
-  - pricing.lettering is not confirmed
-  - paints is not confirmed
-  - covers.included[2] is not confirmed
-  - covers.included[3] is not confirmed
-  - covers.not_included[0] is not confirmed
-  - drawing_dialog_intro is not confirmed
-  - policies.approval is not confirmed
-  - policies.deposit is not confirmed
-  - policies.cancellation is not confirmed
-  - policies.installation is not confirmed
-  - policies.delivery is not confirmed
-  - policies.warranty is not confirmed
-  - questions[2].items[2].a is not confirmed
-  - questions[3].items[1].a is not confirmed
-  - questions[3].items[2].a is not confirmed
-exit code: 1
-
-================================================================
-$ npm run build
-----------------------------------------------------------------
-
-> monument-signs@1.0.0 build
-> node scripts/build.js
-
-Built dist/ (draft): 5 pages, 9 modules, site.25a7008815.css
-exit code: 0
+  ...

@@ -1,66 +1,37 @@
 <a class="skip-link" href="#main">Skip to content</a>
 {{@draft_notice}}<div class="topbar">
   <div class="wrap topbar-inner">
-    <a class="topbar-item" href="{{phone_href}}">{{> icon-phone}}<span><strong>{{phone}}</strong><span class="hide-sm topbar-note">Talk to a monument sign specialist</span></span></a>
-    <span class="topbar-item hide-md">{{> icon-truck}}<span>Built to order. Installed anywhere in the United States.</span></span>
-    <a class="topbar-item hide-sm" href="mailto:{{email}}">{{> icon-mail}}<span>{{email}}</span></a>
+    <p class="topbar-note">Monument signs only. Designed with you, built for you, installed nationwide.</p>
+    <div class="topbar-links">
+      <a class="topbar-item" href="{{phone_href}}">{{> icon-phone}}<span>{{phone}}</span></a>
+      <a class="topbar-item hide-sm" href="mailto:{{email}}">{{> icon-mail}}<span>{{email}}</span></a>
+    </div>
   </div>
 </div>
 <div class="header-sentinel" data-header-sentinel></div>
 <header class="site-header" data-site-header>
   <div class="wrap header-inner">
     <a class="brand" href="/" aria-label="{{business_name}} home">{{> logo}}</a>
-    <nav class="site-nav" aria-label="Main" data-nav>
+    <nav class="site-nav" aria-label="Main">
       <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu" data-menu-toggle><span class="menu-bars" aria-hidden="true"></span><span class="visually-hidden">Menu</span></button>
-      <ul class="menu" id="menu">
-        <li class="has-sub">
-          <a href="/monument-signs/" data-nav="signs">Monument Signs</a>
-          <button type="button" class="sub-toggle" aria-expanded="false" aria-label="Monument Signs menu" data-sub-toggle>{{> icon-chevron}}</button>
-          <ul class="submenu">
-            <li><a href="/monument-signs/">Monument sign styles</a></li>
-            <li><a href="/sizes-and-prices/">Standard sizes and prices</a></li>
-            <li><a href="/monument-signs/#upgrades">Stone, pillars and cut letters</a></li>
-            <li><a href="/monument-signs/#illuminated">Illuminated monument signs</a></li>
-            <li><a href="/more-from-our-shop/">More from our shop</a></li>
-          </ul>
-        </li>
-        <li><a href="/design/" data-nav="design">Design Your Sign</a></li>
-        <li class="has-sub">
-          <a href="/how-it-works/" data-nav="how">How It Works</a>
-          <button type="button" class="sub-toggle" aria-expanded="false" aria-label="How It Works menu" data-sub-toggle>{{> icon-chevron}}</button>
-          <ul class="submenu">
-            <li><a href="/how-it-works/">The six steps of an order</a></li>
-            <li><a href="/how-it-works/#stage-approve">Your approval drawing</a></li>
-            <li><a href="/how-it-works/#stage-install">Nationwide installation</a></li>
-            <li><a href="/how-it-works/#policy-warranty">Warranty and policies</a></li>
-          </ul>
-        </li>
-        <li><a href="/gallery/" data-nav="gallery">Gallery</a></li>
-        <li class="has-sub">
-          <a href="/industries/" data-nav="industries">Industries</a>
-          <button type="button" class="sub-toggle" aria-expanded="false" aria-label="Industries menu" data-sub-toggle>{{> icon-chevron}}</button>
-          <ul class="submenu">
-            <li><a href="/industries/#hoa">HOAs and subdivisions</a></li>
-            <li><a href="/industries/#church">Churches</a></li>
-            <li><a href="/industries/#school">Schools</a></li>
-            <li><a href="/industries/#business">Business parks</a></li>
-            <li><a href="/industries/#apartments">Apartment communities</a></li>
-            <li><a href="/industries/#parks">Parks and municipalities</a></li>
-          </ul>
-        </li>
-        <li class="has-sub">
-          <a href="/questions/" data-nav="questions">Resources</a>
-          <button type="button" class="sub-toggle" aria-expanded="false" aria-label="Resources menu" data-sub-toggle>{{> icon-chevron}}</button>
-          <ul class="submenu">
-            <li><a href="/questions/">Questions and answers</a></li>
-            <li><a href="/monument-signs/#materials">HDU compared with other materials</a></li>
-            <li><a href="/monument-signs/#permits">Permits and local rules</a></li>
-            <li><a href="/about/">About us</a></li>
-          </ul>
-        </li>
-        <li class="menu-cta-mobile"><a class="btn btn-gold" href="/request-a-quote/">Request a Quote</a></li>
-      </ul>
+      <div class="menu-panel" id="menu">
+        <ul class="menu">
+          <li class="menu-home"><a href="/" data-nav="home">Home</a></li>
+          <li><a href="/about/" data-nav="about">About Us</a></li>
+          <li><a href="/products/" data-nav="products">Products</a></li>
+          <li><a href="/design-services/" data-nav="design">Design Services</a></li>
+          <li><a href="/process/" data-nav="process">Process</a></li>
+          <li><a href="/installation/" data-nav="installation">Installation</a></li>
+          <li><a href="/gallery/" data-nav="gallery">Gallery</a></li>
+          <li><a href="/pricing/" data-nav="pricing">Pricing &amp; Upgrades</a></li>
+          <li class="menu-contact"><a href="/contact/" data-nav="contact">Contact Us</a></li>
+        </ul>
+        <div class="menu-foot">
+          <a href="{{phone_href}}">{{> icon-phone}}<span>{{phone}}</span></a>
+          <a href="mailto:{{email}}">{{> icon-mail}}<span>{{email}}</span></a>
+        </div>
+      </div>
     </nav>
-    <a class="btn btn-gold header-cta" href="/request-a-quote/">Request a Quote</a>
+    <a class="btn btn-gold header-cta" href="/contact/"><span>Contact Us</span></a>
   </div>
 </header>

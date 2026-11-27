@@ -3,10 +3,10 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { start, open, heroSvg, heroTotal, apiStub } from './helpers.js';
 
-const PAGES = ['/', '/design/', '/monument-signs/', '/sizes-and-prices/', '/gallery/', '/industries/', '/about/', '/request-a-quote/',
-  '/how-it-works/', '/questions/', '/more-from-our-shop/'];
+const PAGES = ['/', '/about/', '/products/', '/design-services/', '/process/', '/installation/', '/gallery/', '/pricing/', '/contact/',
+  '/design/', '/questions/'];
 const DESIGN = '/design/';     // the builder has its own page, always open
-const QUOTE = '/request-a-quote/';
+const QUOTE = '/contact/';
 let env;          // API answers 503 not_configured, as the Worker does before its keys exist
 let ok;           // API answers as a configured Worker would
 const calls = [];
@@ -143,7 +143,7 @@ test('the quote form shows the specified messages', async () => {
   await summary.waitFor();
   assert.equal(await summary.locator('p.error').textContent(), '4 things need fixing before we can send this.');
   assert.deepEqual(await summary.locator('li').allTextContents(), ['Enter your name.', 'Enter an email address so we can reply.',
-    'Tell us a little about what you need.', 'Enter the five-digit ZIP code where the sign will stand.']);
+    'Tell us what the sign should say.', 'Enter the five-digit ZIP code where the sign will stand.']);
   assert.equal(await page.locator('#q-name').getAttribute('aria-invalid'), 'true');
   assert.match(await page.locator('#q-name').getAttribute('aria-describedby'), /q-name-error/);
   assert.equal(await page.locator('#q-zip-error').textContent(), 'Enter the five-digit ZIP code where the sign will stand.');
@@ -377,38 +377,49 @@ test('with JavaScript disabled, all content, prices and drawings are present', a
   await design.context.close();
   const home = await open(env.browser, env.server.url + '/', { js: false });
   const p = home.page;
-  assert.equal(await p.locator('[data-teaser-sign] svg[role="img"]').count(), 2);
-  assert.equal(await p.locator('.lineup svg').count(), 1);
-  assert.equal(await p.locator('.size-item').count(), 4);
-  const sizes = (await p.locator('.size-list').textContent()).replace(/\u00a0/g, ' ');
-  for (const s of ['4 ft × 2 ft 6 in', '$1,000', '$1,500', '8 ft × 4 ft', '$4,000', '$4,800']) assert.ok(sizes.includes(s), s);
-  assert.equal(await p.locator('[data-teaser-price]').textContent(), '$5,100');
-  assert.ok((await p.locator('h1').textContent()).includes('Monument signs. Nothing else.'));
-  assert.ok(await p.locator('.hero-slide img').first().isVisible(), 'the hero photograph shows without scripts');
+  assert.ok((await p.locator('h1').textContent()).includes('Monument signs are all we do.'));
+  assert.ok(await p.locator('.mon-face .face.is-on img').isVisible(), 'the hero photograph shows without scripts');
+  assert.equal(await p.locator('.steps .step').count(), 5);
+  assert.equal(await p.locator('.steps .step').first().evaluate((el) => getComputedStyle(el).opacity), '1', 'nothing waits on a script to appear');
+  assert.equal(await p.locator('[data-ways] svg[role="img"]').count(), 5);
+  const homeText = await p.locator('main').textContent();
+  for (const s of ['less than 2% of their business', 'Nothing is set in stone.', 'No charge for design.', 'No charge for revisions.', 'Four to five weeks for production and delivery']) assert.ok(homeText.includes(s), s);
   await home.context.close();
-  const how = await open(env.browser, env.server.url + '/how-it-works/', { js: false });
-  const text = await how.page.locator('main').textContent();
-  for (const s of ['Before anything is built', 'reserves your place in production', 'Your sign is covered for five years', 'send us photos within 14 days',
-    'refund your deposit in full', 'Raised letter', 'Request a custom quote', 'Call (555) 010-0199 or email hello@example.com.']) assert.ok(text.includes(s), s);
-  assert.equal(await how.page.locator('.anatomy svg, .options-drawn svg').count(), 5);
-  await how.context.close();
+  const pricing = await open(env.browser, env.server.url + '/pricing/', { js: false });
+  assert.equal(await pricing.page.locator('.lineup svg').count(), 1);
+  const prices = (await pricing.page.locator('main').textContent()).replace(/\u00a0/g, ' ');
+  for (const s of ['4 ft × 2 ft 6 in', '$1,000', '$1,500', '8 ft × 4 ft', '$4,000', '$6,000', '+$300', 'Quoted with your proposal', 'Faux stone', 'Dimensional letters', 'Illuminated sign face', 'LED screen']) assert.ok(prices.includes(s), s);
+  await pricing.context.close();
+  const proc = await open(env.browser, env.server.url + '/process/', { js: false });
+  const text = await proc.page.locator('main').textContent();
+  for (const s of ['Tell us what you want on the sign', 'Give us an approximate size', 'Send us your contact info', 'Small deposit, then design', 'Proof approval, production and delivery',
+    'Your sign is covered for five years', 'send us photos within 14 days', 'refund your deposit in full']) assert.ok(text.includes(s), s);
+  assert.equal(await proc.page.locator('.steps-full .step').count(), 5);
+  await proc.context.close();
+  const contact = await open(env.browser, env.server.url + QUOTE, { js: false });
+  const ct = await contact.page.locator('main').textContent();
+  for (const s of ['Tell us about your sign', 'Get in touch', 'Call (555) 010-0199 or email hello@example.com.']) assert.ok(ct.includes(s), s);
+  await contact.context.close();
+  const gal = await open(env.browser, env.server.url + '/gallery/', { js: false });
+  assert.equal(await gal.page.locator('[data-gallery] li img').count(), 30);
+  await gal.context.close();
   const q = await open(env.browser, env.server.url + '/questions/', { js: false });
   const qt = await q.page.locator('main').textContent();
-  for (const s of ['Do you only make monument signs?', 'Four to six weeks from the day you approve your drawing', 'A deposit of 50% to start']) assert.ok(qt.includes(s), s);
+  for (const s of ['Do you only make monument signs?', 'Four to five weeks for production and delivery', 'There is no charge for design and no charge for revisions.']) assert.ok(qt.includes(s), s);
   await q.context.close();
 });
 
-test('footer policy links open their disclosure on the how-it-works page', async () => {
+test('footer policy links open their disclosure on the process page', async () => {
   const { context, page } = await open(env.browser, env.server.url + '/questions/');
-  await page.click('footer a[href="/how-it-works/#policy-warranty"]');
+  await page.click('footer a[href="/process/#policy-warranty"]');
   await page.waitForURL(/policy-warranty/);
   // scripts run after the page has loaded, then open the disclosure the link points at
   await page.waitForFunction(() => document.getElementById('policy-warranty').open);
-  await page.click('footer a[href="/how-it-works/#policy-delivery"]');
+  await page.click('footer a[href="/process/#policy-delivery"]');
   await page.waitForFunction(() => document.getElementById('policy-delivery').open);
   await context.close();
-  const more = await open(env.browser, env.server.url + QUOTE + '?need=more#quote');
-  assert.equal(await more.page.locator('[name="need"][value="more"]').isChecked(), true);
+  const more = await open(env.browser, env.server.url + QUOTE + '?need=several#quote');
+  await more.page.waitForFunction(() => document.querySelector('[name="need"][value="several"]').checked);
   await more.context.close();
 });
 
@@ -433,31 +444,26 @@ test('with uploads switched off, a request is still sent and says which file did
   await noUploads.close();
 });
 
-test('menus, the hero slideshow, the home teaser, the gallery and old links', async () => {
+test('the menu, the hero photographs, the sign drawn five ways, the gallery and old links', async () => {
   const errors = [];
-  const { context, page } = await open(env.browser, env.server.url + '/', { errors });
-  // a dropdown opens on hover and from its button, and closes with Escape
-  await page.hover('.has-sub >> nth=0');
-  await page.locator('.submenu >> nth=0').waitFor({ state: 'visible' });
-  await page.mouse.move(700, 600);
-  await page.click('[data-sub-toggle] >> nth=1');
-  assert.equal(await page.locator('[data-sub-toggle] >> nth=1').getAttribute('aria-expanded'), 'true');
-  await page.keyboard.press('Escape');
-  assert.equal(await page.locator('[data-sub-toggle] >> nth=1').getAttribute('aria-expanded'), 'false');
-  // the slideshow: dots choose a photo; reduced motion starts it paused
-  assert.equal(await page.getAttribute('[data-hero-pause]', 'aria-pressed'), 'true', 'paused for reduced motion');
-  await page.click('[data-dot="1"]');
-  assert.equal(await page.locator('[data-slide] >> nth=1').getAttribute('aria-hidden'), 'false');
-  assert.equal(await page.locator('[data-slide] >> nth=0').getAttribute('aria-hidden'), 'true');
-  // the teaser draws the name and carries it to the designer
-  await page.fill('#teaser-name', 'Maple Hollow Estates');
-  await page.waitForFunction(() => document.querySelector('[data-teaser-sign]').innerHTML.includes('Maple Hollow'));
-  await page.click('[data-teaser-go]');
-  await page.waitForURL(/\/design\/$/);
-  await page.waitForFunction(() => document.querySelector('#sign-name').value === 'Maple Hollow Estates');
+  const { context, page } = await open(env.browser, env.server.url + '/about/', { errors });
+  assert.equal(await page.locator('.menu a[aria-current="page"]').textContent(), 'About Us', 'the current page is marked in the menu');
+  await page.goto(env.server.url + '/', { waitUntil: 'networkidle' });
+  // the hero: buttons choose the photograph and the base plate names it
+  await page.click('[data-face-pick] >> nth=2');
+  assert.equal(await page.locator('.mon-face .face >> nth=2').evaluate((el) => el.classList.contains('is-on')), true);
+  assert.equal(await page.locator('[data-face-cap]').textContent(), 'High Prairie Farms');
+  assert.equal(await page.locator('[data-face-pick] >> nth=2').getAttribute('aria-pressed'), 'true');
+  // the same sign drawn five ways
+  await page.click('[data-way-pick="3"]');
+  assert.equal(await page.locator('[data-way="3"]').evaluate((el) => el.classList.contains('is-on')), true);
+  assert.equal(await page.locator('.way.is-on').count(), 1);
+  // blocks marked for reveal appear once scrolled to
+  await page.locator('.steps').scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => document.querySelector('.steps').classList.contains('is-in'));
   // the gallery: filters and the lightbox
   await page.goto(env.server.url + '/gallery/', { waitUntil: 'networkidle' });
-  await page.click('[data-filter="posts"]');
+  await page.click('[data-filter="lit"]');
   const shown = await page.locator('[data-gallery] li:not([hidden])').count();
   assert.ok(shown > 0 && shown < (await page.locator('[data-gallery] li').count()), 'the filter narrows the grid');
   await page.click('[data-gallery] li:not([hidden]) .gallery-item >> nth=0');
@@ -473,12 +479,11 @@ test('menus, the hero slideshow, the home teaser, the gallery and old links', as
   assert.equal(await page.locator('input[name="size"][value="60x36"]').isChecked(), true);
   assert.deepEqual(errors, []);
   await context.close();
-  // the phone menu opens as a panel and its sections expand
+  // the phone menu opens as a panel, and Escape closes it
   const phone = await open(env.browser, env.server.url + '/', { width: 390, height: 844 });
   await phone.page.click('[data-menu-toggle]');
-  await phone.page.click('[data-sub-toggle] >> nth=0');
-  assert.equal(await phone.page.locator('.submenu >> nth=0').isVisible(), true);
-  await phone.page.keyboard.press('Escape');
+  await phone.page.locator('.menu a[href="/pricing/"]').waitFor({ state: 'visible' });
+  assert.equal(await phone.page.getAttribute('[data-menu-toggle]', 'aria-expanded'), 'true');
   await phone.page.keyboard.press('Escape');
   assert.equal(await phone.page.getAttribute('[data-menu-toggle]', 'aria-expanded'), 'false');
   await phone.context.close();

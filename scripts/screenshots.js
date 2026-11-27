@@ -19,9 +19,9 @@ const SIZES = [
   { name: 'tablet', width: 834, height: 1112 },
   { name: 'phone', width: 390, height: 844 },
 ];
-const PAGES = quick ? [['home', '/']] : [['home', '/'], ['design', '/design/'], ['signs', '/monument-signs/'], ['sizes', '/sizes-and-prices/'],
-  ['gallery', '/gallery/'], ['industries', '/industries/'], ['about', '/about/'], ['quote', '/request-a-quote/'],
-  ['how', '/how-it-works/'], ['questions', '/questions/'], ['more', '/more-from-our-shop/']];
+const PAGES = quick ? [['home', '/']] : [['home', '/'], ['about', '/about/'], ['products', '/products/'], ['design-services', '/design-services/'],
+  ['process', '/process/'], ['installation', '/installation/'], ['gallery', '/gallery/'], ['pricing', '/pricing/'], ['contact', '/contact/'],
+  ['design', '/design/'], ['questions', '/questions/']];
 
 const shots = [];
 for (const size of SIZES) {
@@ -40,10 +40,6 @@ for (const size of SIZES) {
       await page.waitForTimeout(300);
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.screenshot({ path: `${out}design-${size.name}-named-first-view.png` });
-      await page.goto(server.url + '/', { waitUntil: 'networkidle' });
-      await page.evaluate(() => document.querySelector('#sizes').scrollIntoView());
-      await page.waitForTimeout(300);
-      await page.screenshot({ path: `${out}home-${size.name}-title-block.png` });
       await page.evaluate(() => localStorage.clear());
     }
   }

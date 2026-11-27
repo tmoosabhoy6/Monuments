@@ -9,13 +9,16 @@
   "hours": { "value": "", "confirmed": false },
   "mailing_address": { "value": "", "confirmed": false },
 
-  "lead_time": { "value": "four to six weeks", "confirmed": false },
+  "lead_time": { "value": "four to five weeks", "confirmed": false },
   "response_time": { "value": "one business day", "confirmed": false },
   "drawing_turnaround": { "value": "three business days", "confirmed": false },
   "warranty_years": { "value": "five", "confirmed": false },
   "warranty_exclusions": { "value": "It does not cover damage from vehicles, vandalism or storms.", "confirmed": false },
   "damage_report_days": { "value": "14", "confirmed": false },
   "permit_statement": { "value": "", "confirmed": false },
+  "other_shops_share": { "value": "less than 2%", "confirmed": false },
+  "design_deposit": { "value": "a small deposit", "confirmed": false },
+  "photo_source": { "value": "Photographs taken from impactsigns.com on the owner's instruction (2026-11-27). Confirm the right to publish them before launch.", "confirmed": false },
   "privacy_text": { "value": "We use the details you give us only to quote, draw, build, deliver and install your sign, and to take payment. We do not sell them. Payments are handled by Stripe; we never see your card number.", "confirmed": false },
 
   "features": {
@@ -104,13 +107,6 @@
 
   "gallery": [],
 
-  "rating": { "value": { "score": "5.0", "label": "sample rating" }, "confirmed": false },
-  "reviews": { "value": [
-    { "quote": "The drawing made the board vote easy. Everyone saw the same sign and the same price, and the installed sign matched it exactly.", "name": "Board president", "role": "Homeowners association" },
-    { "quote": "We designed it on our phones during a committee meeting and had the approval drawing a few days later. The carving catches the light all afternoon.", "name": "Facilities chair", "role": "Church" },
-    { "quote": "One company from the quote to the installer. Nothing to coordinate on our side but the date.", "name": "Property manager", "role": "Apartment community" }
-  ], "confirmed": false },
-
   "covers": {
     "included": [
       "The routed HDU sign in your wording and colors.",
@@ -126,11 +122,11 @@
     ]
   },
 
-  "drawing_dialog_intro": { "value": "We will draw your sign to scale with its exact dimensions, lettering and colors, and email it to you within {{drawing_turnaround}}. It costs nothing to ask.", "confirmed": false },
+  "drawing_dialog_intro": { "value": "Send us this design as a starting point. We reply within {{response_time}} with a proposal, and your designer takes it from there. Size and design can still change, at no charge.", "confirmed": false },
 
   "policies": {
     "approval": { "value": "We build exactly what your approved drawing shows. If you want a change after approving, we tell you what it does to the price and the schedule before we do anything.", "confirmed": false },
-    "deposit": { "value": "The deposit is {{deposit_percent}}% of your total and is paid online. It is the only payment we take before your sign is installed. If you chose delivery only, the balance is invoiced when your sign ships.", "confirmed": false },
+    "deposit": { "value": "{{design_deposit|cap}} starts your design. We confirm the amount with your proposal, before you pay anything.", "confirmed": false },
     "cancellation": { "value": "Cancel before you approve your drawing and we refund your deposit in full. Once you approve, we order materials and cut your sign to your design, so from then we refund your deposit less the cost of the work already done, and we tell you that figure before you decide.", "confirmed": false },
     "installation": { "value": "Installation is carried out by a certified installer from our network on a date agreed with you. The installer sets the sign permanently and leaves the site tidy. The spot needs to be clear and reachable, and utilities marked, before work starts.", "confirmed": false },
     "delivery": { "value": "Your sign travels crated. Look it over when it arrives. If anything is damaged, send us photos within {{damage_report_days}} days and we repair or replace it. You do not need to send it back first.", "confirmed": false },
@@ -142,10 +138,12 @@
       "group": "Ordering",
       "items": [
         { "q": "Do you only make monument signs?", "a": "Yes. It is the whole business. We do not make banners, vehicle wraps or storefront signs, which is how we keep getting better at this one thing." },
-        { "q": "How much does a monument sign cost?", "a": "Standard sizes are priced on this site, and the builder prices any combination of options as you choose them. Every price lists what it covers. Anything the builder cannot draw is quoted individually." },
-        { "q": "Can I see my sign before I pay?", "a": "Yes. The builder draws your sign as you design it, and you can request a full approval drawing before paying a deposit. Nothing is built until you approve that drawing." },
-        { "q": "How long does it take?", "a": "{{lead_time|cap}} from the day you approve your drawing, plus delivery and a date for installation." },
-        { "q": "We need signs for several entrances. Can you do that?", "a": "Yes. Design one, then tell us how many and where in the quote form. We price a set together." },
+        { "q": "How much does a monument sign cost?", "a": "Standard sizes and upgrades are priced on the Pricing page. Your proposal gives the exact price for your sign, and anything unusual is quoted individually." },
+        { "q": "Do we need to know the size and design before we start?", "a": "No. An approximate size is enough to begin. Size and design can change during the proposal and design phase, and there is no charge for design or for revisions." },
+        { "q": "Can we see our sign before it is built?", "a": { "value": "Yes. After {{design_deposit}}, your designer sends visuals and works with you until you are 100% happy. Nothing is built until you approve the proof.", "confirmed": false } },
+        { "q": "How long does it take?", "a": "{{lead_time|cap}} for production and delivery, from the day you approve your proof." },
+        { "q": "Can you send samples?", "a": "Yes. If samples would help you decide, we can send samples for your project." },
+        { "q": "We need signs for several entrances. Can you do that?", "a": "Yes. Tell us how many and where in the contact form. We price a set together." },
         { "q": "What if we want to change something after approving?", "a": "Tell us as soon as you can. We tell you what the change does to the price and the schedule before doing anything." }
       ]
     },
@@ -153,25 +151,25 @@
       "group": "The sign",
       "items": [
         { "q": "What is HDU?", "a": "High-density urethane: a dense board made for outdoor signs. It has no grain and takes up almost no water, so it carves cleanly and holds its shape outdoors." },
-        { "q": "Can you match our logo and colors?", "a": "Yes. Send your logo and your paint codes. Your approval drawing shows the logo in place and names the exact paints." },
+        { "q": "Can you match our logo and colors?", "a": "Yes. Send your logo as a PDF if you have one, and your paint codes. If you have no logo, send the text and we design it for you." },
         { "q": "Single-sided or double-sided?", "a": "A single-sided sign suits a spot where everyone approaches from one direction or the sign sits against a backdrop. A double-sided sign stands at a right angle to the road so it reads from both directions." },
-        { "q": "Can you make a custom shape?", "a": "Yes. Send a sketch or a photo through the quote form." },
-        { "q": "What files do you need?", "a": "A vector file of your logo (AI, EPS, PDF or SVG) is best. A clear JPG or PNG is enough for a quote and a first drawing." }
+        { "q": "Can you make a custom shape?", "a": "Yes. Send a sketch or a photo through the contact form." },
+        { "q": "What files do you need?", "a": "A PDF or other vector file of your logo (AI, EPS or SVG) is best. A clear JPG or PNG is enough for a proposal and a first design." }
       ]
     },
     {
       "group": "Installation",
       "items": [
-        { "q": "Do you install everywhere?", "a": "Yes, anywhere in the United States, through certified installers." },
-        { "q": "Do we need a permit?", "a": "Often, yes. Rules are set by your city, county or association, so check with them before you order. Your approval drawing has the dimensions they will ask for." },
-        { "q": "Can we install it ourselves?", "a": { "value": "Yes. Choose “Delivered only” in the builder.", "confirmed": false } }
+        { "q": "Do you install everywhere?", "a": "Installation is optional, and it is available nationwide." },
+        { "q": "Do we need a permit?", "a": "Often, yes. Rules are set by your city, county or association, so check with them before you order. Your approved proof has the dimensions they will ask for." },
+        { "q": "Can we install it ourselves?", "a": { "value": "Yes. Installation is optional. We deliver the sign, and you or your contractor set it.", "confirmed": false } }
       ]
     },
     {
       "group": "Payment",
       "items": [
-        { "q": "How do we pay?", "a": "Online. A deposit of {{deposit_percent}}% to start, and a final invoice when your sign is installed." },
-        { "q": "Is the deposit refundable?", "a": { "value": "In full, until you approve your drawing. After that, less the cost of work already done.", "confirmed": false } },
+        { "q": "How do we pay?", "a": { "value": "{{design_deposit|cap}} starts your design. Your proposal sets out the price and the payments that follow.", "confirmed": false } },
+        { "q": "Is there a charge for design or revisions?", "a": "No. There is no charge for design and no charge for revisions." },
         { "q": "Is there a warranty?", "a": { "value": "Yes: {{warranty_years}} years against defects in materials and workmanship.", "confirmed": false } }
       ]
     }

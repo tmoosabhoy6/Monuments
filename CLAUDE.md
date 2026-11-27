@@ -7,25 +7,29 @@ declined suggestions are in `PROGRESS.md`.
 
 The owner's hard constraints (below, SPEC §2) win over everything, then the confirmed business
 facts (SPEC §3), then `SPEC.md`, then any skill or guideline. The owner's later instruction to
-split the site into several pages overrides "single page" (see PROGRESS.md, Decisions), and their
-2026-11-27 instruction to match the look of two reference monument-sign sites overrides SPEC §5's
-visual rules (see PROGRESS.md, "Reference-site rebuild").
+split the site into several pages overrides "single page" (see PROGRESS.md, Decisions). Their
+2026-11-27 brief ("Website Plan & Developer Email", see PROGRESS.md, "Light rebuild") is the latest
+word on pages, copy and look: it overrides SPEC §5 (visual rules), §6 (page list) and §7 (copy) for
+every page except the sign sketcher at `/design/`, which still follows SPEC §6 to §9.
 
 ## Hard constraints
 
 1. Brand colors: sign green `#1F4A3A` with gold `#B8922E` (the owner chose green and gold on 2026-11-27;
    it replaces "one accent"). Everything else neutral. Errors use ink and weight, never red.
-2. No stock illustration style and no gradients anywhere. Imagery is the elevation drawing, owner-supplied
-   photographs, or the clearly labelled 3D renders of our own signs made by `npm run photos` (stand-ins
-   until the owner's photographs arrive).
+2. No stock illustration style and no gradients anywhere. Imagery is the elevation drawing and the
+   photographs in `src/static/photos/` (taken from impactsigns.com on the owner's instruction; the right
+   to publish them is an unconfirmed config value, `photo_source`, which blocks the production build).
+   Monument signs only: no plaques, lobby signs or letters on buildings.
 3. Type does the heavy lifting; drawings support the words.
 4. Vanilla HTML, CSS and JavaScript. No frameworks, no CSS framework, no bundler, no npm code in
    the browser. Native ES modules. The build script uses Node built-ins only.
 5. 60fps scrolling: no scroll/wheel/touchmove listeners, no parallax, no backdrop-filter, no
    filters, no blurred shadows, no `background-attachment: fixed`, animate transform and opacity only.
 
-Also: no financing, no competitor prices, no competitor trademarks, no unconfirmed facts,
-no copy that is not in SPEC §7. Unknown facts are config values in `content/site.config.json`.
+Also: no financing, no competitor prices, no competitor trademarks, no unconfirmed facts. Copy on the
+marketing pages comes from the owner's 2026-11-27 brief; do not add claims it does not make (no years
+in business, team, location or counts). Unknown facts are config values in `content/site.config.json`.
+Light colors only: no dark sections. Besley for headings, Libre Franklin for text, sentence case.
 
 ## Commands
 
@@ -33,12 +37,10 @@ no copy that is not in SPEC §7. Unknown facts are config values in `content/sit
 - `npm run build:production`: launch gate; fails while `draft` is true or any value is unconfirmed
 - `npm test`: unit tests (node:test)
 - `npm run test:browser`: Playwright browser tests (pre-installed Chromium)
-- `npm run check:rules`, `npm run check:size`, `npm run check:scroll`, `npm run check:lighthouse`
+- `npm run check:rules`, `npm run check:size`, `npm run check:scroll`, `npm run check:a11y`, `npm run check:lighthouse`
 - `npm run screenshots`: review screenshots into `design/review/`
 - `npm run glyphs`: re-measure the glyph-width table (only if a font file changes)
 - `npm run og`: regenerate the Open Graph image
-- `npm run photos [id…]`: re-render the sample sign photographs (three.js in headless Chromium, build-time
-  only; nothing from npm reaches the browser)
 - `npx wrangler dev`: run the site and the Worker locally.
 - `npm run deploy` (static assets, intended) or `npm run deploy:bundled` (Worker serves pages; see README).
   Deploy only on the owner's instruction. A draft is live at https://monument-signs.tmoosabhoy6.workers.dev.

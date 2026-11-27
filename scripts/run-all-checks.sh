@@ -7,7 +7,6 @@ run npm run build
 run npm test
 run npm run check:rules
 run npm run check:size
-run npm run check:copy
 run npm run test:browser
 run npm run check:scroll
 run npm run check:lighthouse

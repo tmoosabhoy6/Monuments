@@ -1,64 +1,84 @@
 <section class="quote" id="quote" aria-labelledby="quote-title">
-  <h3 id="quote-title">Request a custom quote</h3>
+  <h2 class="quote-title" id="quote-title">Tell us about your sign</h2>
+  <p class="muted">Three short parts, the same as the first three steps of our process. An approximate answer is fine everywhere.</p>
   <form class="quote-form" data-form="quote" novalidate>
-    <div class="field"><label for="q-name">Your name</label><input class="input" id="q-name" name="name" autocomplete="name" maxlength="120" required></div>
-    <div class="field"><label for="q-org">Organization (optional)</label><input class="input" id="q-org" name="organization" autocomplete="organization" maxlength="160"></div>
-    <div class="field"><label for="q-email">Email</label><input class="input" id="q-email" name="email" type="email" autocomplete="email" maxlength="200" spellcheck="false" required></div>
-    <div class="field"><label for="q-phone">Phone (optional)</label><input class="input" id="q-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
-    <fieldset>
-      <legend class="label">Best way to reach you (optional)</legend>
-      <div class="inline-choices">
-        <label class="choice"><input type="radio" name="contact" value="email" checked> Email</label>
-        <label class="choice"><input type="radio" name="contact" value="phone"> Phone</label>
+    <fieldset class="form-step">
+      <legend><b aria-hidden="true">1</b> What goes on the sign</legend>
+      <div class="field">
+        <label for="q-details">What should the sign say?</label>
+        <textarea class="input" id="q-details" name="details" maxlength="4000" required aria-describedby="q-details-help"></textarea>
+        <p class="help" id="q-details-help">The wording, and anything you have seen and liked. If you have a logo, say so and we will ask for the PDF.</p>
+      </div>
+      <fieldset>
+        <legend class="label">Single-sided or double-sided? (optional)</legend>
+        <div class="inline-choices">
+          <label class="choice"><input type="radio" name="sides" value="single"> Single-sided</label>
+          <label class="choice"><input type="radio" name="sides" value="double"> Double-sided</label>
+          <label class="choice"><input type="radio" name="sides" value="unsure"> Not sure yet</label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend class="label">How many signs?</legend>
+        <div class="inline-choices">
+          <label class="choice"><input type="radio" name="need" value="monument" checked> One</label>
+          <label class="choice"><input type="radio" name="need" value="several"> Several</label>
+        </div>
+      </fieldset>
+      <div class="field" data-feature="file_uploads">
+        <label for="q-files">Your logo or a sketch (optional)</label>
+        <input class="input" id="q-files" name="files" type="file" multiple accept=".png,.jpg,.jpeg,.svg,.pdf,.ai,.eps,.webp" aria-describedby="q-files-help">
+        <p class="help" id="q-files-help">A PDF of your logo is best. Up to five files, 25 MB each.</p>
       </div>
     </fieldset>
-    <fieldset>
-      <legend class="label">What do you need?</legend>
-      <div class="choices">
-        <label class="choice"><input type="radio" name="need" value="monument" checked> A monument sign</label>
-        <label class="choice"><input type="radio" name="need" value="several"> Several signs</label>
-        <label class="choice"><input type="radio" name="need" value="more"> Something from More from our shop</label>
-        <label class="choice"><input type="radio" name="need" value="other"> Something else</label>
-      </div>
-    </fieldset>
-    <div class="field">
-      <label for="q-details">Tell us about it</label>
-      <textarea class="input" id="q-details" name="details" maxlength="4000" required aria-describedby="q-details-help"></textarea>
-      <p class="help" id="q-details-help">Size, shape, where it will stand, anything you have seen and liked.</p>
-    </div>
-    <fieldset>
-      <legend class="label">Rough size (optional)</legend>
+    <fieldset class="form-step">
+      <legend><b aria-hidden="true">2</b> An approximate size</legend>
+      <p class="help">It does not need to be exact. It is only a starting point, and it can change at no charge.</p>
       <div class="pair">
-        <div class="field"><label for="q-width">Width</label><input class="input" id="q-width" name="width" maxlength="40" autocomplete="off"></div>
-        <div class="field"><label for="q-height">Height</label><input class="input" id="q-height" name="height" maxlength="40" autocomplete="off"></div>
+        <div class="field"><label for="q-width">Width (optional)</label><input class="input" id="q-width" name="width" maxlength="40" autocomplete="off" placeholder="e.g. 6 ft"></div>
+        <div class="field"><label for="q-height">Height (optional)</label><input class="input" id="q-height" name="height" maxlength="40" autocomplete="off" placeholder="e.g. 4 ft"></div>
       </div>
+      <fieldset>
+        <legend class="label">Do you need installation? (optional)</legend>
+        <div class="inline-choices">
+          <label class="choice"><input type="radio" name="install" value="yes"> Yes</label>
+          <label class="choice"><input type="radio" name="install" value="no"> No</label>
+          <label class="choice"><input type="radio" name="install" value="unsure"> Not sure</label>
+        </div>
+      </fieldset>
     </fieldset>
-    <div class="field"><label for="q-zip">ZIP code where it will stand</label><input class="input" id="q-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" spellcheck="false" required></div>
-    <fieldset>
-      <legend class="label">Do you need installation? (optional)</legend>
-      <div class="inline-choices">
-        <label class="choice"><input type="radio" name="install" value="yes"> Yes</label>
-        <label class="choice"><input type="radio" name="install" value="no"> No</label>
-        <label class="choice"><input type="radio" name="install" value="unsure"> Not sure</label>
+    <fieldset class="form-step">
+      <legend><b aria-hidden="true">3</b> Your contact details</legend>
+      <div class="pair">
+        <div class="field"><label for="q-name">Your name</label><input class="input" id="q-name" name="name" autocomplete="name" maxlength="120" required></div>
+        <div class="field"><label for="q-org">Organization (optional)</label><input class="input" id="q-org" name="organization" autocomplete="organization" maxlength="160"></div>
       </div>
-    </fieldset>
-    <fieldset>
-      <legend class="label">When do you need it? (optional)</legend>
-      <div class="choices">
-        <label class="choice"><input type="radio" name="when" value="none"> No fixed date</label>
-        <label class="choice"><input type="radio" name="when" value="three-months"> Within three months</label>
-        <label class="choice"><input type="radio" name="when" value="date" data-reveals="q-date-field"> By a date</label>
+      <div class="pair">
+        <div class="field"><label for="q-email">Email</label><input class="input" id="q-email" name="email" type="email" autocomplete="email" maxlength="200" spellcheck="false" required></div>
+        <div class="field"><label for="q-phone">Phone (optional)</label><input class="input" id="q-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
       </div>
-      <div class="field" id="q-date-field" hidden><label for="q-date" class="visually-hidden">By a date</label><input class="input" id="q-date" name="date" type="date"></div>
+      <fieldset>
+        <legend class="label">Best way to reach you (optional)</legend>
+        <div class="inline-choices">
+          <label class="choice"><input type="radio" name="contact" value="email" checked> Email</label>
+          <label class="choice"><input type="radio" name="contact" value="phone"> Phone</label>
+        </div>
+      </fieldset>
+      <div class="pair">
+        <div class="field"><label for="q-zip">ZIP code where it will stand</label><input class="input" id="q-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" spellcheck="false" required></div>
+        <div class="field"><label for="q-heard">How did you hear about us? (optional)</label><input class="input" id="q-heard" name="heard" maxlength="200" autocomplete="off"></div>
+      </div>
+      <fieldset>
+        <legend class="label">When do you need it? (optional)</legend>
+        <div class="inline-choices">
+          <label class="choice"><input type="radio" name="when" value="none"> No fixed date</label>
+          <label class="choice"><input type="radio" name="when" value="three-months"> Within three months</label>
+          <label class="choice"><input type="radio" name="when" value="date" data-reveals="q-date-field"> By a date</label>
+        </div>
+        <div class="field" id="q-date-field" hidden><label for="q-date" class="visually-hidden">By a date</label><input class="input" id="q-date" name="date" type="date"></div>
+      </fieldset>
     </fieldset>
-    <div class="field" data-feature="file_uploads">
-      <label for="q-files">Files (optional)</label>
-      <input class="input" id="q-files" name="files" type="file" multiple accept=".png,.jpg,.jpeg,.svg,.pdf,.ai,.eps,.webp" aria-describedby="q-files-help">
-      <p class="help" id="q-files-help">Logos, sketches or photos of the site. Up to five files, 25 MB each.</p>
-    </div>
-    <div class="field"><label for="q-heard">How did you hear about us? (optional)</label><input class="input" id="q-heard" name="heard" maxlength="200" autocomplete="off"></div>
     {{@form_extras}}
-    <div class="actions"><button type="submit" class="btn btn-gold btn-lg">Send quote request</button></div>
+    <div class="actions"><button type="submit" class="btn btn-gold btn-lg">Send to {{business_name}}</button></div>
   </form>
   <div data-form-result hidden></div>
 </section>

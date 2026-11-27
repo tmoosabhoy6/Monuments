@@ -9,7 +9,7 @@ import { dirname, join, relative, posix, basename, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { resolve as resolveConfig, tokensFrom, fillTokens } from '../src/js/builder/config.js';
 import { defaults as defaultState } from '../src/js/builder/state.js';
-import { anatomy, option, sizeWords, site as siteScene, describe, approvalSheet, installSection, shopPiece } from '../src/js/builder/draw.js';
+import { sizeWords, scene as sceneSvg, installSection } from '../src/js/builder/draw.js';
 import { quote, money } from '../src/js/builder/pricing.js';
 import * as R from './lib/render.js';
 
@@ -50,29 +50,29 @@ const messages = JSON.parse(fill(await readFile(join(SRC, 'messages.json'), 'utf
 // ---------- pages ----------
 const site = tokens.site_url;
 const PAGES = [
-  { src: 'index.html', out: 'index.html', path: '/', title: fill('Monument Signs, Built to Order and Installed Nationwide | {{business_name}}'),
-    description: 'Routed HDU monument signs, built to order. Design yours online and see the price as you go, then have it permanently installed anywhere in the US by a certified installer.' },
-  { src: 'design/index.html', out: 'design/index.html', path: '/design/', title: fill('Design Your Monument Sign Online | {{business_name}}'),
-    description: 'Design your monument sign online: choose the size, shape, base, letters and colors and see the drawing and the price change as you go.' },
-  { src: 'monument-signs/index.html', out: 'monument-signs/index.html', path: '/monument-signs/', title: fill('Monument Sign Styles, Materials and Costs | {{business_name}}'),
-    description: 'Arched, pillared, post-mounted and illuminated monument signs, routed from HDU and installed nationwide. Styles, upgrades, materials compared, costs and permits.' },
-  { src: 'sizes-and-prices/index.html', out: 'sizes-and-prices/index.html', path: '/sizes-and-prices/', title: fill('Monument Sign Sizes and Prices | {{business_name}}'),
-    description: 'Standard monument sign sizes with the price of the sign and of installation side by side, and every upgrade priced.' },
-  { src: 'how-it-works/index.html', out: 'how-it-works/index.html', path: '/how-it-works/', title: fill('How It Works | {{business_name}}'),
-    description: 'One company, from the first drawing to the sign in the ground: your approval drawing, a deposit paid online, production, permanent installation anywhere in the United States, and the final invoice.' },
-  { src: 'gallery/index.html', out: 'gallery/index.html', path: '/gallery/', title: fill('Monument Sign Gallery | {{business_name}}'),
-    description: 'Monument signs in every style: stone-look bases, pillars, posts, cut letters and illuminated signs.' },
-  { src: 'industries/index.html', out: 'industries/index.html', path: '/industries/', title: fill('Monument Signs for HOAs, Churches, Schools and Businesses | {{business_name}}'),
-    description: 'Monument signs for subdivisions, apartment communities, churches, schools, parks and business parks, installed anywhere in the United States.' },
+  { src: 'index.html', out: 'index.html', path: '/', nav: 'home', title: fill('Monument Signs Are All We Do | {{business_name}}'),
+    description: fill('Monument signs are all we make. Routed HDU monuments with free design and free revisions, built in {{lead_time}} after proof approval, with optional installation nationwide.') },
+  { src: 'about/index.html', out: 'about/index.html', path: '/about/', nav: 'about', title: fill('About Us | {{business_name}}'),
+    description: 'We make monument signs and nothing else. Who we are, why we only do monuments, and how we serve customers nationwide.' },
+  { src: 'products/index.html', out: 'products/index.html', path: '/products/', nav: 'products', title: fill('HDU Routed Monument Signs | {{business_name}}'),
+    description: 'Routed HDU monument signs, single-sided or double-sided, with faux stone, dimensional letters, illuminated faces and LED message boards as upgrades.' },
+  { src: 'design-services/index.html', out: 'design-services/index.html', path: '/design-services/', nav: 'design', title: fill('Design Services: Free Design and Revisions | {{business_name}}'),
+    description: 'No charge for design and no charge for revisions. Work with a designer on the size and look of your monument sign until you are 100% happy.' },
+  { src: 'process/index.html', out: 'process/index.html', path: '/process/', nav: 'process', title: fill('Our Process, Step by Step | {{business_name}}'),
+    description: fill('Five steps from an idea to a monument sign: what it should say, an approximate size, your contact details, a small deposit and design, then {{lead_time}} for production and delivery.') },
+  { src: 'installation/index.html', out: 'installation/index.html', path: '/installation/', nav: 'installation', title: fill('Monument Sign Installation, Nationwide | {{business_name}}'),
+    description: 'Optional installation, available nationwide. Have your monument sign set for you, or have it delivered for your own contractor to install.' },
+  { src: 'gallery/index.html', out: 'gallery/index.html', path: '/gallery/', nav: 'gallery', title: fill('Monument Sign Gallery | {{business_name}}'),
+    description: 'Photographs of monument signs: routed HDU, faux stone, dimensional letters and signs lit at night.' },
+  { src: 'pricing/index.html', out: 'pricing/index.html', path: '/pricing/', nav: 'pricing', title: fill('Monument Sign Pricing and Upgrades | {{business_name}}'),
+    description: 'Prices for standard monument sign sizes and for each optional upgrade: faux stone, metal or acrylic letters, an illuminated face and an LED screen.' },
+  { src: 'contact/index.html', out: 'contact/index.html', path: '/contact/', nav: 'contact', title: fill('Contact Us | {{business_name}}'),
+    description: 'Tell us what you want on your monument sign and an approximate size. We reply with a proposal, and design is free.' },
+  { src: 'design/index.html', out: 'design/index.html', path: '/design/', nav: 'pricing', title: fill('Sketch and Price a Monument Sign | {{business_name}}'),
+    description: 'Try sizes, shapes, bases, letters and colors and watch the drawing and the price change. A starting point for your designer, not a final design.' },
   { src: 'questions/index.html', out: 'questions/index.html', path: '/questions/', title: fill('Questions and Answers | {{business_name}}'),
-    description: 'Questions about ordering a monument sign, the sign itself, installation anywhere in the United States, and payment.' },
-  { src: 'about/index.html', out: 'about/index.html', path: '/about/', title: fill('About Us | {{business_name}}'),
-    description: 'We make monument signs and nothing else: published prices, approval drawings before anything is built, and certified installation nationwide.' },
-  { src: 'request-a-quote/index.html', out: 'request-a-quote/index.html', path: '/request-a-quote/', title: fill('Request a Quote | {{business_name}}'),
-    description: 'Request a quote for a custom monument sign, a set of signs for several entrances, or something from our shop.' },
-  { src: 'more-from-our-shop/index.html', out: 'more-from-our-shop/index.html', path: '/more-from-our-shop/', title: fill('More From Our Shop | {{business_name}}'),
-    description: 'The same material and the same routers make a few other things: HDU sign panels, HDU mailboxes and custom foam pieces.' },
-  { src: '404.html', out: '404.html', path: '/404', title: fill('Page not found | {{business_name}}'), description: fill('{{business_name}}. Monument signs, built to order and installed anywhere in the United States.'), noindex: true },
+    description: 'Questions about ordering a monument sign, the sign itself, installation and payment.' },
+  { src: '404.html', out: '404.html', path: '/404', title: fill('Page not found | {{business_name}}'), description: fill('{{business_name}}. Monument signs are all we do.'), noindex: true },
 ];
 
 // ---------- assets: fonts, CSS, the JS module graph, all content-hashed ----------
@@ -132,13 +132,13 @@ async function emitModule(abs, stack = []) {
 const appUrl = await emitModule(join(SRC, 'js/app.js'));
 const moduleUrls = [...jsDone.values()];
 
-// The stylesheet first, then only Oswald, the headline face. Libre Franklin swaps in over a
-// metric-matched fallback without moving anything, and Besley sets prices and drawings further
-// down. Modules are not preloaded: app.js loads the rest after the page has loaded, so scripts
+// The stylesheet first, then Besley, the headline face. Libre Franklin swaps in over a
+// metric-matched fallback without moving anything. app.js is small and only marks the page as
+// scripted and starts the reveals; it loads the rest after the page has loaded, so scripts
 // never take bandwidth from the first photograph, which is the largest paint.
 const assetsHead = [
   `<link rel="stylesheet" href="${assetMap['css/site.css']}">`,
-  `<link rel="preload" href="${assetMap['fonts/oswald-latin-wght-normal.woff2']}" as="font" type="font/woff2" crossorigin>`,
+  `<link rel="preload" href="${assetMap['fonts/besley-latin-wght-normal.woff2']}" as="font" type="font/woff2" crossorigin>`,
   `<script type="module" src="${appUrl}"></script>`,
 ].join('\n');
 
@@ -166,14 +166,14 @@ const orgLd = {
   telephone: config.phone, email: config.email, areaServed: { '@type': 'Country', name: 'United States' },
 };
 const serviceLd = {
-  '@context': 'https://schema.org', '@type': 'Service', name: 'Custom monument signs', serviceType: 'Routed HDU monument signs, built to order and permanently installed',
+  '@context': 'https://schema.org', '@type': 'Service', name: 'Custom monument signs', serviceType: 'Routed HDU monument signs, designed and built to order, with optional installation',
   provider: { '@type': 'Organization', name: config.business_name, url: site + '/' },
   areaServed: { '@type': 'Country', name: 'United States' },
 };
 if (!DRAFT) {
   serviceLd.offers = config.pricing.sizes.filter((s) => s.single != null).map((s) => ({
     '@type': 'Offer', name: `${sizeWords(s).replace(/\u00a0/g, ' ')} monument sign, single-sided`,
-    price: String(s.single), priceCurrency: 'USD', url: `${site}/?size=${s.id}#design`,
+    price: String(s.single), priceCurrency: 'USD', url: `${site}/design/?size=${s.id}#design`,
   }));
 }
 const faqLd = {
@@ -184,56 +184,114 @@ const faqLd = {
 };
 
 const photos = JSON.parse(await readFile(join(SRC, 'static/photos/manifest.json'), 'utf8'));
+const photoFiles = (id) => {
+  if (!photos[id]) fail(`unknown photo ${id}`);
+  return [...photos[id].files].sort((a, b) => a.w - b.w);
+};
+const srcset = (id) => photoFiles(id).map((f) => `/photos/${f.file} ${f.w}w`).join(', ');
+// {{@photo:id|sizes|mode}}: mode holds "first" (the page's largest photograph), "eager" (above the fold) and/or "deco" (decorative, empty alt).
 function photo(arg = '') {
-  const [id, sizes = '100vw', alt = '', mode = ''] = arg.split('|');
-  const m = photos[id];
-  if (!m) fail(`unknown photo ${id}`);
-  const files = [...m.files].sort((a, b) => a.w - b.w);
-  const largest = files.at(-1), mid = files[Math.min(1, files.length - 1)];
-  const srcset = files.map((f) => `/photos/${f.file} ${f.w}w`).join(', ');
-  const eager = mode === 'eager';
-  return `<img src="/photos/${mid.file}" srcset="${srcset}" sizes="${R.esc(sizes)}" width="${largest.w}" height="${largest.h}" alt="${R.esc(alt)}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async">`;
+  const [id, sizes = '100vw', mode = ''] = arg.split('|');
+  const files = photoFiles(id);
+  const largest = files.at(-1), small = files[0];
+  const load = mode.includes('first') ? ' fetchpriority="high"' : mode.includes('eager') ? '' : ' loading="lazy"';
+  return `<img src="/photos/${small.file}" srcset="${srcset(id)}" sizes="${R.esc(sizes)}" width="${largest.w}" height="${largest.h}" alt="${mode.includes('deco') ? '' : R.esc(photos[id].alt)}"${load} decoding="async">`;
 }
-const sq = (() => { let x = 7, out = ''; const lv = ['', 'a', 'b', 'c', 'd']; for (let i = 0; i < 168; i++) { x = (x * 1103515245 + 12345) % 2147483648; const k = x % 9; out += `<i${k < 5 ? ` class="${lv[k]}"` : ''}></i>`; } return `<div class="banner-squares" aria-hidden="true">${out}</div>`; })();
+// {{@frame:id|shape|sizes|mode}}: a photograph in a frame shaped like a sign face, standing on its base line.
+function frame(arg = '') {
+  const [id, shape = 'arch', sizes = '(min-width: 960px) 44vw, 100vw', mode = ''] = arg.split('|');
+  return `<figure class="frame frame-${shape}"${mode ? '' : ' data-reveal="frame"'}><div class="frame-clip">${photo(`${id}|${sizes}|${mode}`)}</div><figcaption>${R.esc(photos[id].cap)}</figcaption></figure>`;
+}
+const SHAPES = ['arch', 'flat', 'peak', 'shoulder'];
+function marquee(arg = '') {
+  const [dir, ...ids] = arg.split('|');
+  const item = (id, i, hidden) => `<li${hidden ? ' aria-hidden="true"' : ''}><figure class="mq-item frame-${SHAPES[i % SHAPES.length]}"><div class="frame-clip">${photo(`${id}|320px|${hidden ? 'deco' : ''}`)}</div><figcaption>${R.esc(photos[id].cap)}</figcaption></figure></li>`;
+  return `<div class="marquee marquee-${dir}" data-marquee><ul class="marquee-track">${ids.map((id, i) => item(id, i, false)).join('')}${ids.map((id, i) => item(id, i, true)).join('')}</ul></div>`;
+}
+const GALLERY_ORDER = ['indian-head-park', 'yorktown-welcome', 'burhani-park', 'high-prairie', 'willow-hill', 'palos-hills', 'saint-edmund', 'templeton-reserve',
+  'tekserve-dark', 'yorktown-apartments', 'hyatt', 'fair-hill', 'tekserve-cream', 'baycrest', 'high-prairie-night', 'elm-creek', 'saint-edmund-side', 'smucker',
+  'yorktown-letters', 'police-department', 'ophelia-inlet', 'address-monument', 'fabricated-letters', 'st-john', 'vulcan', 'tekserve-dark-side', 'shop-arch-pillars',
+  'shop-boulder', 'high-prairie-detail', 'shop-stacked-stone'];
+for (const id of Object.keys(photos)) if (!GALLERY_ORDER.includes(id)) fail(`photo ${id} is not in the gallery order`);
+const GROUPS = [['hdu', 'HDU routed'], ['stone', 'Faux stone'], ['letters', 'Dimensional letters'], ['lit', 'Lit signs'], ['shop', 'In the shop']];
+// Photographs the owner adds to config.gallery come first.
+const ownPhotos = (config.gallery || []).map((p) => `<li data-tags="${R.esc(p.tags || '')}"><button type="button" class="gallery-item" data-full="${R.esc(p.src)}" aria-label="Open ${R.esc(p.place)}">` +
+  `<img src="${R.esc(p.src)}" width="${Number(p.width)}" height="${Number(p.height)}" alt="${R.esc(p.alt || '')}" loading="lazy" decoding="async">` +
+  `<span class="gallery-cap">${R.esc(p.place)}. ${R.esc(p.size)}, ${R.esc(p.options)}.</span></button></li>`).join('');
+function galleryGrid() {
+  return `<ul class="gallery-grid" data-gallery>${ownPhotos}${GALLERY_ORDER.map((id, i) => {
+    const m = photos[id];
+    return `<li data-tags="${m.tags}"><button type="button" class="gallery-item" data-full="/photos/${photoFiles(id).at(-1).file}" aria-label="Open ${R.esc(m.cap)}">${photo(`${id}|(min-width: 1100px) 30vw, (min-width: 640px) 46vw, 100vw|${i < 3 ? 'eager' : ''}`)}<span class="gallery-cap">${R.esc(m.cap)}</span></button></li>`;
+  }).join('')}</ul>`;
+}
+const galleryFilters = () => `<div class="filters" role="group" aria-label="Filter photographs"><button type="button" class="chip is-on" data-filter="all" aria-pressed="true">All <span class="chip-n">${GALLERY_ORDER.length}</span></button>` +
+  GROUPS.map(([tag, label]) => `<button type="button" class="chip" data-filter="${tag}" aria-pressed="false">${label} <span class="chip-n">${GALLERY_ORDER.filter((id) => photos[id].tags.split(' ').includes(tag)).length}</span></button>`).join('') + `</div>`;
+
+// One hundred small tiles: the share of an ordinary sign shop's work that is monuments, and ours.
+const shareTiles = (config.other_shops_share.match(/\d+/) || [])[0];
+function tiles(kind) {
+  const gold = kind === 'us' ? 100 : Number(shareTiles || 0);
+  let out = '';
+  for (let i = 0; i < 100; i++) out += `<i class="d${(i % 10) + Math.floor(i / 10)}${i < gold ? ' on' : ''}"></i>`;
+  return `<div class="tiles tiles-${kind}" aria-hidden="true">${out}</div>`;
+}
+
+// The same sign drawn five ways: nothing is set in stone until the proof is approved.
+const WAYS = [
+  ['Flat top, on a base', { shape: 'flat', base: 'plain', pillars: 'none', field: 'green', raised: 'ivory' }],
+  ['Arched, on a stone-look base', { shape: 'arch', base: 'stone', pillars: 'none', field: 'navy', raised: 'ivory' }],
+  ['Peaked, with pillars', { shape: 'peak', base: 'stone', pillars: 'flat', field: 'burgundy', raised: 'ivory' }],
+  ['Shouldered, on posts', { shape: 'shoulder', base: 'posts', pillars: 'none', field: 'black', raised: 'gold' }],
+  ['Arched, with peaked pillars', { shape: 'arch', base: 'stone', pillars: 'peak', field: 'green', raised: 'gold' }],
+];
+function ways() {
+  const st = (o) => ({ ...state0, size: config.pricing.sizes[Math.min(2, config.pricing.sizes.length - 1)].id, lines: ['Your Name', 'Here'], ...o });
+  const svgs = WAYS.map(([label, o], i) => `<div class="way${i === 0 ? ' is-on' : ''}" data-way="${i}">${sceneSvg(st(o), config, { aspect: 1.62, uid: `w${i}`, label: `A monument sign drawn as: ${label.toLowerCase()}` })}</div>`).join('');
+  const chips = WAYS.map(([label], i) => `<button type="button" class="chip${i === 0 ? ' is-on' : ''}" data-way-pick="${i}" aria-pressed="${i === 0}">${label}</button>`).join('');
+  return `<div class="ways" data-ways><div class="ways-stage">${svgs}</div><div class="ways-picks" role="group" aria-label="Draw the same sign another way">${chips}</div></div>`;
+}
+
+function sizeTable() {
+  const P = config.pricing;
+  const cell = (v) => (v == null ? 'With your proposal' : money(v));
+  return `<div class="table-wrap"><table class="price-table"><caption class="visually-hidden">Standard sizes and their prices</caption>
+  <thead><tr><th scope="col">Sign face</th><th scope="col">Single-sided</th><th scope="col">Double-sided</th><th scope="col">Installation</th></tr></thead>
+  <tbody>${P.sizes.map((x) => `<tr><th scope="row">${sizeWords(x)}</th><td class="money">${cell(x.single)}</td><td class="money">${cell(x.double)}</td><td class="money">${x.install == null ? 'With your proposal' : '+' + money(x.install)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function price(arg = '') {
+  const v = arg.split('.').reduce((o, k) => (o == null ? o : o[k]), config.pricing);
+  return v == null ? 'Quoted with your proposal' : v === 0 ? 'Included' : `+${money(v)}`;
+}
+
 const SLOTS = {
   photo: (page, arg) => photo(arg),
-  squares: () => sq,
-  preload_hero: () => { const f = [...photos['hero-alder-creek'].files].sort((a, b) => a.w - b.w); return `<link rel="preload" as="image" imagesrcset="${f.map((x) => `/photos/${x.file} ${x.w}w`).join(', ')}" imagesizes="100vw" fetchpriority="high">`; },
-  teaser: () => R.teaser(state0, config),
-  rating_badge: () => R.ratingBadge(config),
-  reviews: () => R.reviews(config),
-  materials_table: () => R.materialsTable(),
-  upgrade_table: () => R.upgradeTable(config),
+  frame: (page, arg) => frame(arg),
+  marquee: (page, arg) => marquee(arg),
+  preload: (page, arg) => `<link rel="preload" as="image" type="image/avif" imagesrcset="${srcset(arg.split('|')[0])}" imagesizes="${R.esc(arg.split('|')[1] || '100vw')}" fetchpriority="high">`,
+  cap: (page, arg) => R.esc(photos[arg].cap),
+  tiles: (page, arg) => tiles(arg),
+  share_num: () => (shareTiles ? `<span data-count="${shareTiles}">${shareTiles}</span>%` : 'A sliver'),
+  ways: () => ways(),
+  size_table: () => sizeTable(),
+  price: (page, arg) => price(arg),
   price_from: () => money(Math.min(...config.pricing.sizes.map((s2) => s2.single).filter((v) => v != null))),
-  questions_preview: () => R.questionsPreview(config, fill),
-  gallery_grid: () => R.galleryGrid(photo, config),
-  gallery_note: () => ((config.gallery || []).length ? '' : '<p class="sample-note">Sample renders of our signs. Photographs of finished installations replace them.</p>'),
+  photo_count: () => String(GALLERY_ORDER.length),
+  gallery_grid: () => galleryGrid(),
+  gallery_filters: () => galleryFilters(),
   assets: () => assetsHead,
   robots: (page) => (DRAFT || page.noindex ? '<meta name="robots" content="noindex">\n' : ''),
   draft_notice: () => (DRAFT ? '<div class="draft-notice"><p class="wrap">Draft site. Prices and terms shown are samples.</p></div>\n' : ''),
   contact_extra: () => contactExtra,
   portal_link: () => (portalUrl ? `<li><a href="${R.esc(portalUrl)}">See your orders and payments</a></li>` : ''),
-  portal_link_inline: () => (portalUrl ? `<a href="${R.esc(portalUrl)}">See your orders and payments</a>` : ''),
   form_extras: () => R.formExtras(tokens),
   hero: () => R.hero(state0, config),
-  site: () => siteScene(state0, config, { intro: true, label: describe(state0, config) }),
-  approval: () => approvalSheet(config, state0, config.business_name),
   install: () => installSection(config, state0),
-  shop_panel: () => shopPiece('panel', config, state0),
-  shop_mailbox: () => shopPiece('mailbox', config, state0),
-  shop_letters: () => shopPiece('letters', config, state0),
   hero_total: () => (q0.priced ? money(q0.total) : messages.unpriced),
   builder: () => R.builder(config, state0),
   lineup: () => R.lineupSvg(config, state0),
-  size_list: () => R.sizeList(config, state0),
   covers: () => R.covers(config),
-  anatomy: () => anatomy(config, state0),
-  option_stone: () => option('stone', config, state0),
-  option_pillars: () => option('pillars', config, state0),
-  option_metal: () => option('metal', config, state0),
-  option_acrylic: () => option('acrylic', config, state0),
   questions: () => R.questions(config, fill),
-  jsonld: (page) => (page.path === '/' || page.path === '/sizes-and-prices/' ? R.jsonLd([orgLd, serviceLd]) : page.path === '/questions/' ? R.jsonLd([faqLd]) : ''),
+  jsonld: (page) => (page.path === '/' || page.path === '/pricing/' ? R.jsonLd([orgLd, serviceLd]) : page.path === '/questions/' ? R.jsonLd([faqLd]) : ''),
   site_data: (page) => R.siteData({
     page: page.path, config: browserConfig, messages,
     contact: { business_name: config.business_name, phone: config.phone, phone_href: tokens.phone_href, email: config.email, hours: config.hours, mailing_address: config.mailing_address },
@@ -270,8 +328,7 @@ function render(template, page) {
     return config.features[f] ? m : `${m} hidden`;
   });
   // mark the current page in the main navigation
-  const navKey = { '/how-it-works/': 'how', '/questions/': 'questions', '/design/': 'design', '/gallery/': 'gallery', '/industries/': 'industries', '/monument-signs/': 'signs', '/sizes-and-prices/': 'signs' }[page.path];
-  if (navKey) html = html.replace(`data-nav="${navKey}"`, `data-nav="${navKey}" aria-current="page"`);
+  if (page.nav) html = html.replaceAll(`data-nav="${page.nav}"`, `data-nav="${page.nav}" aria-current="page"`);
   return html;
 }
 

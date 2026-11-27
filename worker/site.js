@@ -13,6 +13,9 @@ for (const line of HEADERS.split('\n')) {
   const i = line.indexOf(':');
   if (current && i > 0) current.headers[line.slice(0, i).trim()] = line.slice(i + 1).trim();
 }
+// Addresses from the earlier site (dist/_redirects does the same in the static-asset setup).
+const MOVED = { 'monument-signs': '/products/', 'sizes-and-prices': '/pricing/', 'how-it-works': '/process/', 'request-a-quote': '/contact/', industries: '/gallery/', 'more-from-our-shop': '/products/' };
+
 const matches = (pattern, path) => (pattern.endsWith('/*') ? path.startsWith(pattern.slice(0, -1)) : path === pattern);
 
 const bytes = new Map();
@@ -38,7 +41,9 @@ export default {
     const { pathname } = url;
     if (pathname.startsWith('/api/')) return route(request, env, ctx);
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });
-    if (FILES[pathname] && !pathname.endsWith('.html')) return serve(request, pathname);
+    const moved = MOVED[pathname.replace(/^\/|\/$/g, '')];
+    if (moved) return Response.redirect(url.origin + moved + url.search, 301);
+    if (FILES[pathname] && !pathname.endsWith('.html') && pathname !== '/_redirects') return serve(request, pathname);
     if (pathname.endsWith('/') && FILES[pathname + 'index.html']) return serve(request, pathname + 'index.html');
     // auto-trailing-slash: /how-it-works -> /how-it-works/, and /x/index.html -> /x/
     if (FILES[pathname + '/index.html']) return Response.redirect(url.origin + pathname + '/' + url.search, 307);

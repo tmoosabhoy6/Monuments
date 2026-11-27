@@ -2,41 +2,80 @@
 <html lang="en">
 <head>
 {{> head}}
+{{@preload:yorktown-welcome|(min-width: 900px) 44vw, 100vw}}
 </head>
 <body data-page="about">
 {{> header}}
 <main id="main">
-  <section class="page-banner">
-    {{@squares}}
-    <div class="wrap banner-inner">
-      <figure class="banner-photo">{{@photo:gal-1|(min-width: 960px) 46vw, calc(100vw - 52px)|Monument sign with pillars reading Brookfield|eager}}</figure>
+  <section class="banner">
+    <div class="wrap banner-grid">
       <div class="banner-text">
-        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">About</span></nav>
-        <h1 class="display">About us</h1>
-        <p>We make monument signs. That is the whole business, and it is why we do it well.</p>
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"></span><span aria-current="page">About Us</span></nav>
+        <h1 class="display"><span class="line"><span>We make</span></span> <span class="line"><span>monument signs.</span></span> <span class="line"><span>Nothing else.</span></span></h1>
+        <p class="lede">Most sign shops do many kinds of signs. We chose one, and we do it every day.</p>
+      </div>
+      {{@frame:yorktown-welcome|arch|(min-width: 900px) 44vw, 100vw|first}}
+    </div>
+  </section>
+
+  <section class="section section-mist" aria-labelledby="why-title">
+    <div class="wrap share-grid">
+      <div class="share-copy">
+        <h2 class="display-2" id="why-title" data-reveal="lines"><span class="line"><span>Why we only</span></span> <span class="line"><span>do monuments</span></span></h2>
+        <p data-reveal>Most sign shops make every type of sign, and monuments are {{other_shops_share}} of their business. A shop like that builds a monument now and then, between the banners and the storefronts.</p>
+        <p data-reveal class="d1">We only focus on monuments, and we only create monuments. That is why we are the best in the field, and why we get them right.</p>
+      </div>
+      <div class="share-boards" data-reveal="tiles">
+        <div class="board board-them">
+          {{@tiles:them}}
+          <p class="board-num">{{@share_num}}</p>
+          <p><strong>A typical sign shop</strong> Monuments are {{other_shops_share}} of the business.</p>
+        </div>
+        <div class="board board-us">
+          {{@tiles:us}}
+          <p class="board-num"><span data-count="100">100</span>%</p>
+          <p><strong>{{business_name}}</strong> Monuments are all we make.</p>
+        </div>
       </div>
     </div>
   </section>
-  <section class="section">
-    <div class="wrap split-2">
-      <div class="prose">
-        <p class="eyebrow">Specialists</p>
-        <h2 class="display-2">One thing, done every day</h2>
-        <p>Most sign shops make a monument sign now and then. We make them every day, and we make nothing else. We do not make banners, vehicle wraps or storefront signs, which is how we keep getting better at this one thing.</p>
-        <p>That focus is why we can publish our sizes and prices, show you your sign before anything is built, and send a certified installer to set it permanently, wherever you are in the country. You deal with one company from the first drawing to the sign in the ground.</p>
-      </div>
-      <figure class="framed">{{@photo:style-arched-stone|(min-width: 960px) 45vw, 100vw|Arched monument sign reading Cedar Hollow}}</figure>
-    </div>
-  </section>
-  <section class="section section-dark">
+
+  <section class="section" aria-labelledby="gives-title">
     <div class="wrap">
-      <div class="section-head center"><p class="eyebrow eyebrow-gold">What we promise</p><h2 class="display-2">How we work</h2></div>
-      <ul class="values">
-        <li>{{> icon-tag}}<h3>Prices you can see</h3><p>Standard sizes and every option are priced on this site, with what each price covers.</p></li>
-        <li>{{> icon-drawing}}<h3>Nothing built unapproved</h3><p>Production starts only after you approve a scaled drawing in writing.</p></li>
-        <li>{{> icon-map}}<h3>Installed nationwide</h3><p>Certified installers set your sign permanently, anywhere in the United States.</p></li>
-        <li>{{> icon-shield}}<h3>Fair policies</h3><p>Clear terms on deposits, cancellation, delivery and warranty, written in plain language.</p></li>
+      <div class="section-head">
+        <h2 id="gives-title" data-reveal="lines"><span class="line"><span>What that focus</span></span> <span class="line"><span>gives you</span></span></h2>
+      </div>
+      <ul class="points points-4" data-reveal="stagger">
+        <li class="point">{{> icon-drawing}}<h3>Design at no charge</h3><p>A designer works with you until you are 100% happy. No charge for design, no charge for revisions.</p></li>
+        <li class="point">{{> icon-shield}}<h3>One material, known well</h3><p>Routed HDU is our main product, so it is the material we know best.</p></li>
+        <li class="point">{{> icon-calendar}}<h3>A clear timeline</h3><p>{{lead_time|cap}} for production and delivery, counted from the day you approve your proof.</p></li>
+        <li class="point">{{> icon-map}}<h3>Service nationwide</h3><p>We build for customers across the country, and installation is available wherever you are.</p></li>
       </ul>
+    </div>
+  </section>
+
+  <section class="section section-mist" aria-labelledby="who-title">
+    <div class="wrap duo">
+      {{@frame:high-prairie|shoulder}}
+      <div class="prose">
+        <h2 id="who-title" data-reveal="lines"><span class="line"><span>Who we are</span></span></h2>
+        <p class="lede" data-reveal>We are a sign shop that turned down every other kind of sign.</p>
+        <p data-reveal>Entrance signs for neighborhoods and apartment communities. Signs for churches, schools, parks and business addresses. If it stands on the ground and carries a name, it is what we build.</p>
+        <p data-reveal>You deal with one company from the first conversation to the finished sign.</p>
+        <p class="actions" data-reveal><a class="btn btn-green" href="/process/"><span>How the process works</span></a><a class="text-link" href="/gallery/"><span>See the gallery</span>{{> icon-arrow}}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="nation-title">
+    <div class="wrap duo reverse">
+      {{@frame:fair-hill|peak}}
+      <div class="prose">
+        <h2 id="nation-title" data-reveal="lines"><span class="line"><span>Nationwide service</span></span></h2>
+        <p data-reveal>You do not need to be near us. Your sign is designed with you by email and phone, built in our shop and delivered to your site.</p>
+        <p data-reveal>Installation is optional, and it is available nationwide. If you have your own contractor, we deliver the sign ready for them to set.</p>
+        <p class="actions" data-reveal><a class="text-link" href="/installation/"><span>About installation</span>{{> icon-arrow}}</a></p>
+      </div>
     </div>
   </section>
 </main>

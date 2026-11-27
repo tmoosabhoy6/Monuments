@@ -270,7 +270,7 @@ export function initForms(store, site) {
 
   // custom quote
   handle('quote', async (form, d) => {
-    const fields = { name: d.name, organization: d.organization, email: d.email, phone: d.phone, contact: d.contact, need: d.need,
+    const fields = { name: d.name, organization: d.organization, email: d.email, phone: d.phone, contact: d.contact, need: d.need, sides: d.sides || '',
       details: d.details, width: d.width, height: d.height, zip: d.zip, install: d.install || '', when: d.when || '', date: d.date || '', heard: d.heard };
     const res = await sendRequest(form, 'quote', fields);
     if (res.ok) show(form, `<p>${esc(fmt(M.quoteSent, { email: d.email, reference: res.data.reference }))}</p>${fileNotes(res.failed)}`, { replace: true });

@@ -1,11 +1,14 @@
 // Everything that enhances the page, loaded by app.js once the page has loaded.
 import { createStore, initBuilder, initTitleBlock, fillPrintSheet, readArrival } from './builder/ui.js';
 import { initForms, showReturn } from './forms.js';
-import { initNav, initSlideshow, initReviews, initGallery, initTeaser } from './site-ui.js';
+import { initNav, initHero, initWays, initStrips, initTilt, initCounts, initGallery } from './site-ui.js';
 
 initNav();
-initSlideshow();
-initReviews();
+initHero();
+initWays();
+initStrips();
+initTilt();
+initCounts();
 initGallery();
 
 const dataEl = document.getElementById('site-data');
@@ -17,20 +20,12 @@ if (site) {
   const features = site.config.features || {};
   if (features.deposits === false) site.depositsOff = true;
 
-  // The header rule appears once the page has scrolled: an observer on a 1px sentinel.
-  const sentinel = document.querySelector('[data-header-sentinel]');
-  const header = document.querySelector('[data-site-header]');
-  if (sentinel && header) {
-    new IntersectionObserver(([e]) => header.classList.toggle('is-scrolled', !e.isIntersecting)).observe(sentinel);
-  }
-
   const forms = initForms(store, site);
   site.openDrawing = forms.openDrawing;
   site.fillPrint = () => fillPrintSheet(store, site);
 
   const onDesign = document.body.dataset.page === 'design';
   const arrival = onDesign ? readArrival(store) : { open: false };
-  initTeaser(store);
 
   const titleBlock = initTitleBlock(store, site, { onReserve: forms.openReserve, onDrawing: forms.openDrawing });
   const builder = initBuilder(store, site, {

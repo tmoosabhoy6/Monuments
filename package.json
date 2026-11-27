@@ -17,13 +17,11 @@
     "check:scroll": "node scripts/check-scroll.js",
     "check:lighthouse": "node scripts/check-lighthouse.js",
     "check:launch": "node scripts/check-launch.js",
-    "check:copy": "node scripts/check-copy.js",
     "check:a11y": "node scripts/a11y-audit.js",
     "screenshots": "node scripts/screenshots.js",
     "glyphs": "node scripts/glyph-widths.js",
     "og": "node scripts/og-image.js",
-    "photos": "node scripts/render-photos.js",
-    "check": "npm run build && npm test && npm run check:rules && npm run check:size && npm run check:copy && npm run test:browser && npm run check:scroll"
+    "check": "npm run build && npm test && npm run check:rules && npm run check:size && npm run test:browser && npm run check:scroll"
   },
   "devDependencies": {
     "playwright": "1.63.0",

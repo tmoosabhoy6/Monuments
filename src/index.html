@@ -2,242 +2,136 @@
 <html lang="en">
 <head>
 {{> head}}
-{{@preload_hero}}
+{{@preload:indian-head-park|(min-width: 900px) 42vw, 86vw}}
 {{@jsonld}}
 </head>
 <body data-page="home">
 {{> header}}
 <main id="main">
-
-  <!-- hero: a slideshow of our signs, the headline over it -->
-  <section class="hero" aria-labelledby="hero-title" data-slideshow>
-    <div class="hero-slides">
-      <figure class="hero-slide is-active" data-slide>{{@photo:hero-alder-creek|100vw|A stone-look monument sign with pillars reading Alder Creek Homeowners, in a planted bed at a subdivision entrance|eager}}<figcaption>Alder Creek Homeowners: 8 ft × 4 ft, stone-look base with pillars</figcaption></figure>
-      <figure class="hero-slide" data-slide>{{@photo:hero-riverside|100vw|A shouldered monument sign with cut metal letters reading Riverside Business Park}}<figcaption>Riverside Business Park: cut metal letters</figcaption></figure>
-      <figure class="hero-slide" data-slide>{{@photo:hero-grace-dusk|100vw|An illuminated monument sign at dusk reading Grace Fellowship Church}}<figcaption>Grace Fellowship Church: illuminated at dusk</figcaption></figure>
-    </div>
-    <div class="hero-shade" aria-hidden="true"></div>
-    <div class="wrap hero-content">
-      <p class="kicker">{{> icon-map}} Built to order, installed anywhere in the United States</p>
-      <h1 id="hero-title" class="display">Monument signs. <br>Nothing else.</h1>
-      <p class="hero-lede">Routed HDU monument signs in your wording and your colors, priced before you call and permanently installed by a certified installer, wherever you are.</p>
-      <div class="hero-actions">
-        <a class="btn btn-gold btn-lg" href="/design/">Design Your Sign</a>
-        <a class="btn btn-ghost btn-lg" href="/sizes-and-prices/">See standard sizes and prices</a>
-      </div>
-      <ul class="hero-proof">
-        <li>{{@rating_badge}}</li>
-        <li>{{> icon-shield}}<span>Certified installers</span></li>
-        <li>{{> icon-drawing}}<span>Approval drawing before you pay</span></li>
-      </ul>
-    </div>
-    <div class="hero-dots" role="group" aria-label="Choose a photo">
-      <button type="button" class="hero-dot is-active" aria-label="Photo 1" aria-pressed="true" data-dot="0"></button>
-      <button type="button" class="hero-dot" aria-label="Photo 2" aria-pressed="false" data-dot="1"></button>
-      <button type="button" class="hero-dot" aria-label="Photo 3" aria-pressed="false" data-dot="2"></button>
-      <button type="button" class="hero-pause" aria-label="Pause slideshow" aria-pressed="false" data-hero-pause><span aria-hidden="true"></span></button>
-    </div>
-  </section>
-
-  <!-- trust strip -->
-  <section class="trust" aria-label="Why customers choose us">
-    <ul class="wrap trust-list">
-      <li>{{> icon-map}}<div><strong>Nationwide installation</strong><span>Certified installers set your sign anywhere in the US.</span></div></li>
-      <li>{{> icon-tag}}<div><strong>Prices published</strong><span>Standard sizes and every option priced up front.</span></div></li>
-      <li>{{> icon-drawing}}<div><strong>See it before you pay</strong><span>A scaled approval drawing comes first.</span></div></li>
-      <li>{{> icon-hammer}}<div><strong>Built to order</strong><span>Routed from HDU in your wording and colors.</span></div></li>
-    </ul>
-  </section>
-
-  <!-- what is a monument sign -->
-  <section class="section" aria-labelledby="what-title">
-    <div class="wrap split-2">
-      <div class="prose">
-        <p class="eyebrow">Monument signs only</p>
-        <h2 id="what-title" class="display-2">What is a monument sign?</h2>
-        <p>A monument sign is a low, freestanding sign set permanently at ground level, usually at an entrance where people turn in. It carries a name, sometimes an address or a logo, and it is the first thing a visitor sees of a neighborhood, a church, a school or a business.</p>
-        <p>Most sign shops make one now and then. We make them every day and nothing else, which is why we can publish our sizes and prices, show you your sign before anything is built, and send a certified installer to set it, wherever you are in the country.</p>
-        <ul class="ticks">
-          <li>{{> icon-check}}Routed HDU face: lettering, border and logo carved in relief</li>
-          <li>{{> icon-check}}Single or double-sided, on posts, a base or a stone-look base</li>
-          <li>{{> icon-check}}Your colors matched from your paint codes</li>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 class="display" id="hero-title"><span class="line"><span>Monument signs</span></span> <span class="line"><span>are all we do.</span></span> <span class="line"><span>That’s why we</span></span> <span class="line"><span>get them right.</span></span></h1>
+        <p class="lede">Most sign shops make every kind of sign, and monuments are {{other_shops_share}} of their business. Monuments are all we make.</p>
+        <div class="actions">
+          <a class="btn btn-gold btn-lg" href="/contact/"><span>Start your sign</span>{{> icon-arrow}}</a>
+          <a class="btn btn-line btn-lg" href="/gallery/"><span>See the gallery</span></a>
+        </div>
+        <ul class="hero-facts">
+          <li>{{> icon-drawing}}<span>No charge for design or revisions</span></li>
+          <li>{{> icon-calendar}}<span>{{lead_time|cap}} after proof approval</span></li>
+          <li>{{> icon-map}}<span>Optional installation nationwide</span></li>
         </ul>
-        <p class="actions"><a class="btn btn-green" href="/monument-signs/">Explore Sign Styles</a><a class="text-link" href="/how-it-works/">How an order works {{> icon-arrow}}</a></p>
       </div>
-      <figure class="framed">{{@photo:style-arched-stone|(min-width: 960px) 45vw, 100vw|An arched monument sign on a stone-look base reading Cedar Hollow}}</figure>
-    </div>
-  </section>
-
-  <!-- styles -->
-  <section class="section section-tint" aria-labelledby="styles-title">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Sign styles</p>
-        <h2 id="styles-title" class="display-2">Find the look for your entrance</h2>
-        <p>Every style is built to order. Start from any of these in the designer and change the size, shape, base and colors as you go.</p>
-      </div>
-      <ul class="cards">
-        <li class="card"><a href="/monument-signs/#arched">{{@photo:style-arched-stone|(min-width: 960px) 25vw, 50vw|Arched sign on a stone-look base}}<span class="card-num">01</span><h3>Arched, stone-look base</h3><p>The classic entrance sign: an arched face on a stone-look base.</p></a></li>
-        <li class="card"><a href="/monument-signs/#pillars">{{@photo:style-pillars|(min-width: 960px) 25vw, 50vw|Flat-top sign between two stone-look pillars with peaked caps}}<span class="card-num">02</span><h3>Pillars with caps</h3><p>A pillar at each side frames the sign and gives the entrance presence.</p></a></li>
-        <li class="card"><a href="/monument-signs/#posts">{{@photo:style-posts|(min-width: 960px) 25vw, 50vw|Flat sign hung between two posts}}<span class="card-num">03</span><h3>On posts</h3><p>A lighter look: the panel hung between two posts set in the ground.</p></a></li>
-        <li class="card"><a href="/monument-signs/#shouldered">{{@photo:style-shouldered|(min-width: 960px) 25vw, 50vw|Shouldered sign on a stone-look base}}<span class="card-num">04</span><h3>Shouldered top</h3><p>A raised center with stepped shoulders, for a more formal outline.</p></a></li>
-        <li class="card"><a href="/monument-signs/#metal">{{@photo:style-metal|(min-width: 960px) 25vw, 50vw|Sign with cut metal letters on a dark face}}<span class="card-num">05</span><h3>Cut metal letters</h3><p>Individual metal letters mounted off the face for crisp shadows.</p></a></li>
-        <li class="card"><a href="/monument-signs/#acrylic">{{@photo:style-acrylic|(min-width: 960px) 25vw, 50vw|Sign with cut acrylic letters}}<span class="card-num">06</span><h3>Cut acrylic letters</h3><p>Clean, bright dimensional letters in any of our paint colors.</p></a></li>
-        <li class="card"><a href="/monument-signs/#double">{{@photo:style-double|(min-width: 960px) 25vw, 50vw|Double-sided sign seen at an angle}}<span class="card-num">07</span><h3>Double-sided</h3><p>Set at a right angle to the road so it reads from both directions.</p></a></li>
-        <li class="card"><a href="/monument-signs/#illuminated">{{@photo:style-illuminated|(min-width: 960px) 25vw, 50vw|Illuminated sign at dusk}}<span class="card-num">08</span><h3>Illuminated</h3><p>Lit faces and letters, quoted with your drawing.</p></a></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- the designer teaser -->
-  <section class="designer-band" aria-labelledby="teaser-title">
-    <div class="wrap designer-band-inner">
-      <div class="designer-copy">
-        <p class="eyebrow eyebrow-gold">Online sign designer</p>
-        <h2 id="teaser-title" class="display-2">Put your name on it</h2>
-        <p>Type your community or business name and watch it routed into the sign. Then open the designer to choose the size, shape, base, letters and colors, with the price updating as you go.</p>
-        <div class="field teaser-field">
-          <label for="teaser-name">Your name on the sign</label>
-          <input class="input" id="teaser-name" placeholder="e.g. Alder Creek" autocomplete="organization" maxlength="57" spellcheck="false">
+      <div class="hero-art">
+        <div class="monument" data-tilt>
+          <div class="mon-face" data-faces>
+            <figure class="face is-on" data-cap="{{@cap:indian-head-park}}">{{@photo:indian-head-park|(min-width: 900px) 42vw, 86vw|first}}</figure>
+            <figure class="face" data-cap="{{@cap:yorktown-welcome}}">{{@photo:yorktown-welcome|(min-width: 900px) 42vw, 86vw}}</figure>
+            <figure class="face" data-cap="{{@cap:high-prairie}}">{{@photo:high-prairie|(min-width: 900px) 42vw, 86vw}}</figure>
+            <figure class="face" data-cap="{{@cap:saint-edmund}}">{{@photo:saint-edmund|(min-width: 900px) 42vw, 86vw}}</figure>
+            <figure class="face" data-cap="{{@cap:templeton-reserve}}">{{@photo:templeton-reserve|(min-width: 900px) 42vw, 86vw}}</figure>
+          </div>
+          <div class="mon-base">
+            <p class="mon-plate" data-face-cap>{{@cap:indian-head-park}}</p>
+            <div class="mon-dots" role="group" aria-label="Choose a photograph">
+              <button type="button" class="mon-dot is-on" data-face-pick aria-pressed="true" aria-label="{{@cap:indian-head-park}}"></button>
+              <button type="button" class="mon-dot" data-face-pick aria-pressed="false" aria-label="{{@cap:yorktown-welcome}}"></button>
+              <button type="button" class="mon-dot" data-face-pick aria-pressed="false" aria-label="{{@cap:high-prairie}}"></button>
+              <button type="button" class="mon-dot" data-face-pick aria-pressed="false" aria-label="{{@cap:saint-edmund}}"></button>
+              <button type="button" class="mon-dot" data-face-pick aria-pressed="false" aria-label="{{@cap:templeton-reserve}}"></button>
+            </div>
+          </div>
+          <div class="mon-sat mon-sat-a"><div class="mon-sat-in">{{@photo:burhani-park|(min-width: 900px) 14vw, 26vw|eager}}</div></div>
+          <div class="mon-sat mon-sat-b"><div class="mon-sat-in">{{@photo:willow-hill|(min-width: 900px) 15vw, 28vw|eager}}</div></div>
         </div>
-        <p class="actions"><a class="btn btn-gold btn-lg" href="/design/" data-teaser-go>Open the Designer</a></p>
-      </div>
-      <div class="designer-card">
-        <div class="designer-sheet" data-teaser-sign>{{@teaser}}</div>
-        <div class="designer-meta"><span>As drawn, installed</span><strong class="money" data-teaser-price>{{@hero_total}}</strong></div>
       </div>
     </div>
   </section>
 
-  <!-- sizes and prices -->
-  <section class="section" id="sizes" aria-labelledby="sizes-title">
-    <div class="wrap">
-      <div class="section-head split-head">
-        <div>
-          <p class="eyebrow">Sizes and prices</p>
-          <h2 id="sizes-title" class="display-2">{{size_count_word}} standard sizes, priced up front</h2>
+  <section class="marquees" aria-labelledby="work-title">
+    <h2 class="visually-hidden" id="work-title">Monument signs we have made</h2>
+    {{@marquee:left|yorktown-apartments|tekserve-dark|fair-hill|palos-hills|tekserve-cream|baycrest|elm-creek|hyatt}}
+    {{@marquee:right|saint-edmund-side|smucker|ophelia-inlet|high-prairie-night|police-department|yorktown-letters|address-monument|st-john}}
+  </section>
+
+  <section class="section section-mist" aria-labelledby="share-title">
+    <div class="wrap share-grid">
+      <div class="share-copy">
+        <h2 class="display-2" id="share-title" data-reveal="lines"><span class="line"><span>Most sign shops make</span></span> <span class="line"><span>every kind of sign.</span></span> <span class="line"><span>We make one.</span></span></h2>
+        <p data-reveal>Banners, vehicle wraps, storefronts, window lettering. At a shop like that, monuments are {{other_shops_share}} of the business. We only focus on monuments, and we only create monuments.</p>
+        <p data-reveal class="d1">That is why we are the best in the field, and why your sign comes out right.</p>
+        <p class="actions d2" data-reveal><a class="text-link" href="/about/"><span>Why we only do monuments</span>{{> icon-arrow}}</a></p>
+      </div>
+      <div class="share-boards" data-reveal="tiles">
+        <div class="board board-them">
+          {{@tiles:them}}
+          <p class="board-num">{{@share_num}}</p>
+          <p><strong>A typical sign shop</strong> Monuments are {{other_shops_share}} of the business.</p>
         </div>
-        <p>Each price covers the routed sign in your wording and colors, the base shown and delivery. Installation by a certified installer is priced beside it. The pole at the left is six feet tall.</p>
+        <div class="board board-us">
+          {{@tiles:us}}
+          <p class="board-num"><span data-count="100">100</span>%</p>
+          <p><strong>{{business_name}}</strong> Monuments are all we make.</p>
+        </div>
       </div>
-      <div class="lineup">{{@lineup}}</div>
-      {{@size_list}}
-      <p class="note-line">Prices shown are for a single-sided sign. Double-sided and every other option are priced in the builder. Any size or shape outside these is a <a href="/request-a-quote/">custom quote</a>.</p>
     </div>
   </section>
 
-  <!-- process -->
-  <section class="section section-dark" aria-labelledby="process-title">
+  <section class="section" aria-labelledby="process-title">
     <div class="wrap">
-      <div class="section-head center">
-        <p class="eyebrow eyebrow-gold">How it works</p>
-        <h2 id="process-title" class="display-2">One company, from the first drawing to the sign in the ground</h2>
+      <div class="head-row">
+        <div class="section-head">
+          <h2 id="process-title" data-reveal="lines"><span class="line"><span>Five steps from an idea</span></span> <span class="line"><span>to your sign.</span></span></h2>
+        </div>
+        <a class="text-link" href="/process/" data-reveal><span>See the whole process</span>{{> icon-arrow}}</a>
       </div>
-      <ol class="steps">
-        <li><span class="step-num">1</span><h3>Design it</h3><p>Pick a standard size, design your own, or ask for a custom quote.</p></li>
-        <li><span class="step-num">2</span><h3>Approve the drawing</h3><p>A scaled drawing with exact dimensions, lettering and colors.</p></li>
-        <li><span class="step-num">3</span><h3>Reserve with a deposit</h3><p>Your place in production, paid online when you approve.</p></li>
-        <li><span class="step-num">4</span><h3>We build it</h3><p>Routed from HDU and painted in your colors, made for your order.</p></li>
-        <li><span class="step-num">5</span><h3>We install it</h3><p>A certified installer sets it permanently, anywhere in the US.</p></li>
-        <li><span class="step-num">6</span><h3>Final invoice</h3><p>Paid online once your sign is in the ground.</p></li>
+      <ol class="steps" data-reveal="stagger">
+        <li class="step"><span class="step-n" aria-hidden="true">1</span><h3><span class="visually-hidden">Step 1: </span>Tell us what goes on it</h3><p>Single-sided or double-sided. Send your logo as a PDF, or just the text and we design it.</p><i class="step-arrow" aria-hidden="true"></i></li>
+        <li class="step"><span class="step-n" aria-hidden="true">2</span><h3><span class="visually-hidden">Step 2: </span>Give us a rough size</h3><p>It does not need to be exact. It is only a starting point.</p><i class="step-arrow" aria-hidden="true"></i></li>
+        <li class="step"><span class="step-n" aria-hidden="true">3</span><h3><span class="visually-hidden">Step 3: </span>Send your contact details</h3><p>So we know where to send your proposal.</p><i class="step-arrow" aria-hidden="true"></i></li>
+        <li class="step"><span class="step-n" aria-hidden="true">4</span><h3><span class="visually-hidden">Step 4: </span>Small deposit, then design</h3><p>We work with you until you are 100% happy. Samples if you need them.</p><i class="step-arrow" aria-hidden="true"></i></li>
+        <li class="step"><span class="step-n" aria-hidden="true">5</span><h3><span class="visually-hidden">Step 5: </span>Approve, and we build</h3><p>{{lead_time|cap}} for production and delivery. Optional installation nationwide.</p></li>
       </ol>
-      <p class="center"><a class="btn btn-gold" href="/how-it-works/">See Every Step</a></p>
     </div>
   </section>
 
-  <!-- industries -->
-  <section class="section" aria-labelledby="ind-title">
+  {{> stone}}
+
+  <section class="section" aria-labelledby="upgrades-title">
     <div class="wrap">
-      <div class="section-head split-head">
-        <div>
-          <p class="eyebrow">Who we build for</p>
-          <h2 id="ind-title" class="display-2">Entrances of every kind</h2>
+      <div class="head-row">
+        <div class="section-head">
+          <h2 id="upgrades-title" data-reveal="lines"><span class="line"><span>Optional upgrades</span></span></h2>
+          <p data-reveal>Every monument starts as routed HDU. Add what suits your site.</p>
         </div>
-        <p>Our signs stand at the entrances of subdivisions and apartment communities, churches, schools, parks, business parks and individual businesses.</p>
+        <a class="text-link" href="/pricing/" data-reveal><span>Pricing and upgrades</span>{{> icon-arrow}}</a>
       </div>
-      <ul class="tiles">
-        <li><a href="/industries/#hoa">{{@photo:ind-hoa|(min-width: 960px) 33vw, 100vw|Subdivision entrance sign reading Sycamore Park}}<span>HOAs and subdivisions</span></a></li>
-        <li><a href="/industries/#church">{{@photo:ind-church|(min-width: 960px) 33vw, 100vw|Church sign reading St. Andrew Parish}}<span>Churches</span></a></li>
-        <li><a href="/industries/#school">{{@photo:ind-school|(min-width: 960px) 33vw, 100vw|School sign reading Westbrook Elementary}}<span>Schools</span></a></li>
-        <li><a href="/industries/#business">{{@photo:ind-business|(min-width: 960px) 33vw, 100vw|Office park sign reading Harbor Point Office Park}}<span>Business parks</span></a></li>
-        <li><a href="/industries/#apartments">{{@photo:ind-apartments|(min-width: 960px) 33vw, 100vw|Apartment community sign reading The Residences at Elm Street}}<span>Apartment communities</span></a></li>
-        <li><a href="/industries/#parks">{{@photo:ind-parks|(min-width: 960px) 33vw, 100vw|Park sign on posts reading Fox Run Park}}<span>Parks and municipalities</span></a></li>
-      </ul>
+      {{> upgrade-cards}}
     </div>
   </section>
 
-  <!-- materials -->
-  <section class="section section-tint" aria-labelledby="mat-title">
-    <div class="wrap split-2 split-2-narrow-left">
-      <div>
-        <p class="eyebrow">Why HDU</p>
-        <h2 id="mat-title" class="display-2">The material made for carved signs</h2>
-        <p>High-density urethane has no grain and takes up almost no water, so it holds a crisp carved edge outdoors. It routes cleanly at any depth, so fine lettering and detailed logos come out sharp, and it takes paint evenly on every surface.</p>
-        <p class="actions"><a class="text-link" href="/monument-signs/#materials">Compare materials in detail {{> icon-arrow}}</a></p>
-      </div>
-      {{@materials_table}}
+  <div class="wordband" aria-hidden="true">
+    <div class="wordband-track" data-strip>
+      <ul><li>Routed HDU</li><li>Faux stone</li><li>Dimensional letters</li><li>Illuminated faces</li><li>LED screens</li><li>Nationwide</li></ul>
+      <ul><li>Routed HDU</li><li>Faux stone</li><li>Dimensional letters</li><li>Illuminated faces</li><li>LED screens</li><li>Nationwide</li></ul>
     </div>
-  </section>
+  </div>
 
-  <!-- reviews -->
-  <section class="section" aria-labelledby="reviews-title">
+  <section class="section" aria-labelledby="gallery-title">
     <div class="wrap">
-      <div class="section-head center">
-        <p class="eyebrow">What customers say</p>
-        <h2 id="reviews-title" class="display-2">Signs boards can agree on</h2>
-      </div>
-      {{@reviews}}
-    </div>
-  </section>
-
-  <!-- gallery -->
-  <section class="section section-tint" aria-labelledby="gal-title">
-    <div class="wrap">
-      <div class="section-head split-head">
-        <div>
-          <p class="eyebrow">Gallery</p>
-          <h2 id="gal-title" class="display-2">Signs in their setting</h2>
+      <div class="head-row">
+        <div class="section-head">
+          <h2 id="gallery-title" data-reveal="lines"><span class="line"><span>More in the gallery</span></span></h2>
         </div>
-        <p><a class="btn btn-green" href="/gallery/">View the Gallery</a></p>
+        <a class="text-link" href="/gallery/" data-reveal><span>All {{@photo_count}} photographs</span>{{> icon-arrow}}</a>
       </div>
-      <ul class="mosaic">
-        <li class="m-wide">{{@photo:gal-1|(min-width: 960px) 50vw, 100vw|Monument sign with pillars reading Brookfield}}</li>
-        <li>{{@photo:gal-2|(min-width: 960px) 25vw, 50vw|Peaked sign reading Hidden Pines}}</li>
-        <li>{{@photo:style-acrylic|(min-width: 960px) 25vw, 50vw|Sign reading The Willows}}</li>
-        <li>{{@photo:gal-3|(min-width: 960px) 25vw, 50vw|Sign on posts reading Rosewood}}</li>
-        <li>{{@photo:style-shouldered|(min-width: 960px) 25vw, 50vw|Sign reading Oak Ridge Estates}}</li>
+      <ul class="mosaic" data-reveal="stagger">
+        <li class="m-a"><a href="/gallery/">{{@photo:yorktown-welcome|(min-width: 820px) 48vw, 100vw}}<span>{{@cap:yorktown-welcome}}</span></a></li>
+        <li class="m-b"><a href="/gallery/">{{@photo:fair-hill|(min-width: 820px) 24vw, 50vw}}<span>{{@cap:fair-hill}}</span></a></li>
+        <li><a href="/gallery/">{{@photo:tekserve-dark|(min-width: 820px) 24vw, 50vw}}<span>{{@cap:tekserve-dark}}</span></a></li>
+        <li><a href="/gallery/">{{@photo:hyatt|(min-width: 820px) 24vw, 50vw}}<span>{{@cap:hyatt}}</span></a></li>
       </ul>
-      <p class="sample-note">Sample renders of our signs. Photographs of finished installations replace them.</p>
-    </div>
-  </section>
-
-  <!-- questions -->
-  <section class="section" aria-labelledby="faq-title">
-    <div class="wrap split-2 split-2-narrow-left">
-      <div>
-        <p class="eyebrow">Questions</p>
-        <h2 id="faq-title" class="display-2">Answers before you ask</h2>
-        <p>The questions boards and owners ask us most. Something else on your mind? Call us.</p>
-        <p class="actions"><a class="btn btn-green" href="/questions/">All Questions</a><a class="text-link" href="{{phone_href}}">{{phone}} {{> icon-arrow}}</a></p>
-      </div>
-      <div class="faq">{{@questions_preview}}</div>
-    </div>
-  </section>
-
-  <!-- quote -->
-  <section class="quote-band" aria-labelledby="quote-title">
-    <div class="wrap split-2">
-      <div class="quote-intro">
-        <p class="eyebrow eyebrow-gold">Free quote</p>
-        <h2 class="display-2">Something the designer cannot draw?</h2>
-        <p>A custom size or shape, several entrances, or something from more from our shop. Tell us what you have in mind and we reply within {{response_time}}.</p>
-        <ul class="ticks ticks-light">
-          <li>{{> icon-check}}A scaled approval drawing with your quote</li>
-          <li>{{> icon-check}}Installation priced with your quote</li>
-          <li>{{> icon-check}}No obligation until you approve</li>
-        </ul>
-        <p class="quote-call">{{> icon-phone}}<span>Prefer to talk? <a href="{{phone_href}}">{{phone}}</a></span></p>
-      </div>
-      <div class="quote-card">{{> quote}}</div>
     </div>
   </section>
 </main>

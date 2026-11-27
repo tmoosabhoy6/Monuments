@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+{{@preload:tekserve-dark|(min-width: 900px) 44vw, 100vw}}
+</head>
+<body data-page="design-services">
+{{> header}}
+<main id="main">
+  <section class="banner">
+    <div class="wrap banner-grid">
+      <div class="banner-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"></span><span aria-current="page">Design Services</span></nav>
+        <h1 class="display"><span class="line"><span>Free design.</span></span> <span class="line"><span>Free revisions.</span></span></h1>
+        <p class="lede">You work with a designer until you are 100% happy. There is no charge for design, and no charge for revisions.</p>
+      </div>
+      {{@frame:tekserve-dark|shoulder|(min-width: 900px) 44vw, 100vw|first}}
+    </div>
+  </section>
+
+  {{> stone}}
+
+  <section class="section" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="how-title" data-reveal="lines"><span class="line"><span>How design works</span></span></h2>
+        <p data-reveal>Design starts once your deposit is paid, and it ends when you say it does.</p>
+      </div>
+      <ol class="steps steps-4" data-reveal="stagger">
+        <li class="step"><span class="step-n" aria-hidden="true">1</span><h3>Send what you have</h3><p>Your logo as a PDF if you have one. If not, send the text and we design it for you.</p><i class="step-arrow" aria-hidden="true"></i></li>
+        <li class="step"><span class="step-n" aria-hidden="true">2</span><h3>See the visuals</h3><p>Your designer sends visuals of your sign. You won’t know what is perfect until you see them.</p><i class="step-arrow" aria-hidden="true"></i></li>
+        <li class="step"><span class="step-n" aria-hidden="true">3</span><h3>Change anything</h3><p>Size, shape, colors, wording. Revisions are free, as many as it takes.</p><i class="step-arrow" aria-hidden="true"></i></li>
+        <li class="step"><span class="step-n" aria-hidden="true">4</span><h3>Approve the proof</h3><p>When you are 100% happy, you approve the proof, and we build exactly that.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-mist" aria-labelledby="samples-title">
+    <div class="wrap duo">
+      {{@frame:high-prairie-detail|flat}}
+      <div class="prose">
+        <h2 id="samples-title" data-reveal="lines"><span class="line"><span>Samples,</span></span> <span class="line"><span>if you need them</span></span></h2>
+        <p class="lede" data-reveal>Some decisions are easier with the real thing in your hand.</p>
+        <p data-reveal>If samples are needed, we can send samples of your project, so a board or a committee can see the finish and the colors before approving the proof.</p>
+        <p class="actions" data-reveal><a class="btn btn-gold" href="/contact/"><span>Start your sign</span>{{> icon-arrow}}</a><a class="text-link" href="/design/"><span>Sketch and price a sign yourself</span>{{> icon-arrow}}</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+{{> footer}}
+{{> titleblock}}
+{{> dialogs}}
+{{@site_data}}
+</body>
+</html>

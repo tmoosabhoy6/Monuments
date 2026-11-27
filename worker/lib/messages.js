@@ -25,7 +25,7 @@ export function designSummary(design, base) {
 }
 
 const LABELS = { name: 'Your name', organization: 'Organization', email: 'Email', phone: 'Phone', contact: 'Best way to reach you',
-  need: 'What do you need?', details: 'Tell us about it', width: 'Rough width', height: 'Rough height', zip: 'ZIP code where it will stand',
+  need: 'How many signs?', sides: 'Single-sided or double-sided?', details: 'What should the sign say?', width: 'Approximate width', height: 'Approximate height', zip: 'ZIP code where it will stand',
   install: 'Do you need installation?', when: 'When do you need it?', date: 'By a date', heard: 'How did you hear about us?', notes: 'Anything we should know?' };
 
 export function toBusiness({ kind, name, reference, fields, design, fileLinks, base }) {

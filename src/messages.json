@@ -27,7 +27,7 @@
     "name": "Enter your name.",
     "email": "Enter an email address so we can reply.",
     "zip": "Enter the five-digit ZIP code where the sign will stand.",
-    "details": "Tell us a little about what you need.",
+    "details": "Tell us what the sign should say.",
     "number": "Enter the invoice number.",
     "files": "Up to five files, 25 MB each."
   }

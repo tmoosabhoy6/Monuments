@@ -7,8 +7,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const dir = join(root, process.argv[2] || 'dist');
 const ALLOWED_HOSTS = ['challenges.cloudflare.com', 'static.cloudflareinsights.com'];
-// Oswald joined Besley and Libre Franklin when the owner chose the bold uppercase look of the sites they pointed to.
-const FONT_OK = new Set(['oswald', 'oswald fallback', 'arial narrow', 'besley', 'besley fallback', 'libre franklin', 'libre franklin fallback', 'serif', 'sans-serif', 'inherit']);
+const FONT_OK = new Set(['besley', 'besley fallback', 'libre franklin', 'libre franklin fallback', 'serif', 'sans-serif', 'inherit']);
 const WORDS = ['financing', 'poly-armor', 'foamcore', 'peachtree promise', 'hammer test', 'safeguard-coating', 'royal treatment'];
 
 async function walk(d) {
@@ -54,7 +53,7 @@ for (const file of files) {
   for (const m of text.matchAll(/font-family\s*[:=]\s*("?)([^;}"\n>]+)\1/gi)) {
     for (const fam of m[2].split(',').map((f) => f.trim().replace(/^['"]|['"]$/g, '').toLowerCase()).filter(Boolean)) {
       if (fam.startsWith('var(')) continue;
-      if (!FONT_OK.has(fam)) flag(file, 'a font family other than Oswald, Besley and Libre Franklin', fam);
+      if (!FONT_OK.has(fam)) flag(file, 'a font family other than Besley and Libre Franklin', fam);
     }
   }
 

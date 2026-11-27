@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+{{> head}}
+{{@preload:yorktown-apartments|(min-width: 900px) 44vw, 100vw}}
+</head>
+<body data-page="installation">
+{{> header}}
+<main id="main">
+  <section class="banner">
+    <div class="wrap banner-grid">
+      <div class="banner-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"></span><span aria-current="page">Installation</span></nav>
+        <h1 class="display"><span class="line"><span>Installed</span></span> <span class="line"><span>anywhere in</span></span> <span class="line"><span>the country.</span></span></h1>
+        <p class="lede">Installation is optional, and it is available nationwide. Have your sign set for you, or have it delivered for your own contractor.</p>
+      </div>
+      {{@frame:yorktown-apartments|shoulder|(min-width: 900px) 44vw, 100vw|first}}
+    </div>
+  </section>
+
+  <section class="section section-mist" aria-labelledby="ways-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="ways-title" data-reveal="lines"><span class="line"><span>Two ways to get</span></span> <span class="line"><span>your sign in the ground</span></span></h2>
+      </div>
+      <ul class="points points-2up" data-reveal="stagger">
+        <li class="point">{{> icon-hammer}}<h3>We arrange installation</h3><p>{{policy_installation}}</p></li>
+        <li class="point">{{> icon-truck}}<h3>Delivered, for your contractor</h3><p>We deliver the sign to your site, and you or your contractor set it. {{policy_delivery}}</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="below-title">
+    <div class="wrap duo">
+      <div class="prose">
+        <h2 id="below-title" data-reveal="lines"><span class="line"><span>What goes</span></span> <span class="line"><span>below the ground</span></span></h2>
+        <p class="lede" data-reveal>A monument sign is only as good as what holds it up.</p>
+        <p data-reveal>The drawing shows the two usual ways a sign stands: on posts set in footings, and on a base. Which one suits yours depends on the sign and the site, and it is settled with your proof.</p>
+        <ul class="ticks" data-reveal="stagger">
+          <li>{{> icon-check}}<span>The spot needs to be clear and reachable.</span></li>
+          <li>{{> icon-check}}<span>Utilities need to be marked before work starts.</span></li>
+          <li>{{> icon-check}}<span>Check local permit rules before you order.</span></li>
+        </ul>
+      </div>
+      <figure class="drawing-card" data-reveal>{{@install}}<figcaption class="install-labels"><span>On posts</span><span>On a stone-look base</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section class="section section-mist" aria-labelledby="permits-title">
+    <div class="wrap duo reverse">
+      {{@frame:address-monument|flat}}
+      <div class="prose">
+        <h2 id="permits-title" data-reveal="lines"><span class="line"><span>Permits and</span></span> <span class="line"><span>local rules</span></span></h2>
+        <p data-reveal>{{permits_paragraph}}</p>
+        <p class="actions" data-reveal><a class="btn btn-green" href="/pricing/"><span>Installation pricing</span></a><a class="text-link" href="/contact/"><span>Ask about your site</span>{{> icon-arrow}}</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+{{> footer}}
+{{> titleblock}}
+{{> dialogs}}
+{{@site_data}}
+</body>
+</html>

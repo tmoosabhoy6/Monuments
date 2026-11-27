@@ -1,481 +1,551 @@
 {
- "hero-alder-creek": {
-  "width": 2400,
-  "height": 1200,
+ "indian-head-park": {
+  "cap": "Village of Indian Head Park",
+  "alt": "Arched monument sign between two stone-look pillars, reading The Village of Indian Head Park welcomes you, in a bed of hydrangeas",
+  "tags": "hdu stone",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/08/Indian-head-park-foam-monument-sign.png",
   "files": [
    {
-    "w": 760,
-    "h": 380,
-    "file": "hero-alder-creek-760.webp",
-    "kb": 24
+    "file": "indian-head-park-560.avif",
+    "w": 560,
+    "h": 421
    },
    {
-    "w": 1280,
-    "h": 640,
-    "file": "hero-alder-creek-1280.webp",
-    "kb": 44
+    "file": "indian-head-park-1024.avif",
+    "w": 1024,
+    "h": 769
    },
    {
-    "w": 2400,
-    "h": 1200,
-    "file": "hero-alder-creek-2400.webp",
-    "kb": 95
+    "file": "indian-head-park-1600.avif",
+    "w": 1600,
+    "h": 1202
    }
   ]
  },
- "style-metal": {
-  "width": 1200,
-  "height": 900,
+ "yorktown-welcome": {
+  "cap": "Yorktown Apartments Welcome Center",
+  "alt": "Monument sign with stone-look pillars reading Yorktown Apartments Welcome Center, behind a bed of pink flowers",
+  "tags": "hdu stone",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/exterior-foam-monument-sign-with.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 480,
-    "file": "style-metal-640.webp",
-    "kb": 24
+    "file": "yorktown-welcome-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 880,
-    "h": 660,
-    "file": "style-metal-880.webp",
-    "kb": 28
-   },
-   {
-    "w": 1200,
-    "h": 900,
-    "file": "style-metal-1200.webp",
-    "kb": 51
+    "file": "yorktown-welcome-1024.avif",
+    "w": 1024,
+    "h": 768
    }
   ]
  },
- "hero-grace-dusk": {
-  "width": 2400,
-  "height": 1200,
+ "yorktown-apartments": {
+  "cap": "Yorktown Apartments",
+  "alt": "Monument sign with stone-look pillars reading Yorktown Apartments with a phone number, at a street corner",
+  "tags": "hdu stone",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/exterior-foam-monument-sign-with-1.jpg",
   "files": [
    {
-    "w": 760,
-    "h": 380,
-    "file": "hero-grace-dusk-760.webp",
-    "kb": 16
+    "file": "yorktown-apartments-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 1280,
-    "h": 640,
-    "file": "hero-grace-dusk-1280.webp",
-    "kb": 30
-   },
-   {
-    "w": 2400,
-    "h": 1200,
-    "file": "hero-grace-dusk-2400.webp",
-    "kb": 73
+    "file": "yorktown-apartments-1024.avif",
+    "w": 1024,
+    "h": 768
    }
   ]
  },
- "style-posts": {
-  "width": 1200,
-  "height": 900,
+ "yorktown-letters": {
+  "cap": "Yorktown Apartments, lettering close up",
+  "alt": "Close view of raised bronze-colored letters on a monument sign face",
+  "tags": "letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/nes-yorktown-dimensional-letters.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 480,
-    "file": "style-posts-640.webp",
-    "kb": 24
+    "file": "yorktown-letters-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 880,
-    "h": 660,
-    "file": "style-posts-880.webp",
-    "kb": 28
-   },
-   {
-    "w": 1200,
-    "h": 900,
-    "file": "style-posts-1200.webp",
-    "kb": 57
+    "file": "yorktown-letters-1024.avif",
+    "w": 1024,
+    "h": 768
    }
   ]
  },
- "hero-riverside": {
-  "width": 2400,
-  "height": 1200,
+ "burhani-park": {
+  "cap": "Burhani Park",
+  "alt": "White monument sign with a scrolled top and two posts with ball caps, reading Burhani Park",
+  "tags": "hdu",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/foam-monument-pillar-sign-with.jpg",
   "files": [
    {
-    "w": 760,
-    "h": 380,
-    "file": "hero-riverside-760.webp",
-    "kb": 22
+    "file": "burhani-park-560.avif",
+    "w": 560,
+    "h": 418
    },
    {
-    "w": 1280,
-    "h": 640,
-    "file": "hero-riverside-1280.webp",
-    "kb": 41
-   },
-   {
-    "w": 2400,
-    "h": 1200,
-    "file": "hero-riverside-2400.webp",
-    "kb": 91
+    "file": "burhani-park-1024.avif",
+    "w": 1024,
+    "h": 765
    }
   ]
  },
- "style-arched-stone": {
-  "width": 1200,
-  "height": 900,
+ "willow-hill": {
+  "cap": "Willow Hill Apartment Homes",
+  "alt": "Monument sign with a scrolled top and a blue face reading Willow Hill Apartment Homes, between two pillars with ball caps",
+  "tags": "hdu",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/willow2woodmonumentsign.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 480,
-    "file": "style-arched-stone-640.webp",
-    "kb": 24
+    "file": "willow-hill-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 880,
-    "h": 660,
-    "file": "style-arched-stone-880.webp",
-    "kb": 29
-   },
-   {
-    "w": 1200,
-    "h": 900,
-    "file": "style-arched-stone-1200.webp",
-    "kb": 53
+    "file": "willow-hill-1024.avif",
+    "w": 1024,
+    "h": 768
    }
   ]
  },
- "style-pillars": {
-  "width": 1200,
-  "height": 900,
+ "saint-edmund": {
+  "cap": "Saint Edmund Catholic Parish",
+  "alt": "Cream monument sign with green raised letters reading Saint Edmund, Oak Park’s oldest Catholic parish",
+  "tags": "hdu letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/custom-shape-foam-monument-with.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 480,
-    "file": "style-pillars-640.webp",
-    "kb": 25
+    "file": "saint-edmund-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 880,
-    "h": 660,
-    "file": "style-pillars-880.webp",
-    "kb": 30
-   },
-   {
-    "w": 1200,
-    "h": 900,
-    "file": "style-pillars-1200.webp",
-    "kb": 54
+    "file": "saint-edmund-1024.avif",
+    "w": 1024,
+    "h": 768
    }
   ]
  },
- "style-shouldered": {
-  "width": 1200,
-  "height": 900,
+ "saint-edmund-side": {
+  "cap": "Saint Edmund Catholic Parish, from the side",
+  "alt": "The Saint Edmund monument sign seen from an angle, with red flowers at its base",
+  "tags": "hdu letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/foam-monument-sign-with-st.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 480,
-    "file": "style-shouldered-640.webp",
-    "kb": 26
+    "file": "saint-edmund-side-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 880,
-    "h": 660,
-    "file": "style-shouldered-880.webp",
-    "kb": 32
-   },
-   {
-    "w": 1200,
-    "h": 900,
-    "file": "style-shouldered-1200.webp",
-    "kb": 59
+    "file": "saint-edmund-side-1024.avif",
+    "w": 1024,
+    "h": 768
    }
   ]
  },
- "style-acrylic": {
-  "width": 1200,
-  "height": 900,
+ "tekserve-cream": {
+  "cap": "Tekserve POS",
+  "alt": "Cream monument sign with a block-pattern face, a blue and green logo and an address",
+  "tags": "hdu",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/tekserv-foam-monument-sign-with.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 480,
-    "file": "style-acrylic-640.webp",
-    "kb": 24
+    "file": "tekserve-cream-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 880,
-    "h": 660,
-    "file": "style-acrylic-880.webp",
-    "kb": 29
-   },
-   {
-    "w": 1200,
-    "h": 900,
-    "file": "style-acrylic-1200.webp",
-    "kb": 53
+    "file": "tekserve-cream-1024.avif",
+    "w": 1024,
+    "h": 768
    }
   ]
  },
- "style-double": {
-  "width": 1200,
-  "height": 900,
+ "tekserve-dark": {
+  "cap": "TekservePOS",
+  "alt": "Charcoal monument sign with a silver metal logo reading tekservePOS and the number 2495",
+  "tags": "hdu letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/business-signage-ideas-5.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 480,
-    "file": "style-double-640.webp",
-    "kb": 20
+    "file": "tekserve-dark-560.avif",
+    "w": 560,
+    "h": 317
    },
    {
-    "w": 880,
-    "h": 660,
-    "file": "style-double-880.webp",
-    "kb": 25
-   },
-   {
-    "w": 1200,
-    "h": 900,
-    "file": "style-double-1200.webp",
-    "kb": 48
+    "file": "tekserve-dark-1024.avif",
+    "w": 1024,
+    "h": 579
    }
   ]
  },
- "style-illuminated": {
-  "width": 1200,
-  "height": 900,
+ "tekserve-dark-side": {
+  "cap": "TekservePOS, metal logo close up",
+  "alt": "Close view of a brushed metal logo standing off a charcoal monument sign face",
+  "tags": "letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/tekserv-foam-monument-sign-with-1.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 480,
-    "file": "style-illuminated-640.webp",
-    "kb": 16
+    "file": "tekserve-dark-side-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 880,
-    "h": 660,
-    "file": "style-illuminated-880.webp",
-    "kb": 19
-   },
-   {
-    "w": 1200,
-    "h": 900,
-    "file": "style-illuminated-1200.webp",
-    "kb": 39
+    "file": "tekserve-dark-side-1024.avif",
+    "w": 1024,
+    "h": 768
    }
   ]
  },
- "ind-hoa": {
-  "width": 1200,
-  "height": 800,
+ "templeton-reserve": {
+  "cap": "Templeton Reserve",
+  "alt": "Curved stone-look monument wall between two pillars with raised letters reading Templeton Reserve",
+  "tags": "stone letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/faux-stone-monument-with-raised.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 427,
-    "file": "ind-hoa-640.webp",
-    "kb": 23
+    "file": "templeton-reserve-560.avif",
+    "w": 560,
+    "h": 374
    },
    {
-    "w": 880,
-    "h": 587,
-    "file": "ind-hoa-880.webp",
-    "kb": 28
-   },
-   {
-    "w": 1200,
-    "h": 800,
-    "file": "ind-hoa-1200.webp",
-    "kb": 51
+    "file": "templeton-reserve-1024.avif",
+    "w": 1024,
+    "h": 683
    }
   ]
  },
- "ind-church": {
-  "width": 1200,
-  "height": 800,
+ "high-prairie": {
+  "cap": "High Prairie Farms",
+  "alt": "Wide stone-look monument with three pillars and dark panels with gold letters reading High Prairie Farms",
+  "tags": "stone letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/nes-high-prairie-farms.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 427,
-    "file": "ind-church-640.webp",
-    "kb": 25
+    "file": "high-prairie-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 880,
-    "h": 587,
-    "file": "ind-church-880.webp",
-    "kb": 29
-   },
-   {
-    "w": 1200,
-    "h": 800,
-    "file": "ind-church-1200.webp",
-    "kb": 53
+    "file": "high-prairie-1024.avif",
+    "w": 1024,
+    "h": 768
    }
   ]
  },
- "ind-school": {
-  "width": 1200,
-  "height": 800,
+ "high-prairie-night": {
+  "cap": "High Prairie Farms, lit at dusk",
+  "alt": "The High Prairie Farms monument lit by warm lights at dusk",
+  "tags": "lit stone",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/monument-backlit-sign.jpeg",
   "files": [
    {
-    "w": 640,
-    "h": 427,
-    "file": "ind-school-640.webp",
-    "kb": 25
+    "file": "high-prairie-night-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 880,
-    "h": 587,
-    "file": "ind-school-880.webp",
-    "kb": 31
-   },
-   {
-    "w": 1200,
-    "h": 800,
-    "file": "ind-school-1200.webp",
-    "kb": 55
+    "file": "high-prairie-night-800.avif",
+    "w": 800,
+    "h": 600
    }
   ]
  },
- "ind-business": {
-  "width": 1200,
-  "height": 800,
+ "high-prairie-detail": {
+  "cap": "High Prairie Farms, panel in the shop",
+  "alt": "Close view of gold letters on a black sign panel in the workshop",
+  "tags": "letters shop",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/05/detail-monument-installation-steps_52749028512_o.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 427,
-    "file": "ind-business-640.webp",
-    "kb": 22
+    "file": "high-prairie-detail-560.avif",
+    "w": 560,
+    "h": 373
    },
    {
-    "w": 880,
-    "h": 587,
-    "file": "ind-business-880.webp",
-    "kb": 26
-   },
-   {
-    "w": 1200,
-    "h": 800,
-    "file": "ind-business-1200.webp",
-    "kb": 47
+    "file": "high-prairie-detail-1024.avif",
+    "w": 1024,
+    "h": 682
    }
   ]
  },
- "ind-apartments": {
-  "width": 1200,
-  "height": 800,
+ "fair-hill": {
+  "cap": "The Reserve at Fair Hill",
+  "alt": "Stone-look pillar sign reading The Reserve at Fair Hill in a planted bed beside a road",
+  "tags": "stone",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/monument-sign.jpeg-resized.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 427,
-    "file": "ind-apartments-640.webp",
-    "kb": 26
+    "file": "fair-hill-560.avif",
+    "w": 560,
+    "h": 402
    },
    {
-    "w": 880,
-    "h": 587,
-    "file": "ind-apartments-880.webp",
-    "kb": 31
-   },
-   {
-    "w": 1200,
-    "h": 800,
-    "file": "ind-apartments-1200.webp",
-    "kb": 57
+    "file": "fair-hill-1023.avif",
+    "w": 1023,
+    "h": 735
    }
   ]
  },
- "ind-parks": {
-  "width": 1200,
-  "height": 800,
+ "address-monument": {
+  "cap": "Address monument",
+  "alt": "Cream block monument with black address numbers, planted with grasses",
+  "tags": "letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/black-anodized-aluminum-letters-for.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 427,
-    "file": "ind-parks-640.webp",
-    "kb": 23
+    "file": "address-monument-560.avif",
+    "w": 560,
+    "h": 372
    },
    {
-    "w": 880,
-    "h": 587,
-    "file": "ind-parks-880.webp",
-    "kb": 27
-   },
-   {
-    "w": 1200,
-    "h": 800,
-    "file": "ind-parks-1200.webp",
-    "kb": 54
+    "file": "address-monument-1024.avif",
+    "w": 1024,
+    "h": 680
    }
   ]
  },
- "gal-1": {
-  "width": 1200,
-  "height": 900,
+ "st-john": {
+  "cap": "St. John of the Cross",
+  "alt": "Timber monument sign on two posts with dark metal letters reading St. John of the Cross",
+  "tags": "letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/custom-wooden-monument-sign-with.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 480,
-    "file": "gal-1-640.webp",
-    "kb": 24
+    "file": "st-john-560.avif",
+    "w": 560,
+    "h": 305
    },
    {
-    "w": 880,
-    "h": 660,
-    "file": "gal-1-880.webp",
-    "kb": 29
-   },
-   {
-    "w": 1200,
-    "h": 900,
-    "file": "gal-1-1200.webp",
-    "kb": 52
+    "file": "st-john-1024.avif",
+    "w": 1024,
+    "h": 557
    }
   ]
  },
- "gal-2": {
-  "width": 1200,
-  "height": 900,
+ "baycrest": {
+  "cap": "Baycrest",
+  "alt": "Stacked-stone monument wall with dark bronze letters reading Baycrest",
+  "tags": "stone letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/baycrest-cast-bronze-dark-oxidized.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 480,
-    "file": "gal-2-640.webp",
-    "kb": 24
+    "file": "baycrest-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 880,
-    "h": 660,
-    "file": "gal-2-880.webp",
-    "kb": 29
-   },
-   {
-    "w": 1200,
-    "h": 900,
-    "file": "gal-2-1200.webp",
-    "kb": 57
+    "file": "baycrest-800.avif",
+    "w": 800,
+    "h": 600
    }
   ]
  },
- "gal-3": {
-  "width": 1200,
-  "height": 900,
+ "police-department": {
+  "cap": "Police department",
+  "alt": "White block monument wall with dark metal letters reading Police Department",
+  "tags": "letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/police-department-cut-aluminum-letters.jpg",
   "files": [
    {
-    "w": 640,
-    "h": 480,
-    "file": "gal-3-640.webp",
-    "kb": 23
+    "file": "police-department-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 880,
-    "h": 660,
-    "file": "gal-3-880.webp",
-    "kb": 28
+    "file": "police-department-1024.avif",
+    "w": 1024,
+    "h": 768
+   }
+  ]
+ },
+ "fabricated-letters": {
+  "cap": "Polished letters on a monument wall",
+  "alt": "Tall polished metal letters standing off a light monument wall under trees",
+  "tags": "letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/polished-3-deep-fabricated-letters.jpg",
+  "files": [
+   {
+    "file": "fabricated-letters-560.avif",
+    "w": 560,
+    "h": 420
    },
    {
-    "w": 1200,
-    "h": 900,
-    "file": "gal-3-1200.webp",
-    "kb": 55
+    "file": "fabricated-letters-1024.avif",
+    "w": 1024,
+    "h": 768
+   }
+  ]
+ },
+ "vulcan": {
+  "cap": "Vulcan Materials Company",
+  "alt": "Dark dimensional letters reading Vulcan Materials Company on a stone wall",
+  "tags": "letters stone",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/05/monument-fabricated-lettering.png",
+  "files": [
+   {
+    "file": "vulcan-560.avif",
+    "w": 560,
+    "h": 357
+   },
+   {
+    "file": "vulcan-862.avif",
+    "w": 862,
+    "h": 549
+   }
+  ]
+ },
+ "palos-hills": {
+  "cap": "Palos Hills, lit at night",
+  "alt": "Stone-look monument with a sweeping top reading Palos Hills, pride in progress, lit at night",
+  "tags": "lit stone",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2026/08/Screenshot-2026-08-24-at-3.47.52-PM.png",
+  "files": [
+   {
+    "file": "palos-hills-560.avif",
+    "w": 560,
+    "h": 409
+   },
+   {
+    "file": "palos-hills-1024.avif",
+    "w": 1024,
+    "h": 747
+   }
+  ]
+ },
+ "hyatt": {
+  "cap": "Manchester Grand Hyatt",
+  "alt": "Pale monument wall with dark letters reading Manchester Grand Hyatt San Diego, lit in the evening",
+  "tags": "lit letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2026/09/Screenshot-2026-09-20-at-3.40.44-PM.png",
+  "files": [
+   {
+    "file": "hyatt-560.avif",
+    "w": 560,
+    "h": 414
+   },
+   {
+    "file": "hyatt-1024.avif",
+    "w": 1024,
+    "h": 756
+   },
+   {
+    "file": "hyatt-1600.avif",
+    "w": 1600,
+    "h": 1182
+   }
+  ]
+ },
+ "elm-creek": {
+  "cap": "Elm Creek Apartments",
+  "alt": "Brown sign panel with gold metal letters reading Elm Creek Apartments on a stone monument wall",
+  "tags": "letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2026/08/image-2.jpeg",
+  "files": [
+   {
+    "file": "elm-creek-560.avif",
+    "w": 560,
+    "h": 420
+   },
+   {
+    "file": "elm-creek-800.avif",
+    "w": 800,
+    "h": 600
+   }
+  ]
+ },
+ "smucker": {
+  "cap": "The J.M. Smucker Company",
+  "alt": "Long low monument wall reading The J.M. Smucker Company in front of a brick office building",
+  "tags": "letters",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2026/08/image.jpeg",
+  "files": [
+   {
+    "file": "smucker-560.avif",
+    "w": 560,
+    "h": 374
+   },
+   {
+    "file": "smucker-799.avif",
+    "w": 799,
+    "h": 533
+   }
+  ]
+ },
+ "shop-stacked-stone": {
+  "cap": "Stacked stone-look base, in the shop",
+  "alt": "A long stacked stone-look monument base with a dark cap in the workshop",
+  "tags": "stone shop",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/faux-stone-monument-stacked-long.jpg",
+  "files": [
+   {
+    "file": "shop-stacked-stone-560.avif",
+    "w": 560,
+    "h": 378
+   },
+   {
+    "file": "shop-stacked-stone-1024.avif",
+    "w": 1024,
+    "h": 692
+   }
+  ]
+ },
+ "ophelia-inlet": {
+  "cap": "Ophelia Inlet, in the shop",
+  "alt": "Monument sign with stone-look pillars and base and an arched face reading Ophelia Inlet, in the workshop",
+  "tags": "hdu stone shop",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/faux-stone-monument-2-pillars.jpg",
+  "files": [
+   {
+    "file": "ophelia-inlet-560.avif",
+    "w": 560,
+    "h": 419
+   },
+   {
+    "file": "ophelia-inlet-1024.avif",
+    "w": 1024,
+    "h": 767
+   }
+  ]
+ },
+ "shop-boulder": {
+  "cap": "Stone-look boulder on a stacked base, in the shop",
+  "alt": "A sculpted stone-look boulder on a stacked stone-look base in the workshop",
+  "tags": "stone shop",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/faux-stone-monument-single-boulder.jpg",
+  "files": [
+   {
+    "file": "shop-boulder-560.avif",
+    "w": 560,
+    "h": 711
+   },
+   {
+    "file": "shop-boulder-807.avif",
+    "w": 807,
+    "h": 1024
+   }
+  ]
+ },
+ "shop-arch-pillars": {
+  "cap": "Arched sign between pillars, before lettering",
+  "alt": "An unlettered arched monument face between two stone-look pillars in the workshop",
+  "tags": "hdu stone shop",
+  "source": "https://www.impactsigns.com/wp-content/uploads/2025/04/faux-stone-monument-2-pillars-1.jpg",
+  "files": [
+   {
+    "file": "shop-arch-pillars-560.avif",
+    "w": 560,
+    "h": 420
+   },
+   {
+    "file": "shop-arch-pillars-1024.avif",
+    "w": 1024,
+    "h": 768
    }
   ]
  }

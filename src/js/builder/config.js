@@ -58,6 +58,8 @@ export function tokensFrom(config, extra = {}) {
     damage_report_days: config.damage_report_days,
     permit_statement: config.permit_statement,
     privacy_text: config.privacy_text,
+    other_shops_share: config.other_shops_share,
+    design_deposit: config.design_deposit,
     deposit_percent: String(config.pricing.deposit_percent),
     size_count_word: cap(NUMBER_WORDS[count] || String(count)),
     site_url: String(config.site_url).replace(/\/$/, ''),

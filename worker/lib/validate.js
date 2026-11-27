@@ -3,7 +3,7 @@
 import rawConfig from '../../content/site.config.json' with { type: 'json' };
 import { resolve, tokensFrom } from '../../src/js/builder/config.js';
 import { sanitize, choices } from '../../src/js/builder/state.js';
-import { CHECKS, LIMITS, REQUIRED, NEED, CONTACT, INSTALL, WHEN, MAX_FILES } from '../../src/js/rules.js';
+import { CHECKS, LIMITS, REQUIRED, NEED, CONTACT, SIDES, INSTALL, WHEN, MAX_FILES } from '../../src/js/rules.js';
 
 export const config = resolve(rawConfig);
 export const tokens = tokensFrom(config);
@@ -49,6 +49,7 @@ export function validateRequest(body) {
     d.contact = oneOf(body.contact, CONTACT, 'email');
     d.need = oneOf(body.need, NEED, null);
     if (!d.need) errors.push('need');
+    d.sides = oneOf(body.sides ?? '', SIDES, '');
     d.details = str(body.details, LIMITS.details);
     if (!CHECKS.details(d.details)) errors.push('details');
     d.width = str(body.width, LIMITS.width);

@@ -29,6 +29,7 @@ export const REQUIRED = {
 
 export const NEED = ['monument', 'several', 'more', 'other'];
 export const CONTACT = ['email', 'phone'];
+export const SIDES = ['single', 'double', 'unsure', ''];
 export const INSTALL = ['yes', 'no', 'unsure', ''];
 export const WHEN = ['none', 'three-months', 'date', ''];
 

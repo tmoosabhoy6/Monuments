@@ -1,92 +1,121 @@
-// Page behaviours: the menu, the hero slideshow, reviews, the gallery and the home designer teaser.
+// Page behaviours: the menu, the hero's rotating photographs, the sign drawn five ways, moving
+// strips that rest while off screen, the pointer tilt, counters and the gallery.
 // Everything here enhances complete static HTML; without it every page still reads and links work.
-import { splitName } from './builder/state.js';
-import { hero, HEADLINE } from './builder/draw.js';
-import { money } from './builder/pricing.js';
-
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const fine = matchMedia('(hover: hover) and (pointer: fine)');
 
-// ---------- main menu: dropdowns on wide screens, a panel with accordions on narrow ones ----------
+// ---------- main menu: a row on wide screens, a full panel on narrow ones ----------
 export function initNav() {
   const header = $('[data-site-header]');
   const toggle = $('[data-menu-toggle]');
   if (!header || !toggle) return;
-  const subs = $$('[data-sub-toggle]', header);
-  const closeSubs = (except) => subs.forEach((b) => { if (b !== except) b.setAttribute('aria-expanded', 'false'); });
   const setMenu = (open) => {
     // the panel hangs from the header's bottom edge, which moves while the top bar is on screen
     if (open) header.style.setProperty('--menu-top', `${Math.round(header.getBoundingClientRect().bottom)}px`);
     toggle.setAttribute('aria-expanded', String(open));
     header.classList.toggle('menu-open', open);
     document.documentElement.classList.toggle('menu-locked', open);
-    if (!open) closeSubs();
   };
   toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
-  subs.forEach((b) => b.addEventListener('click', () => {
-    const open = b.getAttribute('aria-expanded') !== 'true';
-    closeSubs(b);
-    b.setAttribute('aria-expanded', String(open));
-  }));
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    const openSub = subs.find((b) => b.getAttribute('aria-expanded') === 'true');
-    if (openSub) { closeSubs(); openSub.focus(); return; }
-    if (header.classList.contains('menu-open')) { setMenu(false); toggle.focus(); }
+    if (e.key === 'Escape' && header.classList.contains('menu-open')) { setMenu(false); toggle.focus(); }
   });
-  document.addEventListener('click', (e) => { if (!e.target.closest('.has-sub')) closeSubs(); });
-  matchMedia('(min-width: 1280px)').addEventListener('change', () => setMenu(false));
+  matchMedia('(min-width: 1180px)').addEventListener('change', () => setMenu(false));
+  const sentinel = $('[data-header-sentinel]');
+  if (sentinel) new IntersectionObserver(([e]) => header.classList.toggle('is-scrolled', !e.isIntersecting)).observe(sentinel);
 }
 
-// ---------- hero slideshow: a slow crossfade, paused on request, on hover and focus, and for reduced motion ----------
-export function initSlideshow() {
-  const root = $('[data-slideshow]');
-  if (!root) return;
-  const slides = $$('[data-slide]', root);
-  const dots = $$('[data-dot]', root);
-  const pauseBtn = $('[data-hero-pause]', root);
-  let i = 0, timer = 0, held = false, userPaused = reduced.matches;
+// A set of stacked panels shown one at a time, with buttons; turns by itself until someone chooses.
+function rotator(root, { panels, picks, interval, onShow }) {
+  let i = 0, timer = 0, held = false, chosen = reduced.matches, seen = true;
   const show = (n) => {
-    i = (n + slides.length) % slides.length;
-    slides.forEach((s, k) => { s.classList.toggle('is-active', k === i); s.setAttribute('aria-hidden', String(k !== i)); });
-    dots.forEach((d, k) => { d.classList.toggle('is-active', k === i); d.setAttribute('aria-pressed', String(k === i)); });
+    i = (n + panels.length) % panels.length;
+    panels.forEach((p, k) => p.classList.toggle('is-on', k === i));
+    picks.forEach((b, k) => { b.classList.toggle('is-on', k === i); b.setAttribute('aria-pressed', String(k === i)); });
+    if (onShow) onShow(i);
   };
   const sync = () => {
     clearInterval(timer);
-    root.classList.toggle('is-paused', userPaused);
-    if (pauseBtn) {
-      pauseBtn.setAttribute('aria-pressed', String(userPaused));
-      pauseBtn.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
-    }
-    if (!userPaused && !held && !document.hidden) timer = setInterval(() => show(i + 1), 6500);
+    if (!chosen && !held && seen && !document.hidden) timer = setInterval(() => show(i + 1), interval);
   };
-  dots.forEach((d) => d.addEventListener('click', () => { show(Number(d.dataset.dot)); sync(); }));
-  if (pauseBtn) pauseBtn.addEventListener('click', () => { userPaused = !userPaused; sync(); });
+  picks.forEach((b, k) => b.addEventListener('click', () => { chosen = true; show(k); sync(); }));
   root.addEventListener('pointerenter', () => { held = true; sync(); });
   root.addEventListener('pointerleave', () => { held = false; sync(); });
   root.addEventListener('focusin', () => { held = true; sync(); });
   root.addEventListener('focusout', (e) => { if (!root.contains(e.relatedTarget)) { held = false; sync(); } });
   document.addEventListener('visibilitychange', sync);
-  const live = () => root.classList.add('is-live');
-  if (document.readyState === 'complete') live(); else window.addEventListener('load', live, { once: true });
-  show(0);
+  new IntersectionObserver(([e]) => { seen = e.isIntersecting; sync(); }).observe(root);
   sync();
 }
 
-// ---------- reviews: all three side by side when there is room, one at a time on phones ----------
-export function initReviews() {
-  const root = $('[data-reviews]');
+// ---------- home hero: the photograph on the sign face changes ----------
+export function initHero() {
+  const root = $('[data-faces]');
   if (!root) return;
-  const cards = $$('[data-review]', root);
-  let i = 0;
-  const show = (n) => { i = (n + cards.length) % cards.length; cards.forEach((c, k) => c.classList.toggle('is-active', k === i)); };
-  const prev = $('[data-review-prev]'), next = $('[data-review-next]');
-  if (prev) prev.addEventListener('click', () => show(i - 1));
-  if (next) next.addEventListener('click', () => show(i + 1));
+  const panels = $$('.face', root);
+  const plate = $('[data-face-cap]');
+  // the later photographs are fetched only once the page has loaded
+  panels.forEach((p) => { const img = $('img', p); if (img && img.loading === 'lazy') img.loading = 'eager'; });
+  rotator(root.closest('.monument'), {
+    panels, picks: $$('[data-face-pick]'), interval: 5200,
+    onShow: (i) => { if (plate) plate.textContent = panels[i].dataset.cap; },
+  });
 }
 
-// ---------- gallery: filter chips and a lightbox with keyboard and swipe-free buttons ----------
+// ---------- the same sign drawn five ways ----------
+export function initWays() {
+  $$('[data-ways]').forEach((root) => rotator(root, { panels: $$('.way', root), picks: $$('[data-way-pick]', root), interval: 2600 }));
+}
+
+// ---------- moving strips rest while they are off screen ----------
+export function initStrips() {
+  const strips = $$('[data-marquee], [data-strip]');
+  if (!strips.length) return;
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle('is-off', !e.isIntersecting)));
+  strips.forEach((s) => io.observe(s));
+}
+
+// ---------- the hero monument leans a little toward the pointer ----------
+export function initTilt() {
+  if (reduced.matches || !fine.matches) return;
+  $$('[data-tilt]').forEach((el) => {
+    const area = el.parentElement;
+    let frame = 0;
+    area.addEventListener('pointermove', (e) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const r = area.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        el.style.setProperty('--ry', `${(x * 7).toFixed(2)}deg`);
+        el.style.setProperty('--rx', `${(-y * 5).toFixed(2)}deg`);
+      });
+    });
+    area.addEventListener('pointerleave', () => { cancelAnimationFrame(frame); el.style.setProperty('--ry', '0deg'); el.style.setProperty('--rx', '0deg'); });
+  });
+}
+
+// ---------- figures count up when they come into view ----------
+export function initCounts() {
+  const els = $$('[data-count]');
+  if (!els.length || reduced.matches) return;
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    const el = e.target, to = Number(el.dataset.count), t0 = performance.now(), dur = 1400;
+    const tick = (t) => {
+      const k = Math.min(1, (t - t0) / dur), eased = 1 - (1 - k) ** 3;
+      el.textContent = String(Math.round(to * eased));
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    el.textContent = '0';
+    requestAnimationFrame(tick);
+  }), { threshold: 0.6 });
+  els.forEach((el) => io.observe(el));
+}
+
+// ---------- gallery: filter chips and a lightbox with keyboard and buttons ----------
 export function initGallery() {
   const grid = $('[data-gallery]');
   if (!grid) return;
@@ -95,7 +124,12 @@ export function initGallery() {
   chips.forEach((c) => c.addEventListener('click', () => {
     const f = c.dataset.filter;
     chips.forEach((o) => { o.classList.toggle('is-on', o === c); o.setAttribute('aria-pressed', String(o === c)); });
-    items.forEach((li) => { li.hidden = f !== 'all' && !li.dataset.tags.split(' ').includes(f); });
+    items.forEach((li) => {
+      li.hidden = f !== 'all' && !li.dataset.tags.split(' ').includes(f);
+      li.classList.remove('is-back');
+    });
+    // the photographs that remain step back in
+    requestAnimationFrame(() => items.forEach((li) => { if (!li.hidden) li.classList.add('is-back'); }));
   }));
 
   const box = $('[data-lightbox]');
@@ -127,29 +161,4 @@ export function initGallery() {
   });
   box.addEventListener('click', (e) => { if (e.target === box) box.close(); });
   box.addEventListener('close', () => { if (opener) opener.focus(); });
-}
-
-// ---------- the home designer teaser: type a name, see it on the sign, carry it to the designer ----------
-export function initTeaser(store) {
-  const input = $('#teaser-name');
-  const signEl = $('[data-teaser-sign]');
-  if (!input || !signEl || !store) return;
-  const priceEl = $('[data-teaser-price]');
-  let frame = 0;
-  const draw = () => {
-    cancelAnimationFrame(frame);
-    frame = requestAnimationFrame(() => {
-      signEl.innerHTML = hero(store.state, store.config);
-      const q = store.quote();
-      if (priceEl && q.priced) priceEl.textContent = money(q.total);
-    });
-  };
-  const s = store.state;
-  if (s.lines.join('\n') !== HEADLINE.join('\n')) { input.value = s.lines.filter(Boolean).join(' '); draw(); }
-  input.addEventListener('input', () => {
-    const lines = splitName(input.value);
-    store.set({ lines: lines.length ? lines : [...HEADLINE] });
-    draw();
-  });
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') location.assign('/design/'); });
 }

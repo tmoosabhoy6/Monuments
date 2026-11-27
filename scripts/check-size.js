@@ -1,6 +1,5 @@
 // Compressed size budgets (SPEC §10.5): HTML ≤ 50 KB per page, CSS ≤ 14 KB, JavaScript ≤ 30 KB
-// in total, fonts ≤ 85 KB (70 KB in SPEC §12; raised for Oswald, the third family the owner's chosen look needs,
-// subset to Basic Latin). Text is measured with Brotli (what Cloudflare serves) and with gzip;
+// in total, fonts ≤ 70 KB. Text is measured with Brotli (what Cloudflare serves) and with gzip;
 // the budget must hold for both. Fonts are WOFF2 (already compressed) and are measured as files.
 import { readFile, readdir } from 'node:fs/promises';
 import { join, extname, relative } from 'node:path';
@@ -45,7 +44,7 @@ for (const f of files) {
 }
 check(`CSS total (gzip; brotli ${kb(css.br)})`, Math.max(css.gz, css.br), 14);
 check(`JavaScript total (gzip; brotli ${kb(js.br)})`, Math.max(js.gz, js.br), 30);
-check('Fonts total (WOFF2)', fonts, 85);
+check('Fonts total (WOFF2)', fonts, 70);
 
 console.log(rows.join('\n'));
 if (failed) { console.error('\ncheck:size failed'); process.exit(1); }

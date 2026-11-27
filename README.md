@@ -13,17 +13,20 @@ pay an invoice online. It runs on Cloudflare: static pages plus one Worker for `
 
 | URL | What it is |
 |---|---|
-| `/` | Hero slideshow, styles, the "Put your name on it" teaser, standard sizes (`#sizes`), process, industries, materials, sample reviews, gallery, questions, the quote form |
-| `/design/` | The builder (`#design`), always open. Share links, emails and Stripe returns land here; old `/?d=…` links are sent on |
-| `/monument-signs/` | The guide: styles, upgrades (`#upgrades`), illuminated (`#illuminated`), materials (`#materials`), costs, permits (`#permits`) |
-| `/sizes-and-prices/` | The four sizes drawn to scale, every option price, what the price covers |
-| `/gallery/` | Every sign, filterable, with a lightbox. Owner photographs replace the sample renders |
-| `/industries/` | HOAs, churches, schools, business parks, apartments, parks (`#hoa` …) |
-| `/about/` | The business and how it works with customers |
-| `/request-a-quote/` | The custom quote form (`#quote`); `?need=more` preselects "More from our shop" |
-| `/how-it-works/` | The six stages of an order and every policy (`#policy-…`) |
-| `/questions/` | Questions, in four groups |
-| `/more-from-our-shop/` | Panels, mailboxes and custom foam pieces |
+| `/` | Hero (rotating photographs), photo strips, the monuments-only message, the five steps, "Nothing is set in stone", upgrades, gallery preview |
+| `/about/` | Who we are, why we only do monuments, nationwide service |
+| `/products/` | Routed HDU monuments, single- or double-sided, the four top shapes, upgrades |
+| `/design-services/` | Free design and revisions, how design works, samples |
+| `/process/` | The five steps in boxes with arrows, and every policy (`#policy-…`) |
+| `/installation/` | Optional installation nationwide, delivery, permits |
+| `/gallery/` | Every photograph, filterable by group, with a lightbox |
+| `/pricing/` | Standard sizes and prices, each upgrade (`#upgrade-stone`, `-letters`, `-lit`, `-led`) |
+| `/contact/` | The contact form (`#quote`) in three parts, and contact details |
+| `/design/` | The sign sketcher (`#design`). Share links, emails and Stripe returns land here; old `/?d=…` links are sent on |
+| `/questions/` | Questions, in four groups (linked from the footer) |
+
+Addresses from the earlier site (`/monument-signs/`, `/sizes-and-prices/`, `/how-it-works/`, `/request-a-quote/`,
+`/industries/`, `/more-from-our-shop/`) redirect: `src/static/_redirects`, and the same map in `worker/site.js`.
 
 ## Run it locally
 
@@ -50,13 +53,11 @@ switched on yet" until you add a Stripe test key (below).
 | `npm run test:browser` | Playwright tests on the built site (pre-installed Chromium). |
 | `npm run check:rules` | Scans `dist/` for anything the hard constraints forbid. |
 | `npm run check:size` | Compressed size budgets: HTML 50 KB a page, CSS 14 KB, JavaScript 30 KB, fonts 85 KB. |
-| `npm run check:copy` | Every phrase of SPEC §7 appears word for word on the site or in the emails. |
 | `npm run check:scroll` | Scroll frame timing, desktop and throttled phone. |
 | `npm run check:lighthouse` | Lighthouse (mobile) against a running `wrangler dev`. |
 | `npm run check:a11y` | Touch targets, text contrast, 200% zoom, headings, dialogs. |
 | `npm run screenshots` | Every page at 1440×900, 834×1112 and 390×844, both hero states, into `design/review/`. |
 | `npm run og` | Regenerates the 1200×630 sharing image from the drawing. |
-| `npm run photos [id…]` | Re-renders the sample sign photographs (`scripts/render/shots.js` lists them) into `src/static/photos/`. Build-time only. |
 | `npm run glyphs` | Re-measures the lettering width table. Only if a font file changes. |
 
 ## Changing prices, facts and text
@@ -80,13 +81,16 @@ HTML needs touching.
 - **Paint colors** are `paints` (id, name, hex). The order is the order shown.
 - **Policies, the warranty, the privacy text and three answers** are in `policies`, `privacy_text`
   and `questions`. They may contain `{{tokens}}` such as `{{deposit_percent}}`.
-- **Photographs of finished signs**: add AVIF or WebP files to `src/static/photos/` and list them in
-  `gallery` as `{ "src": "/photos/name.webp", "width": …, "height": …, "alt": "…", "place": "…",
-  "size": "8 ft × 4 ft", "options": "stone-look base, pillars", "tags": "stone pillars" }`. Once
-  there is at least one, the Gallery page shows them instead of the sample renders (`tags` feed
-  its filters: stone, pillars, posts, letters, lit).
-- **Rating and reviews** (`rating`, `reviews`) are samples, labelled as such while `draft` is
-  true. Replace them with real ones, or empty them, before launch.
+- **Photographs**: the files are in `src/static/photos/` and `manifest.json` there lists each one's
+  caption, alt text, groups (`hdu`, `stone`, `letters`, `lit`, `shop`) and where it came from. The 30 now
+  in place were taken from impactsigns.com on the owner's instruction; `photo_source` in the config stays
+  unconfirmed, and so blocks a production build, until the right to publish them is confirmed. To add
+  one without touching the manifest, list it in `gallery` as `{ "src": "/photos/name.avif", "width": …,
+  "height": …, "alt": "…", "place": "…", "size": "8 ft × 4 ft", "options": "stone-look base, pillars",
+  "tags": "stone" }`; those come first on the Gallery page.
+- **The monuments-only figure** is `other_shops_share` ("less than 2%"). It has no source yet. Change it
+  to "a small part" and the two boards of tiles show no figure.
+- **The design deposit** wording is `design_deposit` ("a small deposit") until the amount is set.
 - **Customer portal**: set `stripe_portal_url` to the Stripe customer portal login link and "See
   your orders and payments" appears.
 - **Prototype switches** (`features`): `deposits`, `invoice_payment`, `email_design` and
