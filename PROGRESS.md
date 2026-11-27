@@ -220,6 +220,13 @@ Only design features were taken from the references; no text, photographs, logos
   check holds photo LCP to Core Web Vitals' "good" (2.5 s) and text or drawing LCP to 1.8 s.
   Performance scores stay 98–100. The check now judges the median of three runs, as Lighthouse
   advises for its variable metrics.
+- Checks on the final build: 32/32 unit, 15/15 browser, rules, size (fonts 81 of 85 KB), copy,
+  scroll (desktop and 4×-throttled phone, every page at 99.6–100% of frames on time), the
+  accessibility audit (no small touch targets, every contrast pair passing, no reflow, no
+  heading skips, on all 11 pages), Lighthouse (median of three: performance 98–100,
+  accessibility, best practices and SEO 100, CLS 0).
+- Redeployed the draft (bundled Worker, 2.5 MB gzipped with the photographs) as version
+  03296829-5a2b-4b99-8ce6-59417547b6e0; every page answers 200 and loads without console errors.
 
 ## Skills used (SPEC §13)
 
