@@ -337,6 +337,8 @@ signs' lettering is one flat gold. The soft background light washes and the illu
 Contrast: dark text on gold 5.71:1, on hover gold 4.68:1; icons on their discs 5.37:1. Checks:
 32/32 unit, 15/15 browser, rules, size (CSS 14.4 KB), accessibility audit, scroll on the home,
 pricing and process pages.
+Deployed 2026-11-28 on the owner's instruction (bundled Worker, version
+3d889491-a263-48b0-804e-43b02f0d3c2b); live pages load without console errors at desktop and phone width.
 
 ## Skills used (SPEC §13)
 
