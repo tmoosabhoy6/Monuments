@@ -319,7 +319,13 @@ function are unchanged; the look is replaced. Recorded in `DESIGN.md` and `PRODU
   4x-throttled phone), accessibility audit. Lighthouse not re-run. No independent design review was run.
 - The design skill's launcher would not run in this environment, so its direction roll, decision
   page and reviewer were not used; the direction was chosen directly from the owner's request.
-- Not deployed.
+- Deployed 2026-11-28 on the owner's instruction: bundled Worker (`wrangler.bundled.jsonc`), version
+  3cbf3b89-3766-4408-baca-0c63083c6691, 4.9 MB upload, 3.3 MB gzipped. The static-asset deploy was
+  tried first and failed as before (401 on `/workers/assets/upload` through the session proxy).
+  `scripts/bundle-site.js` now skips `_redirects`; `worker/site.js` serves the same redirects.
+  Live checks: all 11 pages 200, old addresses 301 to their new pages, unknown paths 404, photos
+  served as AVIF, `/api/requests` answers, no console errors on any page at desktop and phone
+  width, size picker works.
 
 ## Skills used (SPEC §13)
 

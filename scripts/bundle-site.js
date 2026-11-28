@@ -35,6 +35,7 @@ for (const f of await walk(dist)) {
   const path = '/' + relative(dist, f).split('\\').join('/');
   const buf = await readFile(f);
   if (path === '/_headers') { headers = buf.toString('utf8'); continue; }
+  if (path === '/_redirects') continue;   // worker/site.js carries the same redirects (MOVED)
   const ext = extname(f);
   if (!TYPES[ext]) throw new Error(`No content type for ${path}`);
   files[path] = {

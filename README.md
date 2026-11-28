@@ -154,8 +154,8 @@ Until the keys exist, every endpoint answers `503 not_configured` and the site s
 
 ## Deploy
 
-**Current deployment (draft):** https://monument-signs.tmoosabhoy6.workers.dev, deployed
-2026-11-24 from the draft build (sample prices, "Draft site" notice, `noindex`). In place on
+**Current deployment (draft):** https://monument-signs.tmoosabhoy6.workers.dev, last deployed
+2026-11-28 (bundled Worker) from the draft build (sample prices, "Draft site" notice, `noindex`). In place on
 Cloudflare: the Worker `monument-signs`, the D1 database `monument-signs` with its schema, a
 Turnstile widget for that hostname (and localhost), the rate limiter, and the secrets
 `TURNSTILE_SECRET_KEY` and `SIGNING_SECRET`. Not yet in place: R2 (not enabled on the account,
