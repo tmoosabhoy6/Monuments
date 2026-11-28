@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "source": "DESIGN.md",
+  "tokens": {
+    "color": { "sign-green": "#1F4A3A", "leaf-green": "#2C6B53", "gold": "#B8922E", "gold-light": "#E2C273", "gold-ink": "#775B12", "champagne": "#FBF2D8", "warm-white": "#FFFCF4", "mint": "#EEF6EF", "ink": "#12241C", "ink-soft": "#485A51" },
+    "font": { "display": "Besley", "body": "Libre Franklin" },
+    "radius": { "control": "12px", "card": "22px", "panel": "34px", "pill": "999px" }
+  }
+}

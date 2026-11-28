@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 {{> head}}
-{{@preload:indian-head-park|(min-width: 900px) 42vw, 86vw}}
+{{@preload:indian-head-park|(min-width: 900px) 40vw, 80vw}}
 {{@jsonld}}
 </head>
 <body data-page="home">
@@ -23,27 +23,22 @@
           <li>{{> icon-map}}<span>Optional installation nationwide</span></li>
         </ul>
       </div>
-      <div class="hero-art">
-        <div class="monument" data-tilt>
-          <div class="mon-face" data-faces>
-            <figure class="face is-on" data-cap="{{@cap:indian-head-park}}">{{@photo:indian-head-park|(min-width: 900px) 42vw, 86vw|first}}</figure>
-            <figure class="face" data-cap="{{@cap:yorktown-welcome}}">{{@photo:yorktown-welcome|(min-width: 900px) 42vw, 86vw}}</figure>
-            <figure class="face" data-cap="{{@cap:high-prairie}}">{{@photo:high-prairie|(min-width: 900px) 42vw, 86vw}}</figure>
-            <figure class="face" data-cap="{{@cap:saint-edmund}}">{{@photo:saint-edmund|(min-width: 900px) 42vw, 86vw}}</figure>
-            <figure class="face" data-cap="{{@cap:templeton-reserve}}">{{@photo:templeton-reserve|(min-width: 900px) 42vw, 86vw}}</figure>
+      <div class="deck-wrap">
+        <div class="deck" data-deck>
+          <figure class="deck-card" data-pos="0" data-cap="{{@cap:indian-head-park}}">{{@photo:indian-head-park|(min-width: 900px) 40vw, 80vw|first}}</figure>
+          <figure class="deck-card" data-pos="1" data-cap="{{@cap:yorktown-welcome}}">{{@photo:yorktown-welcome|(min-width: 900px) 40vw, 80vw|eager}}</figure>
+          <figure class="deck-card" data-pos="2" data-cap="{{@cap:willow-hill}}">{{@photo:willow-hill|(min-width: 900px) 40vw, 80vw|eager}}</figure>
+          <figure class="deck-card" data-pos="3" data-cap="{{@cap:high-prairie}}">{{@photo:high-prairie|(min-width: 900px) 40vw, 80vw|eager}}</figure>
+          <figure class="deck-card" data-pos="4" data-cap="{{@cap:saint-edmund}}">{{@photo:saint-edmund|(min-width: 900px) 40vw, 80vw|}}</figure>
+          <figure class="deck-card" data-pos="5" data-cap="{{@cap:burhani-park}}">{{@photo:burhani-park|(min-width: 900px) 40vw, 80vw|}}</figure>
+          <figure class="deck-card" data-pos="6" data-cap="{{@cap:templeton-reserve}}">{{@photo:templeton-reserve|(min-width: 900px) 40vw, 80vw|}}</figure>
+        </div>
+        <div class="deck-bar">
+          <p class="deck-plate"><span data-deck-cap>{{@cap:indian-head-park}}</span><span class="deck-count" data-deck-count>1 / 7</span></p>
+          <div class="deck-nav">
+            <button type="button" class="round-btn is-prev" data-deck-prev aria-label="Previous photograph">{{> icon-arrow}}</button>
+            <button type="button" class="round-btn" data-deck-next aria-label="Next photograph">{{> icon-arrow}}</button>
           </div>
-          <div class="mon-base">
-            <p class="mon-plate" data-face-cap>{{@cap:indian-head-park}}</p>
-            <div class="mon-dots" role="group" aria-label="Choose a photograph">
-              <button type="button" class="mon-dot is-on" data-face-pick aria-pressed="true" aria-label="{{@cap:indian-head-park}}"></button>
-              <button type="button" class="mon-dot" data-face-pick aria-pressed="false" aria-label="{{@cap:yorktown-welcome}}"></button>
-              <button type="button" class="mon-dot" data-face-pick aria-pressed="false" aria-label="{{@cap:high-prairie}}"></button>
-              <button type="button" class="mon-dot" data-face-pick aria-pressed="false" aria-label="{{@cap:saint-edmund}}"></button>
-              <button type="button" class="mon-dot" data-face-pick aria-pressed="false" aria-label="{{@cap:templeton-reserve}}"></button>
-            </div>
-          </div>
-          <div class="mon-sat mon-sat-a"><div class="mon-sat-in">{{@photo:burhani-park|(min-width: 900px) 14vw, 26vw|eager}}</div></div>
-          <div class="mon-sat mon-sat-b"><div class="mon-sat-in">{{@photo:willow-hill|(min-width: 900px) 15vw, 28vw|eager}}</div></div>
         </div>
       </div>
     </div>

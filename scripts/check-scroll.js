@@ -53,12 +53,12 @@ async function run({ name, context, throttle }) {
         });
       }
       await page.waitForTimeout(250);
-      const { frames, long, end } = await page.evaluate(() => { window.__rec = false; return { frames: window.__frames, long: window.__long, end: scrollY }; });
+      const { frames, long, end, bottom } = await page.evaluate(() => { window.__rec = false; return { frames: window.__frames, long: window.__long, end: scrollY, bottom: document.documentElement.scrollHeight - innerHeight }; });
       if (throttle) await cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 });
       const deltas = frames.slice(1).map((t, i) => t - frames[i]);
       const within = deltas.filter((d) => d <= 16.7 + 1).length;
       results.push({ path, state, frames: deltas.length, pct: deltas.length ? (100 * within) / deltas.length : 0,
-        worst: deltas.length ? Math.max(...deltas) : 0, longTasks: long.length, reachedBottom: end >= height - 2 });
+        worst: deltas.length ? Math.max(...deltas) : 0, longTasks: long.length, reachedBottom: end >= Math.min(height, bottom) - 2 });   // phone emulation can change innerHeight by a few px mid-run
       await page.close();
     }
   }

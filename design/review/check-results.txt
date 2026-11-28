@@ -1,4 +1,4 @@
-Checks run on 2026-11-27 after the light rebuild (see PROGRESS.md).
+Checks run on 2026-11-27 after the golden-hour redesign (see PROGRESS.md).
 
 $ npm test
 # tests 32
@@ -26,39 +26,39 @@ ok 15 - the menu, the hero photographs, the sign drawn five ways, the gallery an
 # fail 0
 
 $ npm run check:rules
-check:rules passed: 30 files in dist/ scanned, no forbidden listeners, effects, fonts, hosts, characters or words.
+check:rules passed: 30 files in dist/ scanned, no forbidden listeners, fonts, hosts, characters or words.
 
 $ npm run check:size
 ok    HTML 404.html (gzip; brotli 3.8 KB)             4.7 KB  (budget 50 KB)
 ok    HTML about/index.html (gzip; brotli 6.4 KB)     7.7 KB  (budget 50 KB)
-ok    HTML contact/index.html (gzip; brotli 6.0 KB)    7.2 KB  (budget 50 KB)
+ok    HTML contact/index.html (gzip; brotli 6.1 KB)    7.4 KB  (budget 50 KB)
 ok    HTML design/index.html (gzip; brotli 8.1 KB)    9.9 KB  (budget 50 KB)
-ok    HTML design-services/index.html (gzip; brotli 8.0 KB)    9.9 KB  (budget 50 KB)
+ok    HTML design-services/index.html (gzip; brotli 7.4 KB)    8.9 KB  (budget 50 KB)
 ok    HTML gallery/index.html (gzip; brotli 7.2 KB)    8.6 KB  (budget 50 KB)
-ok    HTML index.html (gzip; brotli 10.8 KB)         14.1 KB  (budget 50 KB)
+ok    HTML index.html (gzip; brotli 10.2 KB)         13.1 KB  (budget 50 KB)
 ok    HTML installation/index.html (gzip; brotli 6.6 KB)    8.0 KB  (budget 50 KB)
-ok    HTML pricing/index.html (gzip; brotli 7.4 KB)    9.1 KB  (budget 50 KB)
-ok    HTML process/index.html (gzip; brotli 8.4 KB)   10.7 KB  (budget 50 KB)
-ok    HTML products/index.html (gzip; brotli 6.6 KB)    8.0 KB  (budget 50 KB)
-ok    HTML questions/index.html (gzip; brotli 6.3 KB)    7.5 KB  (budget 50 KB)
-ok    CSS total (gzip; brotli 11.1 KB)               12.6 KB  (budget 14 KB)
-ok    JavaScript total (gzip; brotli 23.8 KB)        27.1 KB  (budget 30 KB)
+ok    HTML pricing/index.html (gzip; brotli 8.1 KB)   10.0 KB  (budget 50 KB)
+ok    HTML process/index.html (gzip; brotli 7.9 KB)    9.9 KB  (budget 50 KB)
+ok    HTML products/index.html (gzip; brotli 7.2 KB)    8.7 KB  (budget 50 KB)
+ok    HTML questions/index.html (gzip; brotli 6.4 KB)    7.7 KB  (budget 50 KB)
+ok    CSS total (gzip; brotli 12.9 KB)               14.8 KB  (budget 18 KB)
+ok    JavaScript total (gzip; brotli 24.0 KB)        27.3 KB  (budget 30 KB)
 ok    Fonts total (WOFF2)                            64.3 KB  (budget 70 KB)
 check:size passed
 
 $ npm run check:scroll
-ok    desktop 1440×900         / page                         frames  485  within 16.7 ms  99.8%  worst  33.2 ms  long tasks 0
-ok    desktop 1440×900         /design/ builder               frames  365  within 16.7 ms  99.7%  worst  33.4 ms  long tasks 0
-ok    desktop 1440×900         /products/ page                frames  354  within 16.7 ms  99.4%  worst  33.4 ms  long tasks 0
-ok    desktop 1440×900         /gallery/ page                 frames  369  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    desktop 1440×900         /process/ page                 frames  294  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    desktop 1440×900         /pricing/ page                 frames  453  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    phone, 4× CPU throttle   / page                         frames  728  within 16.7 ms  98.8%  worst  33.4 ms  long tasks 0
-ok    phone, 4× CPU throttle   /design/ builder               frames  484  within 16.7 ms  99.8%  worst  33.3 ms  long tasks 0
-ok    phone, 4× CPU throttle   /products/ page                frames  628  within 16.7 ms  99.7%  worst  33.3 ms  long tasks 0
-ok    phone, 4× CPU throttle   /gallery/ page                 frames  846  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
-ok    phone, 4× CPU throttle   /process/ page                 frames  433  within 16.7 ms  99.8%  worst  33.3 ms  long tasks 0
-ok    phone, 4× CPU throttle   /pricing/ page                 frames  527  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
+ok    desktop 1440×900         / page                         frames  509  within 16.7 ms  99.6%  worst  33.3 ms  long tasks 0
+ok    desktop 1440×900         /design/ builder               frames  369  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
+ok    desktop 1440×900         /products/ page                frames  371  within 16.7 ms  99.5%  worst  33.3 ms  long tasks 0
+ok    desktop 1440×900         /gallery/ page                 frames  372  within 16.7 ms  99.7%  worst  33.3 ms  long tasks 0
+ok    desktop 1440×900         /process/ page                 frames  302  within 16.7 ms  99.7%  worst  33.4 ms  long tasks 0
+ok    desktop 1440×900         /pricing/ page                 frames  452  within 16.7 ms  99.3%  worst  33.3 ms  long tasks 0
+ok    phone, 4× CPU throttle   / page                         frames  756  within 16.7 ms  98.4%  worst  33.4 ms  long tasks 0
+ok    phone, 4× CPU throttle   /design/ builder               frames  488  within 16.7 ms  99.8%  worst  33.3 ms  long tasks 0
+ok    phone, 4× CPU throttle   /products/ page                frames  643  within 16.7 ms  99.8%  worst  33.2 ms  long tasks 0
+ok    phone, 4× CPU throttle   /gallery/ page                 frames  854  within 16.7 ms 100.0%  worst  16.8 ms  long tasks 0
+ok    phone, 4× CPU throttle   /process/ page                 frames  454  within 16.7 ms  99.8%  worst  33.3 ms  long tasks 0
+ok    phone, 4× CPU throttle   /pricing/ page                 frames  564  within 16.7 ms  99.8%  worst  33.3 ms  long tasks 0
 check:scroll passed
 
 $ npm run check:a11y
@@ -67,23 +67,31 @@ $ npm run check:a11y
 Touch targets under 44px tall on a phone (inline text links excluded): none
 
 Text contrast pairs (worst case each):
-  ok    5.24:1 (needs 4.5)  rgb(217, 184, 102) on rgb(31, 74, 58)  e.g. "Your Name"
-  ok    5.39:1 (needs 3)  rgb(126, 97, 22) on rgb(244, 247, 243)  e.g. "3"
-  ok    5.55:1 (needs 4.5)  rgb(23, 35, 29) on rgb(184, 146, 46)  e.g. "Contact Us"
-  ok    5.82:1 (needs 3)  rgb(126, 97, 22) on rgb(255, 255, 255)  e.g. "5"
-  ok    6.11:1 (needs 4.5)  rgb(77, 90, 83) on rgb(230, 238, 231)  e.g. "Size and design do not have to"
-  ok     6.7:1 (needs 4.5)  rgb(77, 90, 83) on rgb(244, 247, 243)  e.g. "Privacy"
-  ok    7.23:1 (needs 4.5)  rgb(77, 90, 83) on rgb(255, 255, 255)  e.g. "Monument signs. Nothing else."
-  ok    8.46:1 (needs 4.5)  rgb(31, 74, 58) on rgb(230, 238, 231)  e.g. "(555) 010-0199"
-  ok    8.73:1 (needs 4.5)  rgb(217, 184, 102) on rgb(13, 34, 25)  e.g. "Welcome home"
-  ok    8.87:1 (needs 4.5)  rgb(31, 74, 58) on rgb(248, 241, 220)  e.g. "Open the sign sketcher"
-  ok    9.26:1 (needs 4.5)  rgb(31, 74, 58) on rgb(244, 247, 243)  e.g. "(555) 010-0199"
+  ok    5.81:1 (needs 3)  rgb(226, 194, 115) on rgb(31, 74, 58)  e.g. "Your Name"
+  ok    6.38:1 (needs 3)  rgb(119, 91, 18) on rgb(255, 255, 255)  e.g. "1"
+  ok    6.67:1 (needs 4.5)  rgb(72, 90, 81) on rgb(238, 246, 239)  e.g. "Size and design do not have to"
+  ok    6.85:1 (needs 4.5)  rgb(72, 90, 81) on rgb(244, 248, 243)  e.g. "Quoted with your proposal"
+  ok    7.35:1 (needs 4.5)  rgb(72, 90, 81) on rgb(255, 255, 255)  e.g. "Monument signs only. Designed "
+  ok    7.35:1 (needs 4.5)  rgb(72, 90, 81) on rgba(255, 255, 255, 0.96)  e.g. "Monument signs. Nothing else."
+  ok    7.35:1 (needs 4.5)  rgb(72, 90, 81) on rgba(255, 255, 255, 0.92)  e.g. "1 / 7"
+  ok    9.08:1 (needs 3)  rgb(31, 74, 58) on rgb(238, 246, 239)  e.g. "Nothing is"
+  ok    9.32:1 (needs 3)  rgb(31, 74, 58) on rgb(244, 248, 243)  e.g. "+$300"
   ok   10.01:1 (needs 4.5)  rgb(255, 255, 255) on rgb(31, 74, 58)  e.g. "Skip to content"
-  ok   10.01:1 (needs 3)  rgb(31, 74, 58) on rgb(255, 255, 255)  e.g. "Payment"
-  ok   13.71:1 (needs 4.5)  rgb(23, 35, 29) on rgb(230, 238, 231)  e.g. "An approximate size and a few "
-  ok   14.37:1 (needs 4.5)  rgb(23, 35, 29) on rgb(248, 241, 220)  e.g. "Draft site. Prices and terms s"
-  ok   15.02:1 (needs 4.5)  rgb(23, 35, 29) on rgb(244, 247, 243)  e.g. "What it says"
-  ok   16.22:1 (needs 4.5)  rgb(23, 35, 29) on rgb(255, 255, 255)  e.g. "About Us"
+  ok   10.01:1 (needs 4.5)  rgb(31, 74, 58) on rgb(255, 255, 255)  e.g. "Policies"
+  ok   10.01:1 (needs 3)  rgb(31, 74, 58) on rgba(255, 255, 255, 0.96)  e.g. "Business Name"
+  ok   10.01:1 (needs 4.5)  rgb(31, 74, 58) on rgba(255, 255, 255, 0.92)  e.g. "Village of Indian Head Park"
+  ok   10.01:1 (needs 4.5)  rgb(31, 74, 58) on rgba(255, 255, 255, 0.94)  e.g. "Manchester Grand Hyatt"
+  ok   10.01:1 (needs 4.5)  rgb(31, 74, 58) on rgba(255, 255, 255, 0.95)  e.g. "Stacked stone-look base, in th"
+  ok   12.12:1 (needs 4.5)  rgb(255, 201, 77) on rgb(12, 21, 18)  e.g. "Welcome home"
+  ok    12.5:1 (needs 3)  rgb(23, 58, 45) on rgb(255, 255, 255)  e.g. "Tell us what you want"
+  ok   14.51:1 (needs 4.5)  rgb(18, 36, 28) on rgb(251, 242, 216)  e.g. "Draft site. Prices and terms s"
+  ok   14.72:1 (needs 4.5)  rgb(18, 36, 28) on rgb(238, 246, 239)  e.g. "What design is perfect for you"
+  ok   15.11:1 (needs 4.5)  rgb(18, 36, 28) on rgb(244, 248, 243)  e.g. "Stone-look base"
+  ok   16.22:1 (needs 4.5)  rgb(18, 36, 28) on rgba(255, 255, 255, 0.96)  e.g. "Pricing & Upgrades"
+  ok   16.22:1 (needs 4.5)  rgb(18, 36, 28) on rgb(255, 255, 255)  e.g. "Yes: five years against defect"
+  ok   16.22:1 (needs 4.5)  rgb(18, 36, 28) on rgba(255, 255, 255, 0.8)  e.g. "Optional installation nationwi"
+  ok   16.67:1 (needs 4.5)  rgb(13, 34, 25) on rgba(255, 255, 255, 0.96)  e.g. "Contact Us"
+  ok   16.67:1 (needs 4.5)  rgb(13, 34, 25) on rgb(255, 255, 255)  e.g. "Start your sign"
 
 Reflow at 200% zoom:
   /: no horizontal scroll
@@ -116,18 +124,3 @@ Dialogs:
   dialog-drawing: - dialog "Request your approval drawing":
   dialog-share: - dialog "Save or send this design":
   dialog-invoice: - dialog "Pay an invoice":
-
-$ npm run build:production
-
-
-Launch blocked: 53 items in content/site.config.json:
-  - draft is true (set "draft": false once everything below is confirmed)
-  - site_url is not confirmed
-  - business_name is not confirmed
-  - legal_name is not confirmed
-  - phone is not confirmed
-  - email is not confirmed
-  - hours is not confirmed
-  - mailing_address is not confirmed
-  - lead_time is not confirmed
-  ...

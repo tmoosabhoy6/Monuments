@@ -9,7 +9,8 @@ import { dirname, join, relative, posix, basename, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { resolve as resolveConfig, tokensFrom, fillTokens } from '../src/js/builder/config.js';
 import { defaults as defaultState } from '../src/js/builder/state.js';
-import { sizeWords, scene as sceneSvg, installSection } from '../src/js/builder/draw.js';
+import { sizeWords, ftIn, installSection } from '../src/js/builder/draw.js';
+import { signArt } from './lib/sign-art.js';
 import { quote, money } from '../src/js/builder/pricing.js';
 import * as R from './lib/render.js';
 
@@ -199,10 +200,11 @@ function photo(arg = '') {
 }
 // {{@frame:id|shape|sizes|mode}}: a photograph in a frame shaped like a sign face, standing on its base line.
 function frame(arg = '') {
-  const [id, shape = 'arch', sizes = '(min-width: 960px) 44vw, 100vw', mode = ''] = arg.split('|');
+  const [id, shape0 = 'arch', sizes = '(min-width: 960px) 44vw, 100vw', mode = ''] = arg.split('|');
+  const shape = shape0 === 'arch' ? 'arch' : 'round';   // photographs sit in an arched frame or a rounded one
   return `<figure class="frame frame-${shape}"${mode ? '' : ' data-reveal="frame"'}><div class="frame-clip">${photo(`${id}|${sizes}|${mode}`)}</div><figcaption>${R.esc(photos[id].cap)}</figcaption></figure>`;
 }
-const SHAPES = ['arch', 'flat', 'peak', 'shoulder'];
+const SHAPES = ['arch', 'round', 'round'];
 function marquee(arg = '') {
   const [dir, ...ids] = arg.split('|');
   const item = (id, i, hidden) => `<li${hidden ? ' aria-hidden="true"' : ''}><figure class="mq-item frame-${SHAPES[i % SHAPES.length]}"><div class="frame-clip">${photo(`${id}|320px|${hidden ? 'deco' : ''}`)}</div><figcaption>${R.esc(photos[id].cap)}</figcaption></figure></li>`;
@@ -236,19 +238,34 @@ function tiles(kind) {
   return `<div class="tiles tiles-${kind}" aria-hidden="true">${out}</div>`;
 }
 
-// The same sign drawn five ways: nothing is set in stone until the proof is approved.
+// The same sign pictured five ways: nothing is set in stone until the proof is approved.
 const WAYS = [
-  ['Flat top, on a base', { shape: 'flat', base: 'plain', pillars: 'none', field: 'green', raised: 'ivory' }],
-  ['Arched, on a stone-look base', { shape: 'arch', base: 'stone', pillars: 'none', field: 'navy', raised: 'ivory' }],
-  ['Peaked, with pillars', { shape: 'peak', base: 'stone', pillars: 'flat', field: 'burgundy', raised: 'ivory' }],
-  ['Shouldered, on posts', { shape: 'shoulder', base: 'posts', pillars: 'none', field: 'black', raised: 'gold' }],
-  ['Arched, with peaked pillars', { shape: 'arch', base: 'stone', pillars: 'peak', field: 'green', raised: 'gold' }],
+  ['Flat top, on a base', { shape: 'flat', base: 'plain', pillars: 'none', field: 'green', letters: 'gold' }],
+  ['Arched, on a stone-look base', { shape: 'arch', base: 'stone', pillars: 'none', field: 'navy', letters: 'ivory' }],
+  ['Peaked, with pillars', { shape: 'peak', base: 'stone', pillars: 'flat', field: 'burgundy', letters: 'gold' }],
+  ['Shouldered, on posts', { shape: 'shoulder', base: 'posts', pillars: 'none', field: 'ivory', letters: 'green' }],
+  ['Arched, with peaked pillars', { shape: 'arch', base: 'stone', pillars: 'peak', field: 'teal', letters: 'gold' }],
 ];
 function ways() {
-  const st = (o) => ({ ...state0, size: config.pricing.sizes[Math.min(2, config.pricing.sizes.length - 1)].id, lines: ['Your Name', 'Here'], ...o });
-  const svgs = WAYS.map(([label, o], i) => `<div class="way${i === 0 ? ' is-on' : ''}" data-way="${i}">${sceneSvg(st(o), config, { aspect: 1.62, uid: `w${i}`, label: `A monument sign drawn as: ${label.toLowerCase()}` })}</div>`).join('');
+  const frame = { x: -64, y: -78, w: 128, h: 88 };
+  const svgs = WAYS.map(([label, o], i) => `<div class="way${i === 0 ? ' is-on' : ''}" data-way="${i}">${signArt({ uid: `w${i}`, w: 64, h: 38, frame, ...o, label: `A monument sign pictured as: ${label.toLowerCase()}` })}</div>`).join('');
   const chips = WAYS.map(([label], i) => `<button type="button" class="chip${i === 0 ? ' is-on' : ''}" data-way-pick="${i}" aria-pressed="${i === 0}">${label}</button>`).join('');
-  return `<div class="ways" data-ways><div class="ways-stage">${svgs}</div><div class="ways-picks" role="group" aria-label="Draw the same sign another way">${chips}</div></div>`;
+  return `<div class="ways" data-ways><div class="ways-stage scene">${svgs}</div><div class="ways-picks" role="group" aria-label="Picture the same sign another way">${chips}</div></div>`;
+}
+// The four top shapes, each pictured.
+const shapeArt = (shape) => signArt({ uid: `s-${shape}`, w: 60, h: 36, shape, base: 'stone', field: 'green', letters: 'gold', lines: ['Your Name'], frame: { x: -44, y: -66, w: 88, h: 74 } });
+
+// Standard sizes, pictured to one scale beside a six-foot figure; the cards beside it carry every price.
+function sizer() {
+  const P = config.pricing, sizes = P.sizes, on = Math.min(2, sizes.length - 1);
+  const frame = { x: -112, y: -102, w: 224, h: 112 };
+  const cell = (v, plus) => (v == null ? 'With your proposal' : (plus ? '+' : '') + money(v));
+  const arts = sizes.map((x, i) => `<div class="sizer-art${i === on ? ' is-on' : ''}" data-sizer-art="${x.id}">${signArt({ uid: `z${i}`, w: x.face_w, h: x.face_h, frame, person: -94, dims: [ftIn(x.face_w), ftIn(x.face_h)], label: `A ${sizeWords(x)} monument sign beside a six-foot figure` })}</div>`).join('');
+  const cards = sizes.map((x, i) => `<li><button type="button" class="size-card${i === on ? ' is-on' : ''}" data-sizer-pick="${x.id}" aria-pressed="${i === on}">` +
+    `<span class="size-name">${sizeWords(x)}</span>` +
+    `<span class="size-figs"><span><small>Single-sided</small><b class="money">${cell(x.single)}</b></span><span><small>Double-sided</small><b class="money">${cell(x.double)}</b></span><span><small>Installation</small><b class="money">${cell(x.install, true)}</b></span></span>` +
+    `</button></li>`).join('');
+  return `<div class="sizer" data-sizer><div class="sizer-stage scene">${arts}</div><ul class="size-cards">${cards}</ul></div>`;
 }
 
 function sizeTable() {
@@ -267,11 +284,14 @@ const SLOTS = {
   photo: (page, arg) => photo(arg),
   frame: (page, arg) => frame(arg),
   marquee: (page, arg) => marquee(arg),
+  prints: (page, arg) => `<div class="prints" aria-hidden="true">${arg.split('|').map((id) => photo(`${id}|280px|eager deco`)).join('')}</div>`,
   preload: (page, arg) => `<link rel="preload" as="image" type="image/avif" imagesrcset="${srcset(arg.split('|')[0])}" imagesizes="${R.esc(arg.split('|')[1] || '100vw')}" fetchpriority="high">`,
   cap: (page, arg) => R.esc(photos[arg].cap),
   tiles: (page, arg) => tiles(arg),
   share_num: () => (shareTiles ? `<span data-count="${shareTiles}">${shareTiles}</span>%` : 'A sliver'),
   ways: () => ways(),
+  sizer: () => sizer(),
+  shape_art: (page, arg) => shapeArt(arg),
   size_table: () => sizeTable(),
   price: (page, arg) => price(arg),
   price_from: () => money(Math.min(...config.pricing.sizes.map((s2) => s2.single).filter((v) => v != null))),

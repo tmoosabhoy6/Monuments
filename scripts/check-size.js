@@ -1,4 +1,4 @@
-// Compressed size budgets (SPEC §10.5): HTML ≤ 50 KB per page, CSS ≤ 14 KB, JavaScript ≤ 30 KB
+// Compressed size budgets (SPEC §10.5): HTML ≤ 50 KB per page, CSS ≤ 18 KB (14 KB in the SPEC; raised for the owner's 2026-11-27 redesign), JavaScript ≤ 30 KB
 // in total, fonts ≤ 70 KB. Text is measured with Brotli (what Cloudflare serves) and with gzip;
 // the budget must hold for both. Fonts are WOFF2 (already compressed) and are measured as files.
 import { readFile, readdir } from 'node:fs/promises';
@@ -42,7 +42,7 @@ for (const f of files) {
   if (ext === '.js') { const s = sizes(await readFile(f)); js.br += s.br; js.gz += s.gz; }
   if (ext === '.woff2') fonts += (await readFile(f)).length;
 }
-check(`CSS total (gzip; brotli ${kb(css.br)})`, Math.max(css.gz, css.br), 14);
+check(`CSS total (gzip; brotli ${kb(css.br)})`, Math.max(css.gz, css.br), 18);
 check(`JavaScript total (gzip; brotli ${kb(js.br)})`, Math.max(js.gz, js.br), 30);
 check('Fonts total (WOFF2)', fonts, 70);
 

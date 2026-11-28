@@ -16,20 +16,23 @@ every page except the sign sketcher at `/design/`, which still follows SPEC §6 
 
 1. Brand colors: sign green `#1F4A3A` with gold `#B8922E` (the owner chose green and gold on 2026-11-27;
    it replaces "one accent"). Everything else neutral. Errors use ink and weight, never red.
-2. No stock illustration style and no gradients anywhere. Imagery is the elevation drawing and the
-   photographs in `src/static/photos/` (taken from impactsigns.com on the owner's instruction; the right
+2. No stock illustration style. Imagery is the photographs, the illustrated signs made by
+   `scripts/lib/sign-art.js`, and the elevation drawing in the sketcher. Photographs are those in `src/static/photos/` (taken from impactsigns.com on the owner's instruction; the right
    to publish them is an unconfirmed config value, `photo_source`, which blocks the production build).
    Monument signs only: no plaques, lobby signs or letters on buildings.
 3. Type does the heavy lifting; drawings support the words.
 4. Vanilla HTML, CSS and JavaScript. No frameworks, no CSS framework, no bundler, no npm code in
    the browser. Native ES modules. The build script uses Node built-ins only.
-5. 60fps scrolling: no scroll/wheel/touchmove listeners, no parallax, no backdrop-filter, no
-   filters, no blurred shadows, no `background-attachment: fixed`, animate transform and opacity only.
+5. 60fps scrolling, measured by `npm run check:scroll`: no scroll/wheel/touchmove listeners, no
+   parallax, no `background-attachment: fixed`, no `transition: all`. Gradients and soft shadows are
+   part of the look since the owner's 2026-11-27 "full permission" redesign (see DESIGN.md); blur and
+   backdrop-filter are kept off anything that is on screen while the page scrolls.
 
 Also: no financing, no competitor prices, no competitor trademarks, no unconfirmed facts. Copy on the
 marketing pages comes from the owner's 2026-11-27 brief; do not add claims it does not make (no years
 in business, team, location or counts). Unknown facts are config values in `content/site.config.json`.
 Light colors only: no dark sections. Besley for headings, Libre Franklin for text, sentence case.
+The visual system is recorded in `DESIGN.md`; product facts in `PRODUCT.md`.
 
 ## Commands
 

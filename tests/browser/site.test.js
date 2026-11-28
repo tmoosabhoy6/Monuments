@@ -378,7 +378,7 @@ test('with JavaScript disabled, all content, prices and drawings are present', a
   const home = await open(env.browser, env.server.url + '/', { js: false });
   const p = home.page;
   assert.ok((await p.locator('h1').textContent()).includes('Monument signs are all we do.'));
-  assert.ok(await p.locator('.mon-face .face.is-on img').isVisible(), 'the hero photograph shows without scripts');
+  assert.ok(await p.locator('.deck-card[data-pos="0"] img').isVisible(), 'the hero photograph shows without scripts');
   assert.equal(await p.locator('.steps .step').count(), 5);
   assert.equal(await p.locator('.steps .step').first().evaluate((el) => getComputedStyle(el).opacity), '1', 'nothing waits on a script to appear');
   assert.equal(await p.locator('[data-ways] svg[role="img"]').count(), 5);
@@ -386,7 +386,8 @@ test('with JavaScript disabled, all content, prices and drawings are present', a
   for (const s of ['less than 2% of their business', 'Nothing is set in stone.', 'No charge for design.', 'No charge for revisions.', 'Four to five weeks for production and delivery']) assert.ok(homeText.includes(s), s);
   await home.context.close();
   const pricing = await open(env.browser, env.server.url + '/pricing/', { js: false });
-  assert.equal(await pricing.page.locator('.lineup svg').count(), 1);
+  assert.equal(await pricing.page.locator('.sizer-art svg[role="img"]').count(), 4);
+  assert.equal(await pricing.page.locator('.sizer-art.is-on').count(), 1);
   const prices = (await pricing.page.locator('main').textContent()).replace(/\u00a0/g, ' ');
   for (const s of ['4 ft × 2 ft 6 in', '$1,000', '$1,500', '8 ft × 4 ft', '$4,000', '$6,000', '+$300', 'Quoted with your proposal', 'Faux stone', 'Dimensional letters', 'Illuminated sign face', 'LED screen']) assert.ok(prices.includes(s), s);
   await pricing.context.close();
@@ -449,11 +450,15 @@ test('the menu, the hero photographs, the sign drawn five ways, the gallery and 
   const { context, page } = await open(env.browser, env.server.url + '/about/', { errors });
   assert.equal(await page.locator('.menu a[aria-current="page"]').textContent(), 'About Us', 'the current page is marked in the menu');
   await page.goto(env.server.url + '/', { waitUntil: 'networkidle' });
-  // the hero: buttons choose the photograph and the base plate names it
-  await page.click('[data-face-pick] >> nth=2');
-  assert.equal(await page.locator('.mon-face .face >> nth=2').evaluate((el) => el.classList.contains('is-on')), true);
-  assert.equal(await page.locator('[data-face-cap]').textContent(), 'High Prairie Farms');
-  assert.equal(await page.locator('[data-face-pick] >> nth=2').getAttribute('aria-pressed'), 'true');
+  // the hero deck: the next button deals the top photograph to the back and the plate names the new one
+  assert.equal(await page.locator('[data-deck-cap]').textContent(), 'Village of Indian Head Park');
+  await page.click('[data-deck-next]');
+  await page.waitForFunction(() => document.querySelector('[data-deck-cap]').textContent === 'Yorktown Apartments Welcome Center');
+  assert.equal(await page.locator('.deck-card >> nth=1').getAttribute('data-pos'), '0');
+  assert.equal(await page.locator('.deck-card >> nth=0').getAttribute('data-pos'), '6');
+  await page.click('[data-deck-prev]');
+  assert.equal(await page.locator('[data-deck-cap]').textContent(), 'Village of Indian Head Park');
+  assert.equal(await page.locator('[data-deck-count]').textContent(), '1 / 7');
   // the same sign drawn five ways
   await page.click('[data-way-pick="3"]');
   assert.equal(await page.locator('[data-way="3"]').evaluate((el) => el.classList.contains('is-on')), true);
@@ -461,6 +466,12 @@ test('the menu, the hero photographs, the sign drawn five ways, the gallery and 
   // blocks marked for reveal appear once scrolled to
   await page.locator('.steps').scrollIntoViewIfNeeded();
   await page.waitForFunction(() => document.querySelector('.steps').classList.contains('is-in'));
+  // pricing: choosing a size card pictures that size
+  await page.goto(env.server.url + '/pricing/', { waitUntil: 'networkidle' });
+  await page.click('[data-sizer-pick="96x48"]');
+  assert.equal(await page.locator('[data-sizer-art="96x48"]').evaluate((el) => el.classList.contains('is-on')), true);
+  assert.equal(await page.locator('.sizer-art.is-on').count(), 1);
+  assert.equal(await page.locator('[data-sizer-pick="96x48"]').getAttribute('aria-pressed'), 'true');
   // the gallery: filters and the lightbox
   await page.goto(env.server.url + '/gallery/', { waitUntil: 'networkidle' });
   await page.click('[data-filter="lit"]');

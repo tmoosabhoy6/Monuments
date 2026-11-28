@@ -50,23 +50,67 @@ function rotator(root, { panels, picks, interval, onShow }) {
   sync();
 }
 
-// ---------- home hero: the photograph on the sign face changes ----------
-export function initHero() {
-  const root = $('[data-faces]');
+// ---------- home hero: a deck of photographs; the top one is dealt to the back ----------
+export function initDeck() {
+  const root = $('[data-deck]');
   if (!root) return;
-  const panels = $$('.face', root);
-  const plate = $('[data-face-cap]');
-  // the later photographs are fetched only once the page has loaded
-  panels.forEach((p) => { const img = $('img', p); if (img && img.loading === 'lazy') img.loading = 'eager'; });
-  rotator(root.closest('.monument'), {
-    panels, picks: $$('[data-face-pick]'), interval: 5200,
-    onShow: (i) => { if (plate) plate.textContent = panels[i].dataset.cap; },
+  const cards = $$('.deck-card', root);
+  const plate = $('[data-deck-cap]'), count = $('[data-deck-count]');
+  const order = cards.map((_, i) => i);          // order[0] is the card on top
+  let timer = 0, held = false, chosen = reduced.matches, seen = true, busy = false;
+  // the photographs underneath are fetched only once the page has loaded
+  cards.forEach((c) => { const img = $('img', c); if (img && img.loading === 'lazy') img.loading = 'eager'; });
+  const place = () => {
+    order.forEach((c, pos) => { cards[c].dataset.pos = String(pos); });
+    if (plate) plate.textContent = cards[order[0]].dataset.cap;
+    if (count) count.textContent = `${order[0] + 1} / ${cards.length}`;
+  };
+  const next = () => {
+    if (busy) return;
+    const top = cards[order[0]];
+    const done = () => { order.push(order.shift()); top.classList.remove('is-leaving'); place(); busy = false; };
+    if (reduced.matches) return done();
+    busy = true;
+    top.classList.add('is-leaving');
+    setTimeout(done, 520);
+  };
+  const prev = () => { if (!busy) { order.unshift(order.pop()); place(); } };
+  const sync = () => {
+    clearInterval(timer);
+    if (!chosen && !held && seen && !document.hidden) timer = setInterval(next, 4400);
+  };
+  const area = root.closest('.deck-wrap') || root;
+  root.addEventListener('click', () => { chosen = true; next(); sync(); });
+  const nextBtn = $('[data-deck-next]'), prevBtn = $('[data-deck-prev]');
+  if (nextBtn) nextBtn.addEventListener('click', () => { chosen = true; next(); sync(); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { chosen = true; prev(); sync(); });
+  area.addEventListener('pointerenter', () => { held = true; sync(); });
+  area.addEventListener('pointerleave', () => { held = false; sync(); });
+  area.addEventListener('focusin', () => { held = true; sync(); });
+  area.addEventListener('focusout', (e) => { if (!area.contains(e.relatedTarget)) { held = false; sync(); } });
+  document.addEventListener('visibilitychange', sync);
+  new IntersectionObserver(([e]) => { seen = e.isIntersecting; sync(); }).observe(root);
+  sync();
+}
+
+// ---------- standard sizes: choosing a card pictures that size ----------
+export function initSizer() {
+  $$('[data-sizer]').forEach((root) => {
+    const picks = $$('[data-sizer-pick]', root), arts = $$('[data-sizer-art]', root);
+    const show = (id) => {
+      arts.forEach((a) => a.classList.toggle('is-on', a.dataset.sizerArt === id));
+      picks.forEach((b) => { const on = b.dataset.sizerPick === id; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', String(on)); });
+    };
+    picks.forEach((b) => {
+      b.addEventListener('click', () => show(b.dataset.sizerPick));
+      b.addEventListener('pointerenter', () => { if (fine.matches) show(b.dataset.sizerPick); });
+    });
   });
 }
 
 // ---------- the same sign drawn five ways ----------
 export function initWays() {
-  $$('[data-ways]').forEach((root) => rotator(root, { panels: $$('.way', root), picks: $$('[data-way-pick]', root), interval: 2600 }));
+  $$('[data-ways]').forEach((root) => rotator(root, { panels: $$('.way', root), picks: $$('[data-way-pick]', root), interval: 2800 }));
 }
 
 // ---------- moving strips rest while they are off screen ----------
@@ -75,25 +119,6 @@ export function initStrips() {
   if (!strips.length) return;
   const io = new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle('is-off', !e.isIntersecting)));
   strips.forEach((s) => io.observe(s));
-}
-
-// ---------- the hero monument leans a little toward the pointer ----------
-export function initTilt() {
-  if (reduced.matches || !fine.matches) return;
-  $$('[data-tilt]').forEach((el) => {
-    const area = el.parentElement;
-    let frame = 0;
-    area.addEventListener('pointermove', (e) => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const r = area.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-        el.style.setProperty('--ry', `${(x * 7).toFixed(2)}deg`);
-        el.style.setProperty('--rx', `${(-y * 5).toFixed(2)}deg`);
-      });
-    });
-    area.addEventListener('pointerleave', () => { cancelAnimationFrame(frame); el.style.setProperty('--ry', '0deg'); el.style.setProperty('--rx', '0deg'); });
-  });
 }
 
 // ---------- figures count up when they come into view ----------

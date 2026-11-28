@@ -288,6 +288,39 @@ with "stunning animations, hover effects". It replaces the reference-site rebuil
   with the bundled-Worker deployment may exceed the 3 MB Worker size limit on a free plan; the
   static-asset deployment (`npm run deploy`) has no such limit.
 
+## Golden-hour redesign (owner, 2026-11-27, later the same day)
+
+The owner found the light rebuild "extremely boring", called the standard-sizes screen
+"disgusting", and gave "full permission" to redo things from the ground up. Pages, copy and
+function are unchanged; the look is replaced. Recorded in `DESIGN.md` and `PRODUCT.md`.
+
+- Look: warm white grounds lit by champagne and leaf-green light, forest green ink, a metallic gold
+  gradient that only gilds, heavy Besley, pills, soft green-tinted shadows, rounded and arched
+  photograph prints. Still no dark sections.
+- Hard constraints relaxed on that permission: gradients and soft (blurred) shadows are now used.
+  Kept: vanilla code, no scroll listeners, 60fps measured by check:scroll. A blurred header
+  backdrop, blur in reveals and an animated clip-path were tried and removed because they failed
+  check:scroll; phones get tighter shadows for the same reason.
+- Home hero: a fanned deck of seven photograph prints that deals itself (click, buttons, or every
+  4.4 s), replacing the single arched photograph.
+- Pricing: the line-drawing lineup and price table are replaced by a size picker: each standard
+  size pictured to one scale beside a six-foot figure in a sky-and-lawn scene, with a card per size
+  carrying single-sided, double-sided and installation prices. All prices stay in the page without scripts.
+- Illustrated signs (`scripts/lib/sign-art.js`, build-time SVG with gilded lettering, stone and a
+  ground shadow) replace the technical elevation drawings on marketing pages: the size picker, the
+  sign pictured five ways, the four top shapes on Products. The sketcher keeps its elevation drawing.
+- Floating rounded header; gilded numerals and arrow beads on the process boxes; white cards with
+  depth for upgrades, points, policies and questions; three prints beside each inner-page title; a
+  gilded closing panel; pill buttons with a crossing highlight.
+- Checks changed: check:rules no longer forbids gradients, filters or blurred shadows; CSS budget
+  14 to 18 KB (14.9 KB used); check:scroll tolerates the phone emulator changing innerHeight by a
+  few pixels mid-run; the audit reads colours after transitions settle.
+- Checks on this build: 32/32 unit, 15/15 browser, rules, size, scroll (all pages, desktop and
+  4x-throttled phone), accessibility audit. Lighthouse not re-run. No independent design review was run.
+- The design skill's launcher would not run in this environment, so its direction roll, decision
+  page and reviewer were not used; the direction was chosen directly from the owner's request.
+- Not deployed.
+
 ## Skills used (SPEC §13)
 
 - frontend-design (Anthropic): used for the build; its planning step skipped because SPEC §5–6

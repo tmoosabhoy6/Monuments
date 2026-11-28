@@ -33,21 +33,11 @@ for (const file of files) {
   for (const m of text.matchAll(/addEventListener\(\s*['"`](scroll|wheel|touchmove|mousewheel)['"`]/g)) flag(file, `a ${m[1]} listener`, m[0]);
   for (const m of text.matchAll(/\bon(scroll|wheel|touchmove)\s*=/gi)) flag(file, `an on${m[1]} handler`, m[0]);
 
-  // effects and properties that are not allowed anywhere
-  if (/backdrop-filter/i.test(text)) flag(file, 'backdrop-filter');
-  for (const m of text.matchAll(/(^|[;{\s"'])filter\s*:\s*([^;}"']+)/gim)) if (!/^\s*none\s*$/i.test(m[2])) flag(file, 'a filter property', m[0]);
-  if (/<filter[\s>]/i.test(text) || /\sfilter="url/i.test(text)) flag(file, 'an SVG <filter>');
-  if (/gradient\(/i.test(text)) flag(file, 'a gradient');
+  // effects that cost scroll performance however they are used
+  // (gradients, soft shadows, blur and backdrop-filter are allowed since the owner's 2026-11-27
+  // "full permission" redesign; check:scroll is what holds them to 60fps)
   if (/transition\s*:\s*all\b/i.test(text) || /transition-property\s*:\s*all\b/i.test(text)) flag(file, 'transition: all');
   if (/background-attachment\s*:\s*fixed/i.test(text)) flag(file, 'background-attachment: fixed');
-  for (const m of text.matchAll(/box-shadow\s*:\s*([^;}]+)/gi)) {
-    const v = m[1].trim();
-    if (v === 'none') continue;
-    for (const shadow of v.split(/,(?![^(]*\))/)) {
-      const lengths = shadow.replace(/rgba?\([^)]*\)|#[0-9a-f]{3,8}|\binset\b|[a-z-]+\([^)]*\)/gi, '').trim().split(/\s+/).filter(Boolean);
-      if (lengths.length >= 3 && parseFloat(lengths[2]) !== 0) flag(file, 'a box-shadow with a blur radius', v);
-    }
-  }
 
   // fonts: only the two families (and their metric-matched fallbacks)
   for (const m of text.matchAll(/font-family\s*[:=]\s*("?)([^;}"\n>]+)\1/gi)) {
@@ -115,4 +105,4 @@ if (problems.length) {
   console.error(`check:rules failed, ${problems.length} problem${problems.length === 1 ? '' : 's'}:\n` + problems.map((p) => `  - ${p}`).join('\n'));
   process.exit(1);
 }
-console.log(`check:rules passed: ${files.length} files in ${relative(root, dir)}/ scanned, no forbidden listeners, effects, fonts, hosts, characters or words.`);
+console.log(`check:rules passed: ${files.length} files in ${relative(root, dir)}/ scanned, no forbidden listeners, fonts, hosts, characters or words.`);

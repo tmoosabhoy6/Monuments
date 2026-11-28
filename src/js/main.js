@@ -1,13 +1,13 @@
 // Everything that enhances the page, loaded by app.js once the page has loaded.
 import { createStore, initBuilder, initTitleBlock, fillPrintSheet, readArrival } from './builder/ui.js';
 import { initForms, showReturn } from './forms.js';
-import { initNav, initHero, initWays, initStrips, initTilt, initCounts, initGallery } from './site-ui.js';
+import { initNav, initDeck, initSizer, initWays, initStrips, initCounts, initGallery } from './site-ui.js';
 
 initNav();
-initHero();
+initDeck();
+initSizer();
 initWays();
 initStrips();
-initTilt();
 initCounts();
 initGallery();
 
