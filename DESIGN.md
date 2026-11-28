@@ -6,6 +6,8 @@ colors:
   gold: "#B8922E"
   gold-light: "#E2C273"
   gold-ink: "#775B12"
+  gold-deep: "#A6832A"
+  gold-disc: "#F6EBCB"
   champagne: "#FBF2D8"
   warm-white: "#FFFCF4"
   mint: "#EEF6EF"
@@ -48,7 +50,7 @@ spacing:
 
 ## Overview
 
-Golden hour at the entrance. Sunlit photographs of finished signs, soft depth, and gilded lettering
+Golden hour at the entrance. Sunlit photographs of finished signs, soft depth, and gold lettering
 on warm white. It replaces a flat white-and-sage look the owner found boring, and it refuses both
 the sign-shop template (stock hero, blocks of blue) and the minimal serif page.
 
@@ -58,8 +60,9 @@ the sign-shop template (stock hero, blocks of blue) and the minimal serif page.
 Sign green is ink, headings, the current-page pill and secondary actions. It is never a full-bleed ground.
 
 ### Secondary
-Gold only ever gilds: the primary action, numerals, rules, icons and lettering, always as the
-metallic gradient `--gilt` (or `--gilt-text` on type). A flat gold fill is used only where a gradient cannot go.
+Gold is always a flat colour, never a metallic gradient or a glow (owner, 2026-11-28). Solid `gold`
+fills the primary action (hover `gold-deep`), rules, tiles and the step marks; `gold-ink` sets
+numerals and icons; icons sit on a pale `gold-disc` circle.
 
 ### Neutral
 Grounds are white lit by champagne and leaf-tint radial light (`.section-mist`, `.section-sage`, the
@@ -67,7 +70,7 @@ hero). Text is `ink` or `ink-soft`; secondary text is tinted green, never grey.
 
 ### Named Rules
 - **Nothing dark.** No dark sections or footers; the owner asked for light colors.
-- **Gold is gilding.** If it is not catching light, it is not gold.
+- **Flat gold.** No gold gradients, shines or coloured glows; depth comes from the neutral shadows.
 
 ## Typography
 
@@ -82,8 +85,7 @@ home hero, strips, a mosaic, three prints beside each inner-page title.
 ## Elevation & Depth
 
 Three shadows, tinted green, each an offset with a soft blur: `--shadow-s` (resting cards and
-chips), `--shadow-m` (photographs, panels), `--shadow-l` (the deck, hover, dialogs), plus
-`--shadow-gold` under gilded things. Phones use tighter blurs.
+chips), `--shadow-m` (photographs, panels), `--shadow-l` (the deck, hover, dialogs). Shadows are never gold. Phones use tighter blurs.
 
 ## Shapes
 
@@ -92,9 +94,9 @@ arched top, the shape of a sign face, on a gilded base line.
 
 ## Components
 
-- **Buttons:** pills; the gilded one is primary, green is secondary, white with a green ring is tertiary. Hover lifts and a highlight crosses.
+- **Buttons:** pills; solid gold is primary, green is secondary, white with a green ring is tertiary. Hover lifts and deepens the colour.
 - **Photo deck:** stacked prints with white borders; the top one is dealt to the back.
 - **Scene:** sky over lawn with a sun; holds the illustrated signs (`scripts/lib/sign-art.js`).
 - **Size picker:** a scene showing one size to scale beside a six-foot figure; cards carry every price.
-- **Steps:** white cards with gilded numerals, joined by gilded arrow beads.
+- **Steps:** white cards with gold numerals, joined by arrows on pale gold discs.
 - **Motion:** headline lines rise from masks; blocks arrive with a spring; hover lifts; no scroll listeners; all still under reduced motion.

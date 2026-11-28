@@ -47,11 +47,10 @@ export function signArt(o) {
   const fieldHex = PAINT[field] || field;
   const light = field === 'ivory';
   const m = Math.max(2.4, w * 0.045);
-  const letterFill = letters === 'gold' ? `url(#${uid}-gold)` : letters === 'green' ? PAINT.green : '#FBF7EA';
+  const letterFill = letters === 'gold' ? '#D9B85E' : letters === 'green' ? PAINT.green : '#FBF7EA';
   const shade = light ? 'rgb(255 255 255 / 0.7)' : 'rgb(0 0 0 / 0.38)';
 
   let s = `<defs>` +
-    `<linearGradient id="${uid}-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7E9AE"/><stop offset="0.45" stop-color="#D2A848"/><stop offset="0.6" stop-color="#F3DE95"/><stop offset="1" stop-color="#B8922E"/></linearGradient>` +
     `<linearGradient id="${uid}-trim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFDF6"/><stop offset="1" stop-color="#E9E1CB"/></linearGradient>` +
     `<linearGradient id="${uid}-sheen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.2"/><stop offset="0.55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.12"/></linearGradient>` +
     `<radialGradient id="${uid}-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#17231D" stop-opacity="0.34"/><stop offset="1" stop-color="#17231D" stop-opacity="0"/></radialGradient>` +

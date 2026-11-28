@@ -327,6 +327,17 @@ function are unchanged; the look is replaced. Recorded in `DESIGN.md` and `PRODU
   served as AVIF, `/api/requests` answers, no console errors on any page at desktop and phone
   width, size picker works.
 
+## Flat gold (owner, 2026-11-28)
+
+"Just remove these gold shading gradient things ... more polished tone." Every metallic gold
+gradient, shine and gold glow is gone: the primary button is solid gold (hover a darker gold) with
+no sweeping highlight; icon circles are a pale gold disc with a darker gold icon; step numerals,
+arrows, checkmarks, form-step badges, tiles, rules and the closing panel are flat; the illustrated
+signs' lettering is one flat gold. The soft background light washes and the illustrated sky stay.
+Contrast: dark text on gold 5.71:1, on hover gold 4.68:1; icons on their discs 5.37:1. Checks:
+32/32 unit, 15/15 browser, rules, size (CSS 14.4 KB), accessibility audit, scroll on the home,
+pricing and process pages.
+
 ## Skills used (SPEC §13)
 
 - frontend-design (Anthropic): used for the build; its planning step skipped because SPEC §5–6
